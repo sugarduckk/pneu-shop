@@ -1,0 +1,15 @@
+{
+  "name": "redux-wrapper",
+  "version": "1.0.0",
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "dependencies": {
+    "redux": "^4.0.5",
+    "react-redux": "^7.2.1",
+    "shared-lib": "1.0.0",
+    "firebase-wrapper": "1.0.0"
+  },
+  "source": true
+}

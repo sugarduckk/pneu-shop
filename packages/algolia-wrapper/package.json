@@ -1,0 +1,12 @@
+{
+  "name": "algolia-wrapper",
+  "version": "1.0.0",
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "dependencies": {
+    "algoliasearch": "^4.6.0"
+  },
+  "source": true
+}
