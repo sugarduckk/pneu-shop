@@ -46,7 +46,6 @@ const useUpdateProduct = () => {
         delete newProductDoc[key];
       }
     }
-    console.log('newProductDoc', newProductDoc);
     await productRef.update(newProductDoc);
     const deletePromises = deleteIndexes.map(deleteIndex => {
       return productStorageRef.child(oldFileNames[deleteIndex]).delete();
