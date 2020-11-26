@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { NavContainer } from 'shared-lib/layout';
+import BaseNavRoute from './BaseNavRoute';
 import HomeNavRoute from './HomeNavRoute';
 import LoginNavRoute from './LoginNavRoute';
 import RegisterNavRoute from './RegisterNavRoute';
-import { NavContainer } from 'shared-lib/layout';
-import BaseNavRoute from './BaseNavRoute';
 
 const NonAuthNavRoute = props => {
   return <NavContainer>

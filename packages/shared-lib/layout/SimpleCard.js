@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import CardContainer from './CardContainer';
 
 const SimpleCard = styled(CardContainer)`
-  background: white;
+  background: ${props => props.bg || 'white'};
   padding: ${props => props.theme.dim.form.padding}px;
   margin: ${props => props.theme.dim.form.margin}px;
   border-radius: ${props => props.theme.dim.form.borderRadius}px;

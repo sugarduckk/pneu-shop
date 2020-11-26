@@ -1,4 +1,6 @@
 import React from 'react';
+import CarouselLeft from '../../icon/CarouselLeft';
+import CarouselRight from '../../icon/CarouselRight';
 import LeftIcon from '../../icon/LeftIcon';
 import RightIcon from '../../icon/RightIcon';
 import CarouselCardContainer from './CarouselCardContainer';
@@ -34,10 +36,10 @@ const Carousel = ({ data, Card }) => {
       })}
     </CarouselInside>
     <LeftContainer disabled={current === 0} onClick={goLeft}>
-      <LeftIcon fill='grey' />
+      <CarouselLeft fill='rgba(0, 0, 0, 0.5)' />
     </LeftContainer>
     <RightContainer disabled={current === data.length - 1} onClick={goRight}>
-      <RightIcon fill='grey' />
+      <CarouselRight fill='rgba(0, 0, 0, 0.5)' />
     </RightContainer>
   </CarouselContainer>;
 };

@@ -13,23 +13,44 @@ import ImagePlaceholder from 'shared-lib/ui/ImagePlaceholder';
 import GridLayout from 'shared-lib/layout/GridLayout';
 import useOnEditCatImages from './useOnEditCatImages';
 import RoundedLayout from 'shared-lib/layout/RoundedLayout';
+import KeyValueTable from 'shared-lib/ui/KeyValueTable';
+import useOnDeleteCat from './useOnDeleteCat';
 
 const EditCatRoute = props => {
   const { catId } = useParams();
   const { cats } = useGlobalState();
   const cat = React.useMemo(() => {
     const index = cats.map(c => c.value).indexOf(catId);
+    if (index < 0) {
+      return null;
+    }
     return cats[index];
   }, [cats, catId]);
   const onEditCatName = useOnEditCatName(cat);
   const onEditCatImages = useOnEditCatImages(cat);
+  const onDeleteCat = useOnDeleteCat(catId);
+  if (cat === null) {
+    return <ContentContainer>
+      <H1>{`${catId} not available`}</H1>
+    </ContentContainer>;
+  }
   return <ContentContainer>
     <H1>{cat.label}</H1>
+    <CardContainer>
+      <SimpleCard>
+        <KeyValueTable data={[
+          ['Amount', cat.amount]
+        ]} />
+      </SimpleCard>
+    </CardContainer>
     <CardContainer>
       <Button onClick={onEditCatName}>Edit Name</Button>
     </CardContainer>
     <CardContainer>
       <Button onClick={onEditCatImages}>Change Images</Button>
+    </CardContainer>
+    <CardContainer>
+      <Button bg='red' onClick={onDeleteCat}>Delete</Button>
     </CardContainer>
     <CardContainer>
       {cat.images && <GridLayout>

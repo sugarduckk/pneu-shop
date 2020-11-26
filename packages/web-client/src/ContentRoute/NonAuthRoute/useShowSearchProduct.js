@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAddDialog, useDismissDialog } from 'redux-wrapper/action';
+import { useAddDialog, useDismissDialog, useUpdateDialog } from 'redux-wrapper/action';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import Button from 'shared-lib/button/Button';
 import IconButton from 'shared-lib/button/IconButton';
@@ -23,7 +23,7 @@ const SearchProductDialog = props => {
   const extendedBrands = useExtendedOptions(brands);
   const handleSubmit = React.useCallback(values => {
     const { query, cat, brand } = values;
-    history.push(`${ClientRoutes.SEARCH}?query=${query}&cat=${cat}&brand=${brand}`);
+    history.push(`${ClientRoutes.SEARCH}?query=${query}&cat=${cat}&brand=${brand}&page=0`);
     dismissDialog();
   }, [history, dismissDialog]);
   const { form, onSubmit, disabled } = useForm({
@@ -47,11 +47,18 @@ const SearchProductDialog = props => {
   </Form>;
 };
 
-const useShowSearchProduct = () => {
+const useShowSearchProduct = (update = false) => {
   const addDialog = useAddDialog();
+  const updateDialog = useUpdateDialog();
   return React.useCallback(() => {
-    addDialog(<SearchProductDialog />);
-  }, [addDialog]);
+    if (update) {
+      updateDialog(<SearchProductDialog />);
+    }
+    else {
+      addDialog(<SearchProductDialog />);
+    }
+
+  }, [updateDialog, addDialog, update]);
 };
 
 export default useShowSearchProduct;

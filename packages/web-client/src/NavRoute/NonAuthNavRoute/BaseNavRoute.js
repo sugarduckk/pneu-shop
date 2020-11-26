@@ -1,13 +1,22 @@
 import React from 'react';
-import HomeIcon from 'shared-lib/icon/HomeIcon';
+import PneuShop from 'shared-lib/icon/PneuShop';
 import IconContainer from 'shared-lib/ui/IconContainer';
-import useGoto from '../../../../web-admin/src/hook/useGoto';
+import { useTheme } from 'shared-lib/core';
+import MenuIcon from 'shared-lib/icon/MenuIcon';
+import useShowMenuDialog from '../../hook/useShowMenuDialog';
+import useGoto from '../../hook/useGoto';
+import ClientRoutes from '../../constant/ClientRoutes';
 
 const BaseNavRoute = props => {
-  const gotoHome = useGoto('/');
+  const theme = useTheme();
+  const gotoHome = useGoto(ClientRoutes.HOME);
+  const showMenuDialog = useShowMenuDialog();
   return <>
-    <IconContainer onClick={gotoHome}>
-      <HomeIcon />
+    <IconContainer onClick={showMenuDialog}>
+      <MenuIcon />
+    </IconContainer>
+    <IconContainer ratio={110 / 60} onClick={gotoHome}>
+      <PneuShop fill={theme.color.contrast} />
     </IconContainer>
   </>;
 };

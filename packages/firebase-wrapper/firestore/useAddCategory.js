@@ -18,7 +18,8 @@ const useAddCategory = () => {
         transaction.set(catRef, {
           value,
           label,
-          images: []
+          images: [],
+          amount: 0
         });
       });
     });

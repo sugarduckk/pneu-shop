@@ -1,6 +1,8 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import ClientRoutes from '../../constant/ClientRoutes';
+import AboutUsRoute from './AboutUsRoute';
+import ContactRoute from './ContactRoute';
 import IntroRoute from './IntroRoute';
 import LoginRoute from './LoginRoute';
 import ProductDetailRoute from './ProductDetailRoute';
@@ -14,6 +16,12 @@ const NonAuthRoute = props => {
     </Route>
     <Route exact path={ClientRoutes.SEARCH}>
       <SearchRoute />
+    </Route>
+    <Route exact path={ClientRoutes.ABOUTUS}>
+      <AboutUsRoute />
+    </Route>
+    <Route exact path={ClientRoutes.CONTACT}>
+      <ContactRoute />
     </Route>
     <Route exact path='/login'>
       <LoginRoute />

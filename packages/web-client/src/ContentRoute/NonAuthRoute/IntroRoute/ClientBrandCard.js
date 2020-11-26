@@ -4,7 +4,7 @@ import ClientRoutes from '../../../constant/ClientRoutes';
 import useGoto from '../../../hook/useGoto';
 
 const ClientBrandCard = ({ brand }) => {
-  const gotoBrands = useGoto(`${ClientRoutes.SEARCH}?query=&cat=&brand=${brand.value}`);
+  const gotoBrands = useGoto(`${ClientRoutes.SEARCH}?query=&cat=&brand=${brand.value}&page=0`);
   return <BrandCard brand={brand} onClick={gotoBrands} />;
 };
 

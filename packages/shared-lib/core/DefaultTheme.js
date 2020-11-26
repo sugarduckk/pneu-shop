@@ -1,9 +1,14 @@
 const DefaultTheme = {
   color: {
-    primary: '#06B2BB',
+    //primary: '#06B2BB',
+    primary: '#002060',
     errorMessage: 'red',
+    contrast: '#FFC000',
     background: '#EEEEEE',
-    primaryText: '#606060'
+    //background: '#FFC000',
+    //primaryText: '#606060',
+    primaryText: '#002060',
+    paraText: 'white'
   },
   dim: {
     nav: {
@@ -12,7 +17,7 @@ const DefaultTheme = {
     form: {
       margin: 5,
       borderRadius: 6,
-      padding: 10
+      padding: 5
     },
     button: {
       borderRadius: 6,

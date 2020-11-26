@@ -13,7 +13,7 @@ const useAddBrand = () => {
         throw Error('Brand exists');
       }
       transaction.set(brandRef, {
-        value, label, logo: ''
+        value, label, logo: '', amount: 0
       });
     });
     const image = await sourceToImage(logo.src);
