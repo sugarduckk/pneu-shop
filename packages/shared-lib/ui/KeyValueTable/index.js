@@ -3,6 +3,7 @@ import Table from './Table';
 import Td from './Td';
 
 const KeyValueTable = ({ data }) => {
+  if (!data) return <div>No data</div>;
   return <Table>
     <tbody>
       {data.map((row, rowIndex) => {

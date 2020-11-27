@@ -18,9 +18,11 @@ import useShowSearchProduct from '../useShowSearchProduct';
 import ClientBrandCard from './ClientBrandCard';
 import ClientCatCard from './ClientCatCard';
 import qs from 'query-string';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+import ClientRoutes from '../../../constant/ClientRoutes';
 
 const IntroRoute = props => {
+  const history = useHistory();
   const theme = useTheme();
   const { cats, brands, config } = useGlobalState();
   const showSearchProduct = useShowSearchProduct();
@@ -38,6 +40,9 @@ const IntroRoute = props => {
       window.scroll({ top: topOfElement, behavior: "smooth" });
     }
   }, [sect, theme.dim.nav.height]);
+  const onCarouselClick = React.useCallback(data => {
+    history.push(`${ClientRoutes.PRODUCT}/${data.productId}`);
+  }, [history]);
   return <ContentContainer>
     {/* <H1>PNEUSHOP</H1> */}
     <CardContainer>
@@ -56,7 +61,7 @@ const IntroRoute = props => {
     <CardContainer>
       <MarginCard>
         <SquareLayout ratio={4 / 3} desktopRatio={2}>
-          <Carousel data={config && config.interface && config.interface.mainCarousel} Card={FeaturedProductCard} />
+          <Carousel data={config && config.interface && config.interface.mainCarousel} Card={FeaturedProductCard} onClick={onCarouselClick} />
         </SquareLayout>
       </MarginCard>
     </CardContainer>

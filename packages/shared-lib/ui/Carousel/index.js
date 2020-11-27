@@ -1,15 +1,13 @@
 import React from 'react';
 import CarouselLeft from '../../icon/CarouselLeft';
 import CarouselRight from '../../icon/CarouselRight';
-import LeftIcon from '../../icon/LeftIcon';
-import RightIcon from '../../icon/RightIcon';
 import CarouselCardContainer from './CarouselCardContainer';
 import CarouselContainer from './CarouselContainer';
 import CarouselInside from './CarouselInside';
 import LeftContainer from './LeftContainer';
 import RightContainer from './RightContainer';
 
-const Carousel = ({ data, Card }) => {
+const Carousel = ({ data, Card, onClick }) => {
   const [current, setCurrent] = React.useState(0);
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -30,7 +28,9 @@ const Carousel = ({ data, Card }) => {
   return <CarouselContainer>
     <CarouselInside n={data.length} current={current}>
       {data.map((d, index) => {
-        return <CarouselCardContainer key={index}>
+        return <CarouselCardContainer key={index} onClick={() => {
+          onClick(d);
+        }}>
           <Card data={d} />
         </CarouselCardContainer>;
       })}
