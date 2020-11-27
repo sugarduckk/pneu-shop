@@ -1,6 +1,8 @@
+import qs from 'query-string';
 import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
-import IconButton from 'shared-lib/button/IconButton';
+import Button from 'shared-lib/button/Button';
 import { useTheme } from 'shared-lib/core';
 import H2 from 'shared-lib/form-item/H2';
 import Para from 'shared-lib/form-item/Para';
@@ -14,12 +16,10 @@ import SimpleCard from 'shared-lib/layout/SimpleCard';
 import SquareLayout from 'shared-lib/layout/SquareLayout';
 import Carousel from 'shared-lib/ui/Carousel';
 import FeaturedProductCard from 'shared-lib/ui/FeaturedProductCard';
+import ClientRoutes from '../../../constant/ClientRoutes';
 import useShowSearchProduct from '../useShowSearchProduct';
 import ClientBrandCard from './ClientBrandCard';
 import ClientCatCard from './ClientCatCard';
-import qs from 'query-string';
-import { useHistory, useLocation } from 'react-router-dom';
-import ClientRoutes from '../../../constant/ClientRoutes';
 
 const IntroRoute = props => {
   const history = useHistory();
@@ -51,7 +51,7 @@ const IntroRoute = props => {
           <PneuShop fill={theme.color.contrast} />
         </MarginCard>
         <Para>One stop hub for pneumatic products</Para>
-        <IconButton icon={<SearchIcon fill={theme.color.primary} />} onClick={showSearchProduct} bg={theme.color.background} color={theme.color.primary}>search product</IconButton>
+        <Button icon={<SearchIcon fill={theme.color.primary} />} onClick={showSearchProduct} bg={theme.color.background} color={theme.color.primary}>search product</Button>
       </SimpleCard>
     </CardContainer>
     <CardContainer>

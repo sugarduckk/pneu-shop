@@ -2,7 +2,6 @@ import useProduct from 'firebase-wrapper/firestore/useProduct';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Button from 'shared-lib/button/Button';
-import IconButton from 'shared-lib/button/IconButton';
 import H1 from 'shared-lib/form-item/H1';
 import EditIcon from 'shared-lib/icon/EditIcon';
 import { ContentContainer } from 'shared-lib/layout';
@@ -41,7 +40,7 @@ const EditProductRoute = props => {
           <Button bg='red' onClick={onDiscard}>discard</Button>
           :
           <>
-            <IconButton icon={<EditIcon />} onClick={onEdit}>edit</IconButton>
+            <Button icon={<EditIcon />} onClick={onEdit}>edit</Button>
             <Button bg='red' onClick={onDelete}>delete</Button>
           </>
       }

@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { useAddDialog, useDismissDialog, useUpdateDialog } from 'redux-wrapper/action';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import Button from 'shared-lib/button/Button';
-import IconButton from 'shared-lib/button/IconButton';
 import Dropdown from 'shared-lib/form-item/Dropdown';
 import Fieldset from 'shared-lib/form-item/Fieldset';
 import Form from 'shared-lib/form-item/Form';
@@ -42,7 +41,7 @@ const SearchProductDialog = props => {
     <CardContainer row={true}>
       <Space />
       <Button type='button' bg='red' onClick={dismissDialog}>dismiss</Button>
-      <IconButton icon={<SearchIcon />} disabled={disabled} loading={disabled}>search</IconButton>
+      <Button icon={<SearchIcon />} disabled={disabled} loading={disabled}>search</Button>
     </CardContainer>
   </Form>;
 };

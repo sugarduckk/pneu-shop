@@ -1,7 +1,7 @@
+import useSearchProduct from 'algolia-wrapper/hook/useSearchProduct';
 import React from 'react';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import Button from 'shared-lib/button/Button';
-import IconButton from 'shared-lib/button/IconButton';
 import Dropdown from 'shared-lib/form-item/Dropdown';
 import Fieldset from 'shared-lib/form-item/Fieldset';
 import Form from 'shared-lib/form-item/Form';
@@ -13,7 +13,6 @@ import SearchIcon from 'shared-lib/icon/SearchIcon';
 import { ContentContainer } from 'shared-lib/layout';
 import CardContainer from 'shared-lib/layout/CardContainer';
 import AlgoliaPaginationScreen from 'shared-lib/screen/AlgoliaPaginationScreen';
-import useSearchProduct from 'algolia-wrapper/hook/useSearchProduct';
 import AdminProductCard from './AdminProductCard';
 
 const SearchProductRoute = props => {
@@ -53,7 +52,7 @@ const SearchProductRoute = props => {
           <Dropdown {...form('brand')} label='brand' options={extendedBrands} />
         </CardContainer>
       </Fieldset>
-      <IconButton icon={<SearchIcon />} disabled={disabled} loading={disabled}>search</IconButton>
+      <Button icon={<SearchIcon />} disabled={disabled} loading={disabled}>search</Button>
     </Form>
     {result && <AlgoliaPaginationScreen Card={AdminProductCard} result={result} onNextClick={onNextClick} onPreviousClick={onPreviousClick} />}
   </ContentContainer>;

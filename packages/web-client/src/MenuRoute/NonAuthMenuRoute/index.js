@@ -2,6 +2,8 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDismissDialog } from 'redux-wrapper/action';
 import Button from 'shared-lib/button/Button';
+import HomeIcon from 'shared-lib/icon/HomeIcon';
+import SearchIcon from 'shared-lib/icon/SearchIcon';
 import ClientRoutes from '../../constant/ClientRoutes';
 import useShowSearchProduct from '../../ContentRoute/NonAuthRoute/useShowSearchProduct';
 import useGoto from '../../hook/useGoto';
@@ -32,10 +34,15 @@ const NonAuthMenuRoute = () => {
     }
     dismissDialog();
   }, [dismissDialog, gotoBrands, location.pathname]);
+  const gotoHome = useGoto(ClientRoutes.HOME);
   const gotoAboutUs = useGoto(ClientRoutes.ABOUTUS);
   const gotoContact = useGoto(ClientRoutes.CONTACT);
   return <>
-    <Button onClick={showSearchProduct}>Search for Products</Button>
+    <Button onClick={() => {
+      gotoHome();
+      dismissDialog();
+    }} icon={<HomeIcon />}>Home</Button>
+    <Button onClick={showSearchProduct} icon={<SearchIcon />}>Search for Products</Button>
     <Button onClick={onCatsClick}>Product Categories</Button>
     <Button onClick={onBrandsClick}>Product Brands</Button>
     <Button onClick={() => {
