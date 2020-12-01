@@ -8,6 +8,7 @@ const Input = styled.input`
   &:disabled {
     opacity: 0.4;
   }
+  width: ${props => props.width || 'auto'};
 `;
 
 export default Input;

@@ -1,6 +1,8 @@
 import useSearchProduct from 'algolia-wrapper/hook/useSearchProduct';
 import React from 'react';
+import { useAddDialog } from 'redux-wrapper/action';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
+import { MessageDialog } from 'redux-wrapper/hook/useShowMessageDialog';
 import Button from 'shared-lib/button/Button';
 import Dropdown from 'shared-lib/form-item/Dropdown';
 import Fieldset from 'shared-lib/form-item/Fieldset';
@@ -13,6 +15,7 @@ import SearchIcon from 'shared-lib/icon/SearchIcon';
 import { ContentContainer } from 'shared-lib/layout';
 import CardContainer from 'shared-lib/layout/CardContainer';
 import AlgoliaPaginationScreen from 'shared-lib/screen/AlgoliaPaginationScreen';
+import errorToMessage from 'shared-lib/util/errorToMessage';
 import AdminProductCard from './AdminProductCard';
 
 const SearchProductRoute = props => {
@@ -21,10 +24,15 @@ const SearchProductRoute = props => {
   const extendedCats = useExtendedOptions(cats);
   const extendedBrands = useExtendedOptions(brands);
   const searchProduct = useSearchProduct();
+  const addDialog = useAddDialog();
   const handleSubmit = React.useCallback(values => {
     const { query, cat, brand } = values;
-    return searchProduct(query, cat, brand).then(setResult);
-  }, [searchProduct]);
+    return searchProduct(query, cat, brand)
+      .then(setResult)
+      .catch(error => {
+        addDialog(<MessageDialog message={errorToMessage(error)} showDismiss={true} />);
+      });
+  }, [searchProduct, addDialog]);
   const { form, onSubmit, disabled, values } = useForm({
     query: '',
     cat: extendedCats[0].value,

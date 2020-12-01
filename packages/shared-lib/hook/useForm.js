@@ -37,7 +37,7 @@ const useForm = (defaultValues, handleSubmit, validate, reset = false) => {
     e.preventDefault();
     if (Object.keys(errors).length === 0) {
       setDisabled(true);
-      Promise.resolve(handleSubmit(values))
+      Promise.resolve(handleSubmit(values, setValues))
         .finally(() => {
           if (mounted()) {
             setDisabled(false);

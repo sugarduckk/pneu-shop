@@ -1,6 +1,6 @@
 import React from 'react';
-import DialogContainer from './DialogContainer';
-import DimBackground from './DimBackground';
+import DialogContainer from '../DialogContainer';
+import DimBackground from '../DimBackground';
 
 const DialogScreen = ({ dialogs, removeDialog }) => {
   const onTransitionEnd = React.useCallback(() => {

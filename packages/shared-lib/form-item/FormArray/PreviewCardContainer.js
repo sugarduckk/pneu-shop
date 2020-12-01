@@ -16,8 +16,10 @@ const PreviewCardContainer = ({ values, index, total, PreviewCard, handleDelete,
   return <CardContainer row={true}>
     <PreviewCard values={values} />
     <Space />
-    {index > 0 && <Button type='button' onClick={onUpClick}>Up</Button>}
-    {index < total - 1 && <Button type='button' onClick={onDownClick}>Down</Button>}
+    <CardContainer>
+      {index > 0 && <Button type='button' onClick={onUpClick}>Up</Button>}
+      {index < total - 1 && <Button type='button' onClick={onDownClick}>Down</Button>}
+    </CardContainer>
     <Button type='button' onClick={onDeleteClick} bg='red'>Delete</Button>
   </CardContainer>;
 };

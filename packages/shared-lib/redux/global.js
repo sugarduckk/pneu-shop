@@ -2,7 +2,8 @@ import { isFunction, isArray } from 'lodash/lang';
 import ActionType from './ActionType';
 
 const defaultState = {
-  dialogs: []
+  dialogs: [],
+  cart: JSON.parse(localStorage.getItem('cart')) || []
 };
 
 const global = (state = defaultState, action) => {

@@ -8,7 +8,7 @@ const KeyValueTable = ({ data }) => {
     <tbody>
       {data.map((row, rowIndex) => {
         return <tr key={rowIndex}>
-          {row.map(value => <Td key={value}>{value}</Td>)}
+          {row.map((value, index) => <Td key={index}>{value}</Td>)}
         </tr>;
       })}
     </tbody>
