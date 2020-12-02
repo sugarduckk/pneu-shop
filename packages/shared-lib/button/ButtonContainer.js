@@ -19,6 +19,10 @@ const ButtonContainer = styled.button`
   }};
   color: ${props => props.color || 'white'};
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default ButtonContainer;

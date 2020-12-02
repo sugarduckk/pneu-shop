@@ -3,7 +3,8 @@ const ClientRoutes = {
   SEARCH: '/search',
   PRODUCT: '/product',
   ABOUTUS: '/aboutus',
-  CONTACT: '/contact'
+  CONTACT: '/contact',
+  SETTING: '/setting'
 };
 
 export default ClientRoutes;

@@ -17,7 +17,7 @@ import SquareLayout from 'shared-lib/layout/SquareLayout';
 import Carousel from 'shared-lib/ui/Carousel';
 import FeaturedProductCard from 'shared-lib/ui/FeaturedProductCard';
 import ClientRoutes from '../../../constant/ClientRoutes';
-import useShowSearchProduct from '../useShowSearchProduct';
+import useShowSearchProduct from '../../NonAuthRoute/useShowSearchProduct';
 import ClientBrandCard from './ClientBrandCard';
 import ClientCatCard from './ClientCatCard';
 

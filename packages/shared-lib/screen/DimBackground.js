@@ -10,7 +10,8 @@ const DimBackground = styled.div`
   visibility: ${props => props.show ? 'visible' : 'hidden'};
   opacity: ${props => props.show ? '1' : '0'};
   z-index: 3;
-  transition: 0.2s;
+  transition: .2s;
+  pointer-events: ${props => props.show ? 'auto' : 'none'};
 `;
 
 export default DimBackground;

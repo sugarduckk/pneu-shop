@@ -1,13 +1,13 @@
-import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import SettingRoute from './SettingRoute';
-import DashboardRoute from './DashboardRoute';
-import useGlobalState from 'redux-wrapper/hook/useGlobalState';
-import VerificationRoute from './VerificationRoute';
 import useUserDoc from 'firebase-wrapper/firestore/useUserDoc';
+import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { useSetState } from 'redux-wrapper/action';
-import LoadingScreen from 'shared-lib/screen/LoadingScreen';
+import useGlobalState from 'redux-wrapper/hook/useGlobalState';
+import ClientRoutes from '../../constant/ClientRoutes';
+import IntroRoute from '../CommonRoute/IntroRoute';
 import LoadingContent from './LoadingContent';
+import SettingRoute from './SettingRoute';
+import VerificationRoute from './VerificationRoute';
 
 const AuthRoute = props => {
   const { user, userDoc } = useGlobalState();
@@ -19,8 +19,8 @@ const AuthRoute = props => {
   if (!userDoc) return <LoadingContent />;
   if (!user.emailVerified) return <VerificationRoute />;
   return <Switch>
-    <Route exact path='/'>
-      <DashboardRoute />
+    <Route exact path={ClientRoutes.HOME}>
+      <IntroRoute />
     </Route>
     <Route exact path='/setting'>
       <SettingRoute />

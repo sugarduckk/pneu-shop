@@ -2,6 +2,7 @@ import React from 'react';
 import ButtonContainer from './ButtonContainer';
 import ButtonIconContainer from './ButtonIconContainer';
 import ButtonLoading from './ButtonLoading';
+import ButtonTextContainer from './ButtonTextContainer';
 
 const Button = ({ children, loading, icon, ...otherProps }) => {
   return <ButtonContainer {...otherProps}>
@@ -9,7 +10,7 @@ const Button = ({ children, loading, icon, ...otherProps }) => {
       :
       <>
         {icon && <ButtonIconContainer>{icon}</ButtonIconContainer>}
-        <span>{children}</span>
+        {children && <ButtonTextContainer>{children}</ButtonTextContainer>}
       </>}
   </ButtonContainer>;
 };
