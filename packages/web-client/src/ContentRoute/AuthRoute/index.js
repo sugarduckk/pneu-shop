@@ -6,6 +6,7 @@ import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import ClientRoutes from '../../constant/ClientRoutes';
 import IntroRoute from '../CommonRoute/IntroRoute';
 import LoadingContent from './LoadingContent';
+import ProfileRoute from './ProfileRoute';
 import SettingRoute from './SettingRoute';
 import VerificationRoute from './VerificationRoute';
 
@@ -21,6 +22,9 @@ const AuthRoute = props => {
   return <Switch>
     <Route exact path={ClientRoutes.HOME}>
       <IntroRoute />
+    </Route>
+    <Route exact path={ClientRoutes.PROFILE}>
+      <ProfileRoute />
     </Route>
     <Route exact path='/setting'>
       <SettingRoute />

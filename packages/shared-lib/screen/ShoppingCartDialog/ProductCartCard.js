@@ -12,6 +12,7 @@ import PlusIcon from '../../icon/PlusIcon';
 import CardContainer from '../../layout/CardContainer';
 import MarginCard from '../../layout/MarginCard';
 import RoundedLayout from '../../layout/RoundedLayout';
+import RowLayout from '../../layout/RowLayout';
 import SimpleCard from '../../layout/SimpleCard';
 import SquareLayout from '../../layout/SquareLayout';
 import ImagePlaceholder from '../../ui/ImagePlaceholder';
@@ -24,17 +25,17 @@ const ProductCartCard = ({ productId, amount, index, onPriceChange }) => {
   const setCartAmount = useSetCartAmount(index);
   const product = useProduct(productId);
   const price = React.useMemo(() => {
-    if(amount === 0){
+    if (amount === 0) {
       return 0;
     }
-    if(product){
-      const i = product.prices.length - product.prices.slice().reverse().findIndex(p => p.threshold <= amount) - 1
-      return product.prices[i].price*amount
+    if (product) {
+      const i = product.prices.length - product.prices.slice().reverse().findIndex(p => p.threshold <= amount) - 1;
+      return product.prices[i].price * amount;
     }
-  }, [amount, product])
+  }, [amount, product]);
   React.useEffect(() => {
-    onPriceChange(index, price)
-  }, [onPriceChange, index, price])
+    onPriceChange(index, price);
+  }, [onPriceChange, index, price]);
   if (!product) return <DialogLoading />;
   return <CardContainer row={true}>
     <SimpleCard flex={1}>
@@ -45,18 +46,18 @@ const ProductCartCard = ({ productId, amount, index, onPriceChange }) => {
           </SquareLayout>
         </RoundedLayout>
       </MarginCard>
-      <CardContainer style={{alignItems: 'center'}}>
+      <CardContainer style={{ alignItems: 'center' }}>
         <div>{product.name}</div>
-        <CardContainer row={true}>
-          <Input style={{textAlign: 'center'}} width='3em' value={amount} onChange={setCartAmount} type='number' /><span>pieces</span>
-        </CardContainer>
+        <RowLayout>
+          <Input style={{ textAlign: 'center' }} width='3em' value={amount} onChange={setCartAmount} type='number' /><span>pieces</span>
+        </RowLayout>
         <div>{`Price: ${price}`}</div>
       </CardContainer>
     </SimpleCard>
     <CardContainer>
-      <Button onClick={incrementFromCart} icon={<PlusIcon/>}/>
-      <Button onClick={decrementFromCart} icon={<MinusIcon/>}/>
-      <Button onClick={deleteFromCart} bg='red' icon={<CloseIcon/>}/>
+      <Button onClick={incrementFromCart} icon={<PlusIcon />} />
+      <Button onClick={decrementFromCart} icon={<MinusIcon />} />
+      <Button onClick={deleteFromCart} bg='red' icon={<CloseIcon />} />
     </CardContainer>
   </CardContainer>;
 };

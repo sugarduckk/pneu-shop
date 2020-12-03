@@ -4,7 +4,10 @@ const ClientRoutes = {
   PRODUCT: '/product',
   ABOUTUS: '/aboutus',
   CONTACT: '/contact',
-  SETTING: '/setting'
+  SETTING: '/setting',
+  LOGIN: '/login',
+  REGISTER: '/register',
+  PROFILE: '/profile'
 };
 
 export default ClientRoutes;

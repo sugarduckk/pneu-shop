@@ -23,8 +23,8 @@ const BaseNavRoute = props => {
       <PneuShop fill={theme.color.contrast} />
     </IconContainer>
     <Space />
-    <IconContainer>
-      <CartIcon onClick={showCart} />
+    <IconContainer onClick={showCart}>
+      <CartIcon />
     </IconContainer>
   </>;
 };

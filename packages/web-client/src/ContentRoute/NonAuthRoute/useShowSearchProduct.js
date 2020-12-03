@@ -33,10 +33,8 @@ const SearchProductDialog = props => {
   return <Form onSubmit={onSubmit}>
     <Fieldset disabled={disabled}>
       <TextInput {...form('query')} label='keyword' />
-      <CardContainer row={true}>
-        <Dropdown {...form('cat')} label='category' options={extendedCats} />
-        <Dropdown {...form('brand')} label='brand' options={extendedBrands} />
-      </CardContainer>
+      <Dropdown {...form('cat')} label='category' options={extendedCats} />
+      <Dropdown {...form('brand')} label='brand' options={extendedBrands} />
     </Fieldset>
     <CardContainer row={true}>
       <Space />

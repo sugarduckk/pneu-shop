@@ -44,7 +44,6 @@ const IntroRoute = props => {
     history.push(`${ClientRoutes.PRODUCT}/${data.productId}`);
   }, [history]);
   return <ContentContainer>
-    {/* <H1>PNEUSHOP</H1> */}
     <CardContainer>
       <SimpleCard bg={theme.color.primary}>
         <MarginCard>

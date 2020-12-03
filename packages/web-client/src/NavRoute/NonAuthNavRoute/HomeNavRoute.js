@@ -10,7 +10,7 @@ import useShowMenuDialog from '../../hook/useShowMenuDialog';
 
 const HomeNavRoute = props => {
   const showMenuDialog = useShowMenuDialog();
-  const showCart = useShowCart()
+  const showCart = useShowCart();
   const gotoLogin = useGoto('/login');
   const gotoRegister = useGoto('/register');
   return <>
@@ -20,8 +20,8 @@ const HomeNavRoute = props => {
     <Space />
     <Button onClick={gotoLogin}>Login</Button>
     <Button onClick={gotoRegister}>Register</Button>
-    <IconContainer>
-      <CartIcon onClick={showCart} />
+    <IconContainer onClick={showCart}>
+      <CartIcon />
     </IconContainer>
   </>;
 };

@@ -16,7 +16,7 @@ const ConfirmDialog = ({ message, payload, onConfirm }) => {
       {message}
     </DialogContentLayout>
     <DialogButtonLayout>
-      <DialogButton disabled={loading} onClick={dismissDialog}>dismiss</DialogButton>
+      <DialogButton bg='red' disabled={loading} onClick={dismissDialog}>dismiss</DialogButton>
       <DialogButton disabled={loading} loading={loading} onClick={() => {
         setLoading(true);
         Promise.resolve(onConfirm(payload));

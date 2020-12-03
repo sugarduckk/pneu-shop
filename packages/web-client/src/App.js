@@ -7,6 +7,7 @@ import DialogScreen from 'shared-lib/screen/DialogScreen';
 import ShoppingCartDialog from 'shared-lib/screen/ShoppingCartDialog';
 import ActionRoute from './ActionRoute';
 import AppRoute from './AppRoute';
+import useCheckout from './hook/useCheckout';
 import useHideCart from './hook/useHideCart';
 
 const GlobalStyle = createGlobalStyle`
