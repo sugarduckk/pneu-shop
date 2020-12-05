@@ -1,3 +1,4 @@
+import useCollection from 'firebase-wrapper/firestore/useCollection';
 import useUserDoc from 'firebase-wrapper/firestore/useUserDoc';
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
@@ -11,13 +12,19 @@ import SettingRoute from './SettingRoute';
 import VerificationRoute from './VerificationRoute';
 
 const AuthRoute = props => {
-  const { user, userDoc } = useGlobalState();
+  const { user, userDoc, addresses } = useGlobalState();
   const setState = useSetState();
   const handleUserDoc = React.useCallback(userDoc => {
     setState({ userDoc });
   }, [setState]);
   useUserDoc(user.uid, handleUserDoc);
-  if (!userDoc) return <LoadingContent />;
+  const handleAddresses = React.useCallback(docs => {
+    setState({
+      addresses: docs.map(doc => doc.data())
+    });
+  }, [setState]);
+  useCollection(`users/${user.uid}/addresses`, handleAddresses);
+  if (!(userDoc && addresses)) return <LoadingContent />;
   if (!user.emailVerified) return <VerificationRoute />;
   return <Switch>
     <Route exact path={ClientRoutes.HOME}>

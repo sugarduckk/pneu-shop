@@ -1,5 +1,5 @@
 import React from 'react';
-import { index } from '..';
+import { productsIndex } from '..';
 
 const useSearchProduct = () => {
   return React.useCallback((query, category, brand, page = 0) => {
@@ -15,14 +15,14 @@ const useSearchProduct = () => {
     }
     if (filters) {
       console.log(filters);
-      return index.search(query, {
+      return productsIndex.search(query, {
         filters,
         hitsPerPage: 5,
         page
       });
     }
     else {
-      return index.search(query, {
+      return productsIndex.search(query, {
         hitsPerPage: 5,
         page
       });
