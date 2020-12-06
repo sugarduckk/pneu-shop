@@ -5,7 +5,6 @@ import H1 from 'shared-lib/form-item/H1';
 import CardContainer from 'shared-lib/layout/CardContainer';
 import SimpleCard from 'shared-lib/layout/SimpleCard';
 import useShowAddressFormDialog from '../../../../hook/useShowAddressFormDialog';
-import LoadingContent from '../../LoadingContent';
 import AddressCard from './AddressCard';
 
 const AddressRoute = props => {

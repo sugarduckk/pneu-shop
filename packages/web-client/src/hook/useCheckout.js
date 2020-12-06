@@ -10,6 +10,7 @@ const useCheckout = () => {
   const { user } = useGlobalState();
   const hideCart = useHideCart();
   const gotoLogin = useGoto(ClientRoutes.LOGIN);
+  const gotoCheckout = useGoto(ClientRoutes.CHECKOUT);
   const dismissDialog = useDismissDialog();
   const onConfirm = React.useCallback(() => {
     gotoLogin();
@@ -23,7 +24,11 @@ const useCheckout = () => {
       });
       hideCart();
     }
-  }, [hideCart, showConfirmDialog, user]);
+    else {
+      gotoCheckout();
+      hideCart();
+    }
+  }, [hideCart, showConfirmDialog, user, gotoCheckout]);
 };
 
 export default useCheckout;

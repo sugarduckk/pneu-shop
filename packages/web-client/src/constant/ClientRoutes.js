@@ -7,7 +7,8 @@ const ClientRoutes = {
   SETTING: '/setting',
   LOGIN: '/login',
   REGISTER: '/register',
-  PROFILE: '/profile'
+  PROFILE: '/profile',
+  CHECKOUT: '/checkout'
 };
 
 export default ClientRoutes;

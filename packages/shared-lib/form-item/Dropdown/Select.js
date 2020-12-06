@@ -8,6 +8,7 @@ const Select = styled.select`
   &:disabled {
     opacity: 0.4;
   }
+  width: 100%;
 `;
 
 export default Select;

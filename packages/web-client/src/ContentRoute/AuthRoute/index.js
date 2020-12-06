@@ -6,6 +6,11 @@ import { useSetState } from 'redux-wrapper/action';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import ClientRoutes from '../../constant/ClientRoutes';
 import IntroRoute from '../CommonRoute/IntroRoute';
+import AboutUsRoute from '../NonAuthRoute/AboutUsRoute';
+import ContactRoute from '../NonAuthRoute/ContactRoute';
+import ProductDetailRoute from '../NonAuthRoute/ProductDetailRoute';
+import SearchRoute from '../NonAuthRoute/SearchRoute';
+import CheckoutRoute from './CheckoutRoute';
 import LoadingContent from './LoadingContent';
 import ProfileRoute from './ProfileRoute';
 import SettingRoute from './SettingRoute';
@@ -32,6 +37,21 @@ const AuthRoute = props => {
     </Route>
     <Route exact path={ClientRoutes.PROFILE}>
       <ProfileRoute />
+    </Route>
+    <Route exact path={ClientRoutes.CHECKOUT}>
+      <CheckoutRoute />
+    </Route>
+    <Route exact path={ClientRoutes.SEARCH}>
+      <SearchRoute />
+    </Route>
+    <Route exact path={ClientRoutes.ABOUTUS}>
+      <AboutUsRoute />
+    </Route>
+    <Route exact path={ClientRoutes.CONTACT}>
+      <ContactRoute />
+    </Route>
+    <Route exact path={`${ClientRoutes.PRODUCT}/:productId`}>
+      <ProductDetailRoute />
     </Route>
     <Route exact path='/setting'>
       <SettingRoute />
