@@ -7,6 +7,7 @@ import useBrowseFiles from './useBrowseFiles';
 import Button from '../../button/Button';
 import InsideContainer from '../InsideContainer';
 import uuid from '../../util/uuid';
+import RowLayout from '../../layout/RowLayout';
 
 const ImageSelector = ({ value, handleChange, error, name, label, multiple, ...otherProps }) => {
   const onChange = React.useCallback(e => {
@@ -58,8 +59,10 @@ const ImageSelector = ({ value, handleChange, error, name, label, multiple, ...o
   return <FormItemContainer>
     <Label htmlFor={label}>{label}</Label>
     <InsideContainer>
-      <Button type='button' disabled={!multiple && value.length > 0} id={label} onClick={browseFiles}>{value.length === 0 ? 'browse images' : 'add images'}</Button>
-      <Button type='button' disabled={value.length === 0} onClick={reset}>reset</Button>
+      <RowLayout>
+        <Button type='button' disabled={!multiple && value.length > 0} id={label} onClick={browseFiles}>{value.length === 0 ? 'browse images' : 'add images'}</Button>
+        <Button type='button' disabled={value.length === 0} onClick={reset}>reset</Button>
+      </RowLayout>
       <ImagePreviewScreen files={value} onLeftClick={onLeftClick} onRightClick={onRightClick} onDefaultClick={onDefaultClick} onCloseClick={onCloseClick} />
     </InsideContainer>
     {error && <FormItemErrorMessage>{error}</FormItemErrorMessage>}

@@ -3,9 +3,11 @@ import { fs, serverTimestamp } from '..';
 
 const useAddAddress = (uid) => {
   return React.useCallback(address => {
-    return fs.collection('users').doc(uid).collection('addresses').add({
+    const docRef = fs.collection('users').doc(uid).collection('addresses').doc();
+    return docRef.set({
       ...address,
-      timestamp: serverTimestamp
+      timestamp: serverTimestamp,
+      id: docRef.id
     });
   }, [uid]);
 };

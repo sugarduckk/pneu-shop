@@ -1,20 +1,26 @@
 import React from 'react';
+import { useUpdateDialog } from 'redux-wrapper/action';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
+import { MessageDialog } from 'redux-wrapper/hook/useShowMessageDialog';
 import Button from 'shared-lib/button/Button';
 import Dropdown from 'shared-lib/form-item/Dropdown';
 import Fieldset from 'shared-lib/form-item/Fieldset';
 import Form from 'shared-lib/form-item/Form';
 import H1 from 'shared-lib/form-item/H1';
 import H2 from 'shared-lib/form-item/H2';
+import ImageSelector from 'shared-lib/form-item/ImageSelector';
 import TextInput from 'shared-lib/form-item/TextInput';
 import useForm from 'shared-lib/hook/useForm';
 import { ContentContainer } from 'shared-lib/layout';
 import SimpleCard from 'shared-lib/layout/SimpleCard';
 import ProductCartCard from 'shared-lib/screen/ShoppingCartDialog/ProductCartCard';
+import errorToMessage from 'shared-lib/util/errorToMessage';
+import PaymentInfo from '../../../Component/PaymentInfo';
 import useCreatePayment from '../../../hook/useCreatePayment';
 
 const CheckoutRoute = props => {
   const { cart, addresses } = useGlobalState();
+  const updateDialog = useUpdateDialog();
   const addressOptions = React.useMemo(() => {
     return addresses.map(address => {
       const { address: add, tambon, district, province, post_code } = address;
@@ -36,13 +42,11 @@ const CheckoutRoute = props => {
       return newPrices;
     });
   }, []);
-  const createPayment = useCreatePayment();
-  const handleSubmit = React.useCallback(values => {
-    return createPayment(`${prices.reduce((a, b) => a + b, 0)}`);
-  }, [createPayment, prices]);
+  const handleSubmit = useCreatePayment();
   const { form, onSubmit, disabled } = useForm({
     to: '',
-    address: addressOptions[0]
+    address: addressOptions[0],
+    paymentSlips: []
   }, handleSubmit);
   return <ContentContainer>
     <H1>Checkout</H1>
@@ -58,6 +62,8 @@ const CheckoutRoute = props => {
       <Fieldset disabled={disabled}>
         <TextInput {...form('to')} label='To' />
         <Dropdown {...form('address')} label='Address' options={addressOptions} />
+        <PaymentInfo />
+        <ImageSelector {...form('paymentSlips')} label='Upload payment slip' multiple={true} />
       </Fieldset>
       <Button>Proceed to payment</Button>
     </Form>

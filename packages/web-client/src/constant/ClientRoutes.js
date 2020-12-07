@@ -8,6 +8,7 @@ const ClientRoutes = {
   LOGIN: '/login',
   REGISTER: '/register',
   PROFILE: '/profile',
+  ORDER: '/profile?p=0',
   CHECKOUT: '/checkout'
 };
 
