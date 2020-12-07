@@ -14,11 +14,6 @@ const OrderCard = ({ doc }) => {
       <div>{data.address}</div>
       <div>{data.timestamp && data.timestamp.toDate().toString()}</div>
     </div>
-    <RowLayout>
-      <Space />
-      <Button bg='red'> delete</Button>
-      <Button>edit</Button>
-    </RowLayout>
   </SimpleCard>;
 };
 

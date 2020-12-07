@@ -5,7 +5,7 @@ import OrderCard from './OrderCard';
 
 const OrderRoute = props => {
   return <>
-    <H1>OrderRoute</H1>
+    <H1>My Orders</H1>
     <PaginationScreen Card={OrderCard} collectionName='orders' limit={5} />
   </>;
 };

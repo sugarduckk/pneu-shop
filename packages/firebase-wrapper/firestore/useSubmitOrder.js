@@ -33,7 +33,8 @@ const useSubmitOrder = (uid, cart) => {
           name: paymentSlips[srcIndex].name
         };
       }),
-      timestamp: serverTimestamp
+      timestamp: serverTimestamp,
+      status: 'PENDING_REVIEW'
     });
     batch.update(fs.collection('users').doc(uid), {
       nOrders: increment(1)

@@ -11,7 +11,7 @@ import useGoto from '../hook/useGoto';
 import SettingButton from './SettingButton';
 
 const MenuRoute = () => {
-  const {user} = useGlobalState()
+  const { user } = useGlobalState();
   const location = useLocation();
   const dismissDialog = useDismissDialog();
   const showSearchProduct = useShowSearchProduct(true);
@@ -38,6 +38,7 @@ const MenuRoute = () => {
     dismissDialog();
   }, [dismissDialog, gotoBrands, location.pathname]);
   const gotoHome = useGoto(ClientRoutes.HOME);
+  const gotoOrder = useGoto(ClientRoutes.ORDER);
   const gotoAboutUs = useGoto(ClientRoutes.ABOUTUS);
   const gotoContact = useGoto(ClientRoutes.CONTACT);
   return <>
@@ -45,6 +46,10 @@ const MenuRoute = () => {
       gotoHome();
       dismissDialog();
     }} icon={<HomeIcon />}>Home</Button>
+    <Button onClick={() => {
+      gotoOrder();
+      dismissDialog();
+    }} >My Orders</Button>
     <Button onClick={showSearchProduct} icon={<SearchIcon />}>Search for Products</Button>
     <Button onClick={onCatsClick}>Product Categories</Button>
     <Button onClick={onBrandsClick}>Product Brands</Button>
@@ -56,7 +61,7 @@ const MenuRoute = () => {
       gotoContact();
       dismissDialog();
     }}>Contact</Button>
-    {user && <SettingButton/>}
+    {user && <SettingButton />}
     <Button bg='red' onClick={dismissDialog}>dismiss</Button>
   </>;
 };

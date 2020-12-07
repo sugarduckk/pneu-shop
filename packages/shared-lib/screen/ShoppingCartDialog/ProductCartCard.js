@@ -28,9 +28,12 @@ const ProductCartCard = ({ productId, amount, index, onPriceChange }) => {
     if (amount === 0) {
       return 0;
     }
-    if (product) {
+    if (product && product.prices) {
       const i = product.prices.length - product.prices.slice().reverse().findIndex(p => p.threshold <= amount) - 1;
       return product.prices[i].price * amount;
+    }
+    else {
+      return 0;
     }
   }, [amount, product]);
   React.useEffect(() => {

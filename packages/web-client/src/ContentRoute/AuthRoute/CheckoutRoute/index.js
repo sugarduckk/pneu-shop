@@ -1,7 +1,5 @@
 import React from 'react';
-import { useUpdateDialog } from 'redux-wrapper/action';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
-import { MessageDialog } from 'redux-wrapper/hook/useShowMessageDialog';
 import Button from 'shared-lib/button/Button';
 import Dropdown from 'shared-lib/form-item/Dropdown';
 import Fieldset from 'shared-lib/form-item/Fieldset';
@@ -14,13 +12,11 @@ import useForm from 'shared-lib/hook/useForm';
 import { ContentContainer } from 'shared-lib/layout';
 import SimpleCard from 'shared-lib/layout/SimpleCard';
 import ProductCartCard from 'shared-lib/screen/ShoppingCartDialog/ProductCartCard';
-import errorToMessage from 'shared-lib/util/errorToMessage';
 import PaymentInfo from '../../../Component/PaymentInfo';
 import useCreatePayment from '../../../hook/useCreatePayment';
 
 const CheckoutRoute = props => {
   const { cart, addresses } = useGlobalState();
-  const updateDialog = useUpdateDialog();
   const addressOptions = React.useMemo(() => {
     return addresses.map(address => {
       const { address: add, tambon, district, province, post_code } = address;
@@ -34,7 +30,7 @@ const CheckoutRoute = props => {
       };
     });
   }, [addresses]);
-  const [prices, setPrices] = React.useState(cart && new Array(cart.length).fill(0));
+  const [prices, setPrices] = React.useState(cart ? new Array(cart.length).fill(0) : [0]);
   const onPriceChange = React.useCallback((index, price) => {
     setPrices(pre => {
       const newPrices = [...pre];

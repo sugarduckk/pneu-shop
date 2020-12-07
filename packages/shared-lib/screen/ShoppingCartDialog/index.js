@@ -10,7 +10,7 @@ import DimBackground from '../DimBackground';
 import ProductCartCard from './ProductCartCard';
 
 const ShoppingCartDialog = ({ cart, showCart, hideCart }) => {
-  const [prices, setPrices] = React.useState(cart && new Array(cart.length).fill(0));
+  const [prices, setPrices] = React.useState(cart ? new Array(cart.length).fill(0) : [0]);
   const onPriceChange = React.useCallback((index, price) => {
     setPrices(pre => {
       const newPrices = [...pre];
