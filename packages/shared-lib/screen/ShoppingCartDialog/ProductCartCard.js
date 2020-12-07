@@ -56,7 +56,7 @@ const ProductCartCard = ({ productId, amount, index, onPriceChange }) => {
     </SimpleCard>
     <CardContainer>
       <Button onClick={incrementFromCart} icon={<PlusIcon />} />
-      <Button onClick={decrementFromCart} icon={<MinusIcon />} />
+      <Button onClick={amount > 1 ? decrementFromCart : deleteFromCart} icon={<MinusIcon />} />
       <Button onClick={deleteFromCart} bg='red' icon={<CloseIcon />} />
     </CardContainer>
   </CardContainer>;

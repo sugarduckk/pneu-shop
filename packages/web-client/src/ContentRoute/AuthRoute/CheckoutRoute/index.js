@@ -34,7 +34,7 @@ const CheckoutRoute = props => {
       };
     });
   }, [addresses]);
-  const [prices, setPrices] = React.useState(new Array(cart.length).fill(0));
+  const [prices, setPrices] = React.useState(cart && new Array(cart.length).fill(0));
   const onPriceChange = React.useCallback((index, price) => {
     setPrices(pre => {
       const newPrices = [...pre];
@@ -45,7 +45,7 @@ const CheckoutRoute = props => {
   const handleSubmit = useCreatePayment();
   const { form, onSubmit, disabled } = useForm({
     to: '',
-    address: addressOptions[0],
+    address: addressOptions[0].value,
     paymentSlips: []
   }, handleSubmit);
   return <ContentContainer>

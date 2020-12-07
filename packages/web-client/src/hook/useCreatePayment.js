@@ -1,6 +1,6 @@
 import useSubmitOrder from 'firebase-wrapper/firestore/useSubmitOrder';
 import React from 'react';
-import { useUpdateDialog } from 'redux-wrapper/action';
+import { useDeleteState, useUpdateDialog } from 'redux-wrapper/action';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import useShowConfirmDialog from 'redux-wrapper/hook/useShowConfirmDialog';
 import { MessageDialog } from 'redux-wrapper/hook/useShowMessageDialog';
@@ -10,14 +10,16 @@ import useGoto from './useGoto';
 
 const useCreatePayment = () => {
   const { user, cart } = useGlobalState();
+  const deleteState = useDeleteState();
   const updateDialog = useUpdateDialog();
   const submitOrder = useSubmitOrder(user.uid, cart);
   const gotoOrder = useGoto(ClientRoutes.ORDER);
   const uploadOrder = useShowConfirmDialog(payload => {
     return submitOrder(payload)
       .then(() => {
-        gotoOrder();
         localStorage.removeItem('cart');
+        deleteState('cart');
+        gotoOrder();
         updateDialog(<MessageDialog message='Order Updated !' showDismiss={true} />);
       })
       .catch(error => {

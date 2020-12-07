@@ -2,7 +2,7 @@ import React from 'react';
 import generateOrderId from 'shared-lib/util/generateOrderId';
 import resizeImage from 'shared-lib/util/resizeImage';
 import sourceToImage from 'shared-lib/util/sourceToImage';
-import { fs, storage } from '..';
+import { fs, increment, serverTimestamp, storage } from '..';
 
 const useSubmitOrder = (uid, cart) => {
   return React.useCallback(async ({ to, address, paymentSlips }) => {
@@ -21,7 +21,8 @@ const useSubmitOrder = (uid, cart) => {
       downloadUrlPromises.push(snapshot.ref.getDownloadURL());
     });
     const downloadUrls = await Promise.all(downloadUrlPromises);
-    return ordersRef.doc(orderId).set({
+    const batch = fs.batch();
+    batch.set(ordersRef.doc(orderId), {
       uid,
       cart,
       to,
@@ -31,8 +32,13 @@ const useSubmitOrder = (uid, cart) => {
           src,
           name: paymentSlips[srcIndex].name
         };
-      })
+      }),
+      timestamp: serverTimestamp
     });
+    batch.update(fs.collection('users').doc(uid), {
+      nOrders: increment(1)
+    });
+    return batch.commit();
   }, [cart, uid]);
 };
 
