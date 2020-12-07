@@ -7,6 +7,7 @@ import DialogScreen from 'shared-lib/screen/DialogScreen';
 import ShoppingCartDialog from 'shared-lib/screen/ShoppingCartDialog';
 import ActionRoute from './ActionRoute';
 import AppRoute from './AppRoute';
+import ScrollToTop from './Component/ScrollToTop';
 import useCheckout from './hook/useCheckout';
 import useHideCart from './hook/useHideCart';
 
@@ -26,6 +27,7 @@ const App = props => {
     <BrowserRouter>
       <ShoppingCartDialog cart={cart} showCart={showCart} hideCart={hideCart} />
       <DialogScreen dialogs={dialogs} removeDialog={removeDialog} />
+      <ScrollToTop />
       <Switch>
         <Route exact path='/action'>
           <ActionRoute />
