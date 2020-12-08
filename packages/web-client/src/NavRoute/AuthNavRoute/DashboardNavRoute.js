@@ -13,7 +13,7 @@ import useShowMenuDialog from '../../hook/useShowMenuDialog';
 const DashboardNavRoute = props => {
   const theme = useTheme();
   const showMenuDialog = useShowMenuDialog();
-  const gotoProfile = useGoto(ClientRoutes.PROFILE);
+  const gotoProfile = useGoto(ClientRoutes.ORDER);
   const showCart = useShowCart();
   return <>
     <IconContainer onClick={showMenuDialog}>

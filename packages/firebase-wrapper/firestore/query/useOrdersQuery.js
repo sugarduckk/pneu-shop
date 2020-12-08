@@ -1,10 +1,10 @@
 import React from 'react';
 import { fs } from '../..';
 
-const useOrdersQuery = (uid) => {
+const useOrdersQuery = (uid, orderStatus) => {
   return React.useMemo(() => {
-    return fs.collection('users').doc(uid).collection('orders').orderBy('timestamp', 'desc');
-  }, [uid]);
+    return fs.collection('users').doc(uid).collection('orders').where('status', '==', orderStatus).orderBy('timestamp', 'desc');
+  }, [uid, orderStatus]);
 };
 
 export default useOrdersQuery;

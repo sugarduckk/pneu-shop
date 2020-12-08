@@ -23,8 +23,8 @@ const CheckoutRoute = props => {
       return {
         label: address.address,
         value: `
-          ${add}\n
-          ตำบล ${tambon} อำเภอ ${district}\n
+          ${add}
+          ตำบล ${tambon} อำเภอ ${district}
           จังหวัด ${province} ${post_code}
         `
       };

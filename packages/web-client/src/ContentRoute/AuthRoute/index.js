@@ -19,8 +19,8 @@ import SettingRoute from './SettingRoute';
 import VerificationRoute from './VerificationRoute';
 
 const AuthRoute = props => {
-  const { user, userDoc, addresses } = useGlobalState();
-  const ordersQuery = useOrdersQuery(user.uid);
+  const { user, userDoc, addresses, currentOrderStatus } = useGlobalState();
+  const ordersQuery = useOrdersQuery(user.uid, currentOrderStatus);
   const setState = useSetState();
   const handleUserDoc = React.useCallback(userDoc => {
     setState({ userDoc });
@@ -40,7 +40,7 @@ const AuthRoute = props => {
       <Route exact path={ClientRoutes.HOME}>
         <IntroRoute />
       </Route>
-      <Route exact path={ClientRoutes.PROFILE}>
+      <Route exact path={`${ClientRoutes.PROFILE}/:subProfile`}>
         <ProfileRoute />
       </Route>
       <Route exact path={ClientRoutes.CHECKOUT}>

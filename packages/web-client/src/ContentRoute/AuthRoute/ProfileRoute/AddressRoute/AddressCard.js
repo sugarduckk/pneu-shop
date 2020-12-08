@@ -29,12 +29,12 @@ const AddressCard = ({ address }) => {
   const onConfirm = React.useCallback(() => {
     return deleteAddress()
       .then(() => {
-        updateDialog(<MessageDialog message='Address deleted !' showDismiss={true} />);
+        updateDialog(<MessageDialog message={`Address [${address.id}] deleted !`} showDismiss={true} />);
       })
       .catch(error => {
         updateDialog(<MessageDialog message={errorToMessage(error)} showDismiss={true} />);
       });
-  }, [deleteAddress, updateDialog]);
+  }, [deleteAddress, updateDialog, address.id]);
   const showConfirmDialog = useShowConfirmDialog(onConfirm);
   const onDeleteClick = React.useCallback(() => {
     showConfirmDialog({

@@ -3,6 +3,7 @@ import generateOrderId from 'shared-lib/util/generateOrderId';
 import resizeImage from 'shared-lib/util/resizeImage';
 import sourceToImage from 'shared-lib/util/sourceToImage';
 import { fs, increment, serverTimestamp, storage } from '..';
+import OrderStatus from '../../web-client/src/constant/OrderStatus';
 
 const useSubmitOrder = (uid, cart) => {
   return React.useCallback(async ({ to, address, paymentSlips }) => {
@@ -23,6 +24,7 @@ const useSubmitOrder = (uid, cart) => {
     const downloadUrls = await Promise.all(downloadUrlPromises);
     const batch = fs.batch();
     batch.set(ordersRef.doc(orderId), {
+      id: orderId,
       uid,
       cart,
       to,
@@ -34,10 +36,10 @@ const useSubmitOrder = (uid, cart) => {
         };
       }),
       timestamp: serverTimestamp,
-      status: 'PENDING_REVIEW'
+      status: OrderStatus.PENDING_REVIEW
     });
     batch.update(fs.collection('users').doc(uid), {
-      nOrders: increment(1)
+      nPendingReviewOrders: increment(1)
     });
     return batch.commit();
   }, [cart, uid]);

@@ -27,7 +27,8 @@ const DefaultTheme = {
     dialog: {
       borderRadius: 5,
       margin: 5,
-      padding: 5
+      padding: 5,
+      closePadding: 10
     }
   }
 };

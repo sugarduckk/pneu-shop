@@ -1,0 +1,9 @@
+const OrderStatus = {
+  PENDING_REVIEW: 'PENDING_REVIEW',
+  ACCEPTED: 'ACCEPTED',
+  DELIVERED: 'DELIVERED',
+  COMPLETED: 'COMPLETED',
+  DELETED: 'DELETED'
+};
+
+export default OrderStatus;

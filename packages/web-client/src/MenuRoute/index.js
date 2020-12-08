@@ -4,7 +4,10 @@ import { useDismissDialog } from 'redux-wrapper/action';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import Button from 'shared-lib/button/Button';
 import HomeIcon from 'shared-lib/icon/HomeIcon';
+import PhoneIcon from 'shared-lib/icon/PhoneIcon';
 import SearchIcon from 'shared-lib/icon/SearchIcon';
+import UserIcon from 'shared-lib/icon/UserIcon';
+import MenuLayout from 'shared-lib/layout/MenuLayout';
 import ClientRoutes from '../constant/ClientRoutes';
 import useShowSearchProduct from '../ContentRoute/NonAuthRoute/useShowSearchProduct';
 import useGoto from '../hook/useGoto';
@@ -41,29 +44,29 @@ const MenuRoute = () => {
   const gotoOrder = useGoto(ClientRoutes.ORDER);
   const gotoAboutUs = useGoto(ClientRoutes.ABOUTUS);
   const gotoContact = useGoto(ClientRoutes.CONTACT);
-  return <>
+  return <MenuLayout>
     <Button onClick={() => {
       gotoHome();
       dismissDialog();
     }} icon={<HomeIcon />}>Home</Button>
-    <Button onClick={() => {
+    <Button icon={<UserIcon />} onClick={() => {
       gotoOrder();
       dismissDialog();
     }} >My Orders</Button>
-    <Button onClick={showSearchProduct} icon={<SearchIcon />}>Search for Products</Button>
-    <Button onClick={onCatsClick}>Product Categories</Button>
-    <Button onClick={onBrandsClick}>Product Brands</Button>
+    <Button onClick={showSearchProduct} icon={<SearchIcon />}>Search</Button>
+    <Button onClick={onCatsClick}>Categories</Button>
+    <Button onClick={onBrandsClick}>Brands</Button>
     <Button onClick={() => {
       gotoAboutUs();
       dismissDialog();
     }}>About Us</Button>
-    <Button onClick={() => {
-      gotoContact();
-      dismissDialog();
-    }}>Contact</Button>
+    <Button icon={<PhoneIcon />}
+      onClick={() => {
+        gotoContact();
+        dismissDialog();
+      }}>Contact</Button>
     {user && <SettingButton />}
-    <Button bg='red' onClick={dismissDialog}>dismiss</Button>
-  </>;
+  </MenuLayout>;
 };
 
 export default MenuRoute;
