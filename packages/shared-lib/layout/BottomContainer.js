@@ -8,6 +8,7 @@ const BottomContainer = styled.div`
   bottom: 0;
   display: flex;
   flex-direction: row;
+  overflow: auto;
 `;
 
 export default BottomContainer;

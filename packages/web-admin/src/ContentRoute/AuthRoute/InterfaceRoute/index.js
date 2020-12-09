@@ -12,12 +12,14 @@ import FeaturedProductCard from 'shared-lib/ui/FeaturedProductCard';
 import useEditAboutUs from './useEditAboutUs';
 import useEditContact from './useEditContact';
 import useEditMainCarousel from './useEditMainCarousel';
+import useEditPaymentDetails from './useEditPaymentDetails';
 
 const InterfaceRoute = props => {
   const { config } = useGlobalState();
   const editMainCarousel = useEditMainCarousel();
   const editAboutUs = useEditAboutUs();
   const editContact = useEditContact();
+  const editPayment = useEditPaymentDetails();
   return <ContentContainer>
     <H1>Interface</H1>
     <H2>Featured Products</H2>
@@ -31,6 +33,10 @@ const InterfaceRoute = props => {
     <H2>Contact</H2>
     <CardContainer>
       <Button onClick={editContact}>Edit Contact</Button>
+    </CardContainer>
+    <H2>Payment details</H2>
+    <CardContainer>
+      <Button onClick={editPayment}>Edit payment details</Button>
     </CardContainer>
     <H2>Featured Products</H2>
     <CardContainer>

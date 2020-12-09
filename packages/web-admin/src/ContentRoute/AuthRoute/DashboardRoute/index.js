@@ -8,6 +8,7 @@ import H2 from 'shared-lib/form-item/H2';
 import AdminRoutes from '../../../constant/AdminRoutes';
 
 const DashboardRoute = props => {
+  const gotoManageOrder = useGoto(AdminRoutes.ORDER);
   const gotoManageProduct = useGoto(AdminRoutes.PRODUCT);
   const gotoManageCategory = useGoto(AdminRoutes.CAT);
   const gotoManagerBrand = useGoto(AdminRoutes.BRAND);
@@ -15,6 +16,10 @@ const DashboardRoute = props => {
   const gotoManageInterface = useGoto(AdminRoutes.INTERFACE);
   return <ContentContainer>
     <H1>Dashboard</H1>
+    <H2>Order Management</H2>
+    <CardContainer>
+      <Button onClick={gotoManageOrder}>manage order</Button>
+    </CardContainer>
     <H2>Product Management</H2>
     <CardContainer>
       <Button onClick={gotoManageProduct}>manage product</Button>

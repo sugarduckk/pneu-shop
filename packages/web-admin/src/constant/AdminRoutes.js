@@ -4,7 +4,8 @@ const AdminRoutes = {
   CAT: '/category',
   PRODUCT: '/product',
   SETTING: '/setting',
-  INTERFACE: '/interface'
+  INTERFACE: '/interface',
+  ORDER: '/order'
 };
 
 export default AdminRoutes;

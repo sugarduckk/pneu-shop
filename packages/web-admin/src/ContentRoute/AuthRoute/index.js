@@ -1,3 +1,5 @@
+import useOrdersCollectionGroupQuery from 'firebase-wrapper/firestore/query/useOrdersCollectionGroupQuery';
+import useOrdersQuery from 'firebase-wrapper/firestore/query/useOrdersQuery';
 import useRolesQuery from 'firebase-wrapper/firestore/query/useRolesQuery';
 import useCollection from 'firebase-wrapper/firestore/useCollection';
 import React from 'react';
@@ -5,12 +7,14 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { useSetState } from 'redux-wrapper/action';
 import FetchCollection from 'redux-wrapper/component/FetchCollection';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
+import OrderStatus from '../../../../web-client/src/constant/OrderStatus';
 import LoadingContent from '../../../../web-client/src/ContentRoute/AuthRoute/LoadingContent';
 import AdminRoutes from '../../constant/AdminRoutes';
 import BrandRoute from './BrandRoute';
 import CatRoute from './CatRoute';
 import DashboardRoute from './DashboardRoute';
 import InterfaceRoute from './InterfaceRoute';
+import OrderRoute from './OrderRoute';
 import ProductRoute from './ProductRoute';
 import SettingRoute from './SettingRoute';
 import UserRoute from './UserRoute';
@@ -18,6 +22,7 @@ import UserRoute from './UserRoute';
 const AuthRoute = props => {
   const { cats, brands, config } = useGlobalState();
   const rolesQuery = useRolesQuery();
+  const pendingReviewOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.PENDING_REVIEW);
   const setState = useSetState();
   // fetch categories
   const handleCats = React.useCallback(docs => {
@@ -47,9 +52,13 @@ const AuthRoute = props => {
   if (!cats || !brands || !config) return <LoadingContent />;
   return <>
     <FetchCollection collectionName='roles' query={rolesQuery} limit={5} />
+    <FetchCollection collectionName='pendingReviewOrders' query={pendingReviewOrderQuery} limit={5} />
     <Switch>
       <Route exact path='/'>
         <DashboardRoute />
+      </Route>
+      <Route exact path={AdminRoutes.ORDER}>
+        <OrderRoute />
       </Route>
       <Route path={AdminRoutes.PRODUCT}>
         <ProductRoute />
