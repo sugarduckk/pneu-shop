@@ -1,6 +1,7 @@
 import React from 'react';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import Button from 'shared-lib/button/Button';
+import DialogSelection from 'shared-lib/form-item/DialogSelection';
 import Dropdown from 'shared-lib/form-item/Dropdown';
 import Fieldset from 'shared-lib/form-item/Fieldset';
 import Form from 'shared-lib/form-item/Form';
@@ -19,18 +20,30 @@ const CheckoutRoute = props => {
   const { cart, addresses } = useGlobalState();
   const addressOptions = React.useMemo(() => {
     return addresses.map(address => {
-      const { address: add, tambon, district, province, post_code } = address;
       return {
         label: address.address,
-        value: `
-          ${add}
-          ตำบล ${tambon} อำเภอ ${district}
-          จังหวัด ${province} ${post_code}
-        `
+        value: address
       };
     });
   }, [addresses]);
-  const [prices, setPrices] = React.useState(cart ? new Array(cart.length).fill(0) : [0]);
+  const [prices, setPrices] = React.useState(cart && cart.map(item => {
+    return {
+      productId: item.productId,
+      quantity: item.amount,
+      unitPrice: 0
+    }
+  }));
+  const totalPrice = React.useMemo(() => {
+    if (prices) {
+      console.log(prices)
+      return prices.reduce((total, currentPrice) => {
+        return total + currentPrice.quantity * currentPrice.unitPrice
+      }, 0)
+    }
+    else {
+      return null
+    }
+  }, [prices])
   const onPriceChange = React.useCallback((index, price) => {
     setPrices(pre => {
       const newPrices = [...pre];
@@ -38,7 +51,7 @@ const CheckoutRoute = props => {
       return newPrices;
     });
   }, []);
-  const handleSubmit = useCreatePayment();
+  const handleSubmit = useCreatePayment(prices);
   const { form, onSubmit, disabled } = useForm({
     to: '',
     address: addressOptions[0].value,
@@ -51,13 +64,15 @@ const CheckoutRoute = props => {
       return <ProductCartCard productId={product.productId} amount={product.amount} key={product.productId} index={index} onPriceChange={onPriceChange} />;
     }) : <SimpleCard>Empty Cart</SimpleCard>}
     <SimpleCard>
-      {`Total: ${prices.reduce((a, b) => a + b, 0)}`}
+      <H2>
+        {`Total: ${totalPrice} THB`}
+      </H2>
     </SimpleCard>
     <H2>Address</H2>
     <Form onSubmit={onSubmit}>
       <Fieldset disabled={disabled}>
         <TextInput {...form('to')} label='To' />
-        <Dropdown {...form('address')} label='Address' options={addressOptions} />
+        <DialogSelection {...form('address')} label='Address' options={addressOptions} />
         <PaymentInfo />
         <ImageSelector {...form('paymentSlips')} label='Upload payment slip' multiple={true} />
       </Fieldset>

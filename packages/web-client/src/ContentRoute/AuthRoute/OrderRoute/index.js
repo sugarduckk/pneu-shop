@@ -1,38 +1,41 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { BottomContainer } from 'shared-lib/layout';
+import React from 'react'
+import { BottomContainer } from 'shared-lib/layout'
+import PagingLayout from 'shared-lib/layout/PagingLayout'
 import BottomTab from 'shared-lib/layout/BottomTab';
 import Paging from 'shared-lib/layout/Paging';
-import PagingLayout from 'shared-lib/layout/PagingLayout';
-import OrderStatus from '../../../../../web-client/src/constant/OrderStatus';
-import AdminRoutes from '../../../constant/AdminRoutes';
+import { useParams } from 'react-router-dom';
 import useGoto from '../../../hook/useGoto';
-import AcceptedRoute from './AcceptedRoute';
-import PendingReviewRoute from './PendingReviewRoute';
+import ClientRoutes from '../../../constant/ClientRoutes';
+import PendingReviewOrderRoute from './PendingReviewOrderRoute';
+import DeletedOrderRoute from './DeletedOrderRoute';
+import AcceptedOrderRoute from './AcceptedOrderRoute';
+import DeliveredOrderRoute from './DeliveredOrderRoute';
+import CompletedOrderRoute from './CompletedOrderRoute';
+
 
 const OrderRoute = props => {
   const { orderStatus } = useParams()
-  const gotoPendingReview = useGoto(AdminRoutes.ORDER_PENDING_REVIEW)
-  const gotoAccepted = useGoto(AdminRoutes.ORDER_ACCEPTED)
-  const gotoDelivered = useGoto(AdminRoutes.ORDER_DELIVERED)
-  const gotoCompleted = useGoto(AdminRoutes.ORDER_COMPLETED)
-  const gotoDeleted = useGoto(AdminRoutes.ORDER_DELETED)
+  const gotoPendingReview = useGoto(ClientRoutes.ORDER_PENDING_REVIEW)
+  const gotoAccepted = useGoto(ClientRoutes.ORDER_ACCEPTED)
+  const gotoDelivered = useGoto(ClientRoutes.ORDER_DELIVERED)
+  const gotoCompleted = useGoto(ClientRoutes.ORDER_COMPLETED)
+  const gotoDeleted = useGoto(ClientRoutes.ORDER_DELETED)
   return <>
     <PagingLayout>
       <Paging show={orderStatus === 'pendingReview'}>
-        <PendingReviewRoute />
+        <PendingReviewOrderRoute />
       </Paging>
       <Paging show={orderStatus === 'accepted'}>
-        <AcceptedRoute />
+        <AcceptedOrderRoute />
       </Paging>
       <Paging show={orderStatus === 'delivered'}>
-        <div>2</div>
+        <DeliveredOrderRoute />
       </Paging>
       <Paging show={orderStatus === 'completed'}>
-        <div>3</div>
+        <CompletedOrderRoute />
       </Paging>
       <Paging show={orderStatus === 'deleted'}>
-        <div>4</div>
+        <DeletedOrderRoute />
       </Paging>
     </PagingLayout>
     <BottomContainer>
@@ -42,7 +45,7 @@ const OrderRoute = props => {
       <BottomTab disabled={orderStatus === 'completed'} onClick={gotoCompleted}>Completed</BottomTab>
       <BottomTab disabled={orderStatus === 'deleted'} onClick={gotoDeleted}>Deleted</BottomTab>
     </BottomContainer>
-  </>;
-};
+  </>
+}
 
-export default OrderRoute;
+export default OrderRoute

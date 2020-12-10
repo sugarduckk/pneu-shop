@@ -41,9 +41,10 @@ const MenuRoute = () => {
     dismissDialog();
   }, [dismissDialog, gotoBrands, location.pathname]);
   const gotoHome = useGoto(ClientRoutes.HOME);
-  const gotoOrder = useGoto(ClientRoutes.ORDER);
+  const gotoOrder = useGoto(ClientRoutes.ORDER_PENDING_REVIEW);
   const gotoAboutUs = useGoto(ClientRoutes.ABOUTUS);
   const gotoContact = useGoto(ClientRoutes.CONTACT);
+  const gotoAddress = useGoto(ClientRoutes.ADDRESS);
   return <MenuLayout>
     <Button onClick={() => {
       gotoHome();
@@ -66,6 +67,11 @@ const MenuRoute = () => {
         dismissDialog();
       }}>Contact</Button>
     {user && <SettingButton />}
+    <Button onClick={() => {
+      gotoAddress()
+      dismissDialog()
+    }}>Address</Button>
+    <Button bg='red' onClick={dismissDialog}>dismiss</Button>
   </MenuLayout>;
 };
 

@@ -23,6 +23,10 @@ const AuthRoute = props => {
   const { cats, brands, config } = useGlobalState();
   const rolesQuery = useRolesQuery();
   const pendingReviewOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.PENDING_REVIEW);
+  const acceptedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.ACCEPTED);
+  const deliveredOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.DELIVERED);
+  const completedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.COMPLETED);
+  const deletedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.DELETED);
   const setState = useSetState();
   // fetch categories
   const handleCats = React.useCallback(docs => {
@@ -53,11 +57,15 @@ const AuthRoute = props => {
   return <>
     <FetchCollection collectionName='roles' query={rolesQuery} limit={5} />
     <FetchCollection collectionName='pendingReviewOrders' query={pendingReviewOrderQuery} limit={5} />
+    <FetchCollection collectionName='acceptedOrders' query={acceptedOrderQuery} limit={5} />
+    <FetchCollection collectionName='deliveredOrders' query={deliveredOrderQuery} limit={5} />
+    <FetchCollection collectionName='completedOrders' query={completedOrderQuery} limit={5} />
+    <FetchCollection collectionName='deletedOrders' query={deletedOrderQuery} limit={5} />
     <Switch>
       <Route exact path='/'>
         <DashboardRoute />
       </Route>
-      <Route exact path={AdminRoutes.ORDER}>
+      <Route exact path={`${AdminRoutes.ORDER}/:orderStatus`}>
         <OrderRoute />
       </Route>
       <Route path={AdminRoutes.PRODUCT}>

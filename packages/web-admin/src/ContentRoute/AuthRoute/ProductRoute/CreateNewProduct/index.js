@@ -10,7 +10,7 @@ import AddBulk from './AddBulk';
 const CreateNewProduct = props => {
   const [tab, setTab] = React.useState(0);
   return <>
-    <PagingLayout current={tab}>
+    <PagingLayout>
       <Paging show={tab === 0}>
         <AddSingle />
       </Paging>

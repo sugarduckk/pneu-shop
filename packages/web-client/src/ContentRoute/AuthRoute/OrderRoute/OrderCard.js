@@ -3,7 +3,7 @@ import Button from 'shared-lib/button/Button';
 import RowLayout from 'shared-lib/layout/RowLayout';
 import SimpleCard from 'shared-lib/layout/SimpleCard';
 import Space from 'shared-lib/layout/Space';
-import OrderStatus from '../../../../constant/OrderStatus';
+import OrderStatus from '../../../constant/OrderStatus';
 import useDeleteOrderForever from './useDeleteOrderForever';
 import useDeletePendingReviewOrder from './useDeletePendingReviewOrder';
 
@@ -18,7 +18,7 @@ const OrderCard = ({ doc }) => {
       <div>{doc.id}</div>
       <div>{data.status}</div>
       <div>{data.to}</div>
-      <div>{data.address}</div>
+      <div>{data.address.address}</div>
       <div>{data.timestamp && data.timestamp.toDate().toString()}</div>
     </div>
     <RowLayout>

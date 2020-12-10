@@ -1,10 +1,10 @@
 import React from 'react';
 import PaginationScreen from 'shared-lib/screen/PaginationScreen';
-import OrderCard from '../../../../../../web-client/src/ContentRoute/AuthRoute/ProfileRoute/OrderRoute/OrderCard';
+import PendingReviewOrder from './PendingReviewOrder';
 
 const PendingReviewRoute = props => {
   return <>
-    <PaginationScreen Card={OrderCard} collectionName='pendingReviewOrders' limit={5} />
+    <PaginationScreen Card={PendingReviewOrder} collectionName='pendingReviewOrders' limit={5} />
   </>;
 };
 

@@ -8,7 +8,7 @@ import H2 from 'shared-lib/form-item/H2';
 import AdminRoutes from '../../../constant/AdminRoutes';
 
 const DashboardRoute = props => {
-  const gotoManageOrder = useGoto(AdminRoutes.ORDER);
+  const gotoManageOrder = useGoto(AdminRoutes.ORDER_PENDING_REVIEW);
   const gotoManageProduct = useGoto(AdminRoutes.PRODUCT);
   const gotoManageCategory = useGoto(AdminRoutes.CAT);
   const gotoManagerBrand = useGoto(AdminRoutes.BRAND);

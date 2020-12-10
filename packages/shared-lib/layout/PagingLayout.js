@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Paging from './Paging';
 
 const PagingLayoutParent = styled.div`
   overflow-x: hidden;
@@ -19,8 +20,13 @@ const PagingLayoutContainer = styled.div`
 `;
 
 const PagingLayout = ({ children, ...otherProps }) => {
+  const current = React.useMemo(() => {
+    return children.findIndex(element => {
+      return element.props.show
+    })
+  }, [children])
   return <PagingLayoutParent>
-    <PagingLayoutContainer {...otherProps} total={children.length}>
+    <PagingLayoutContainer {...otherProps} current={current} total={children.length}>
       {children}
     </PagingLayoutContainer>
   </PagingLayoutParent>;

@@ -24,21 +24,32 @@ const ProductCartCard = ({ productId, amount, index, onPriceChange }) => {
   const decrementFromCart = useDecrementFromCart(index);
   const setCartAmount = useSetCartAmount(index);
   const product = useProduct(productId);
+  const priceIndex = React.useMemo(() => {
+    if (product && product.prices) {
+      return product.prices.length - product.prices.slice().reverse().findIndex(p => p.threshold <= amount) - 1;
+    }
+  }, [amount, product])
   const price = React.useMemo(() => {
     if (amount === 0) {
       return 0;
     }
     if (product && product.prices) {
-      const i = product.prices.length - product.prices.slice().reverse().findIndex(p => p.threshold <= amount) - 1;
-      return product.prices[i].price * amount;
+      return product.prices[priceIndex].price * amount;
     }
     else {
       return 0;
     }
-  }, [amount, product]);
+  }, [amount, product, priceIndex]);
   React.useEffect(() => {
-    onPriceChange(index, price);
-  }, [onPriceChange, index, price]);
+    if (product) {
+      onPriceChange(index, {
+        productId,
+        productName: product.name,
+        quantity: amount,
+        unitPrice: product.prices[priceIndex].price
+      });
+    }
+  }, [onPriceChange, index, price, amount, priceIndex, product, productId]);
   if (!product) return <DialogLoading />;
   return <CardContainer row={true}>
     <SimpleCard flex={1}>

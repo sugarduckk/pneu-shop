@@ -8,12 +8,12 @@ import errorToMessage from 'shared-lib/util/errorToMessage';
 import ClientRoutes from '../constant/ClientRoutes';
 import useGoto from './useGoto';
 
-const useCreatePayment = () => {
-  const { user, cart } = useGlobalState();
+const useCreatePayment = (prices) => {
+  const { user } = useGlobalState();
   const deleteState = useDeleteState();
   const updateDialog = useUpdateDialog();
-  const submitOrder = useSubmitOrder(user.uid, cart);
-  const gotoOrder = useGoto(ClientRoutes.ORDER);
+  const submitOrder = useSubmitOrder(user.uid, prices);
+  const gotoOrder = useGoto(ClientRoutes.ORDER_PENDING_REVIEW);
   const uploadOrder = useShowConfirmDialog(payload => {
     return submitOrder(payload)
       .then(() => {
