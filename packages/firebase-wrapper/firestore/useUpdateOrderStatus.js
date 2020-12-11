@@ -1,8 +1,10 @@
 import React from 'react';
-import { fs } from '..';
+import { fs, increment } from '..';
+import OrderStatus from '../../web-client/src/constant/OrderStatus';
 
 const useUpdateOrderStatus = (uid, orderId, currentStatus, newStatus) => {
-  const orderRef = fs.collection('users').doc(uid).collection('orders').doc(orderId);
+  const userRef = fs.collection('users').doc(uid)
+  const orderRef = userRef.collection('orders').doc(orderId);
   return React.useCallback(() => {
     return fs.runTransaction(transaction => {
       return transaction.get(orderRef).then(docRef => {
@@ -15,9 +17,33 @@ const useUpdateOrderStatus = (uid, orderId, currentStatus, newStatus) => {
         transaction.update(orderRef, {
           status: newStatus
         });
+        if (currentStatus === OrderStatus.PENDING_REVIEW && newStatus === OrderStatus.DELETED) {
+          transaction.update(userRef, {
+            nPendingReviewOrders: increment(-1),
+            nDeletedOrders: increment(1)
+          })
+        }
+        else if (currentStatus === OrderStatus.PENDING_REVIEW && newStatus === OrderStatus.ACCEPTED) {
+          transaction.update(userRef, {
+            nPendingReviewOrders: increment(-1),
+            nAcceptedOrders: increment(1)
+          })
+        }
+        else if (currentStatus === OrderStatus.ACCEPTED && newStatus === OrderStatus.DELIVERED) {
+          transaction.update(userRef, {
+            nAcceptedOrders: increment(-1),
+            nDeliveredOrders: increment(1)
+          })
+        }
+        else if (currentStatus === OrderStatus.DELIVERED && newStatus === OrderStatus.COMPLETED) {
+          transaction.update(userRef, {
+            nDeliveredOrders: increment(-1),
+            nCompletedOrders: increment(1)
+          })
+        }
       });
     });
-  }, [currentStatus, newStatus, orderRef]);
+  }, [currentStatus, newStatus, orderRef, userRef]);
 };
 
 export default useUpdateOrderStatus;

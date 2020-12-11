@@ -50,11 +50,11 @@ const MenuRoute = () => {
       gotoHome();
       dismissDialog();
     }} icon={<HomeIcon />}>Home</Button>
-    <Button icon={<UserIcon />} onClick={() => {
+    <Button onClick={showSearchProduct} icon={<SearchIcon />}>Search</Button>
+    {user && <Button icon={<UserIcon />} onClick={() => {
       gotoOrder();
       dismissDialog();
-    }} >My Orders</Button>
-    <Button onClick={showSearchProduct} icon={<SearchIcon />}>Search</Button>
+    }} >My Orders</Button>}
     <Button onClick={onCatsClick}>Categories</Button>
     <Button onClick={onBrandsClick}>Brands</Button>
     <Button onClick={() => {

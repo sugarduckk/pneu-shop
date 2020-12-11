@@ -6,7 +6,7 @@ import { fs, increment, serverTimestamp, storage } from '..';
 import OrderStatus from '../../web-client/src/constant/OrderStatus';
 
 const useSubmitOrder = (uid, cart) => {
-  return React.useCallback(async ({ to, address, paymentSlips }) => {
+  return React.useCallback(async ({ paymentSlips, ...others }) => {
     const ordersRef = fs.collection('users').doc(uid).collection('orders');
     const orderId = generateOrderId();
     const slipStorageRef = storage.ref(`paymentSlips/${orderId}`);
@@ -27,8 +27,7 @@ const useSubmitOrder = (uid, cart) => {
       id: orderId,
       uid,
       cart,
-      to,
-      address,
+      ...others,
       paymentSlips: downloadUrls.map((src, srcIndex) => {
         return {
           src,

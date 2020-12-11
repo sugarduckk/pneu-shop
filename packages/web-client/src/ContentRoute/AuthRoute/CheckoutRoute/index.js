@@ -11,10 +11,12 @@ import ImageSelector from 'shared-lib/form-item/ImageSelector';
 import TextInput from 'shared-lib/form-item/TextInput';
 import useForm from 'shared-lib/hook/useForm';
 import { ContentContainer } from 'shared-lib/layout';
+import MarginCard from 'shared-lib/layout/MarginCard';
 import SimpleCard from 'shared-lib/layout/SimpleCard';
 import ProductCartCard from 'shared-lib/screen/ShoppingCartDialog/ProductCartCard';
 import PaymentInfo from '../../../Component/PaymentInfo';
 import useCreatePayment from '../../../hook/useCreatePayment';
+import useShowAddressFormDialog from '../../../hook/useShowAddressFormDialog';
 
 const CheckoutRoute = props => {
   const { cart, addresses } = useGlobalState();
@@ -51,17 +53,26 @@ const CheckoutRoute = props => {
       return newPrices;
     });
   }, []);
+  const onItemRemoved = React.useCallback(index => {
+    setPrices(pre => {
+      const newPrices = [...pre];
+      newPrices.splice(index, 1)
+      return newPrices;
+    });
+  }, []);
   const handleSubmit = useCreatePayment(prices);
   const { form, onSubmit, disabled } = useForm({
     to: '',
-    address: addressOptions[0].value,
+    tel: '',
+    address: addressOptions.length > 0 ? addressOptions[0].value : null,
     paymentSlips: []
   }, handleSubmit);
+  const showAddressFormDialog = useShowAddressFormDialog()
   return <ContentContainer>
     <H1>Checkout</H1>
     <H2>Shopping Cart</H2>
     {(cart && cart.length > 0) ? cart.map((product, index) => {
-      return <ProductCartCard productId={product.productId} amount={product.amount} key={product.productId} index={index} onPriceChange={onPriceChange} />;
+      return <ProductCartCard productId={product.productId} amount={product.amount} key={product.productId} index={index} onPriceChange={onPriceChange} onItemRemoved={onItemRemoved} />;
     }) : <SimpleCard>Empty Cart</SimpleCard>}
     <SimpleCard>
       <H2>
@@ -72,11 +83,16 @@ const CheckoutRoute = props => {
     <Form onSubmit={onSubmit}>
       <Fieldset disabled={disabled}>
         <TextInput {...form('to')} label='To' />
-        <DialogSelection {...form('address')} label='Address' options={addressOptions} />
+        <TextInput {...form('tel')} label='Tel' />
+        {addressOptions.length > 0 && <DialogSelection {...form('address')} label='Address' options={addressOptions} />}
+        <SimpleCard>
+          <Button onClick={showAddressFormDialog} type='button'>Add new address</Button>
+        </SimpleCard>
+        <H2>Make a Payment</H2>
         <PaymentInfo />
         <ImageSelector {...form('paymentSlips')} label='Upload payment slip' multiple={true} />
       </Fieldset>
-      <Button>Proceed to payment</Button>
+      <Button>Submit Order</Button>
     </Form>
   </ContentContainer>;
 };

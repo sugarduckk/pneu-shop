@@ -8,6 +8,9 @@ import OrderStatus from '../../../../../web-client/src/constant/OrderStatus';
 import AdminRoutes from '../../../constant/AdminRoutes';
 import useGoto from '../../../hook/useGoto';
 import AcceptedRoute from './AcceptedRoute';
+import CompletedRoute from './CompletedRoute';
+import DeletedRoute from './DeletedRoute';
+import DeliveredRoute from './DeliveredRoute';
 import PendingReviewRoute from './PendingReviewRoute';
 
 const OrderRoute = props => {
@@ -26,13 +29,13 @@ const OrderRoute = props => {
         <AcceptedRoute />
       </Paging>
       <Paging show={orderStatus === 'delivered'}>
-        <div>2</div>
+        <DeliveredRoute />
       </Paging>
       <Paging show={orderStatus === 'completed'}>
-        <div>3</div>
+        <CompletedRoute />
       </Paging>
       <Paging show={orderStatus === 'deleted'}>
-        <div>4</div>
+        <DeletedRoute />
       </Paging>
     </PagingLayout>
     <BottomContainer>

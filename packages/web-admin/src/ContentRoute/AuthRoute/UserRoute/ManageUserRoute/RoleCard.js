@@ -5,17 +5,14 @@ import Space from 'shared-lib/layout/Space';
 import useOnDeleteRole from './useOnDeleteRole';
 import useOnEditRole from './useOnEditRole';
 
-const RoleCard = ({ doc }) => {
-  const data = React.useMemo(() => {
-    return doc.data();
-  }, [doc]);
-  const onDeleteRole = useOnDeleteRole(data.email, doc.id);
-  const onEditRole = useOnEditRole(data.email, doc.id, data.role);
+const RoleCard = ({ doc, id }) => {
+  const onDeleteRole = useOnDeleteRole(doc.email, id);
+  const onEditRole = useOnEditRole(doc.email, id, doc.role);
   return <SimpleCard row={true}>
     <div>
-      <div>{data.email}</div>
-      <div>{data.role}</div>
-      <div>{data.createdTimestamp.toDate().toString()}</div>
+      <div>{doc.email}</div>
+      <div>{doc.role}</div>
+      <div>{doc.createdTimestamp.toDate().toString()}</div>
     </div>
     <Space />
     <Button onClick={onDeleteRole}> delete</Button>

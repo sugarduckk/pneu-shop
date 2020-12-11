@@ -7,24 +7,21 @@ import OrderStatus from '../../../constant/OrderStatus';
 import useDeleteOrderForever from './useDeleteOrderForever';
 import useDeletePendingReviewOrder from './useDeletePendingReviewOrder';
 
-const OrderCard = ({ doc }) => {
-  const deletePendingReviewOrder = useDeletePendingReviewOrder(doc.id);
-  const deleteOrderForever = useDeleteOrderForever(doc.id);
-  const data = React.useMemo(() => {
-    return doc.data();
-  }, [doc]);
+const OrderCard = ({ doc, id }) => {
+  const deletePendingReviewOrder = useDeletePendingReviewOrder(id);
+  const deleteOrderForever = useDeleteOrderForever(id);
   return <SimpleCard>
     <div>
-      <div>{doc.id}</div>
-      <div>{data.status}</div>
-      <div>{data.to}</div>
-      <div>{data.address.address}</div>
-      <div>{data.timestamp && data.timestamp.toDate().toString()}</div>
+      <div>{id}</div>
+      <div>{doc.status}</div>
+      <div>{doc.to}</div>
+      <div>{doc.address.address}</div>
+      <div>{doc.timestamp && doc.timestamp.toDate().toString()}</div>
     </div>
     <RowLayout>
       <Space />
-      {data.status === OrderStatus.PENDING_REVIEW && <Button onClick={deletePendingReviewOrder} bg='red'>delete</Button>}
-      {data.status === OrderStatus.DELETED && <Button onClick={deleteOrderForever} bg='red'>delete forever</Button>}
+      {doc.status === OrderStatus.PENDING_REVIEW && <Button onClick={deletePendingReviewOrder} bg='red'>delete</Button>}
+      {doc.status === OrderStatus.DELETED && <Button onClick={deleteOrderForever} bg='red'>delete forever</Button>}
     </RowLayout>
   </SimpleCard>;
 };

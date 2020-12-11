@@ -29,17 +29,19 @@ const EditPaymentDetailsDialog = () => {
   const { form, onSubmit, disabled } = useForm({
     accountName: (config && config.paymentDetails && config.paymentDetails.accountName) || '',
     bankName: (config && config.paymentDetails && config.paymentDetails.bankName) || '',
+    bankBranch: (config && config.paymentDetails && config.paymentDetails.bankBranch) || '',
     accountNum: (config && config.paymentDetails && config.paymentDetails.accountNum) || ''
   }, handleSubmit);
   return <Form onSubmit={onSubmit}>
     <Fieldset disabled={disabled}>
       <TextInput {...form('accountName')} label='Account Name' />
       <TextInput {...form('bankName')} label='Bank Name' />
+      <TextInput {...form('bankBranch')} label='Bank Branch' />
       <TextInput {...form('accountNum')} label='Account Number' />
     </Fieldset>
     <RowLayout>
       <Space />
-      <Button disabled={disabled} onClick={dismissDialog} bg='red'>dismiss</Button>
+      <Button disabled={disabled} type='button' onClick={dismissDialog} bg='red'>dismiss</Button>
       <Button disabled={disabled} loading={disabled} >confirm</Button>
     </RowLayout>
   </Form>;

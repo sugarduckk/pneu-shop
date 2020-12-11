@@ -18,12 +18,16 @@ import SquareLayout from '../../layout/SquareLayout';
 import ImagePlaceholder from '../../ui/ImagePlaceholder';
 import DialogLoading from '../DialogScreen/DialogLoading';
 
-const ProductCartCard = ({ productId, amount, index, onPriceChange }) => {
+const ProductCartCard = ({ productId, amount, index, onPriceChange, onItemRemoved }) => {
   const deleteFromCart = useDeleteFromCart(index);
   const incrementFromCart = useIncrementFromCart(index);
   const decrementFromCart = useDecrementFromCart(index);
   const setCartAmount = useSetCartAmount(index);
   const product = useProduct(productId);
+  const onDelete = React.useCallback(() => {
+    onItemRemoved(index)
+    deleteFromCart()
+  }, [deleteFromCart, onItemRemoved, index])
   const priceIndex = React.useMemo(() => {
     if (product && product.prices) {
       return product.prices.length - product.prices.slice().reverse().findIndex(p => p.threshold <= amount) - 1;
@@ -70,8 +74,8 @@ const ProductCartCard = ({ productId, amount, index, onPriceChange }) => {
     </SimpleCard>
     <CardContainer>
       <Button onClick={incrementFromCart} icon={<PlusIcon />} />
-      <Button onClick={amount > 1 ? decrementFromCart : deleteFromCart} icon={<MinusIcon />} />
-      <Button onClick={deleteFromCart} bg='red' icon={<CloseIcon />} />
+      <Button onClick={amount > 1 ? decrementFromCart : onDelete} icon={<MinusIcon />} />
+      <Button onClick={onDelete} bg='red' icon={<CloseIcon />} />
     </CardContainer>
   </CardContainer>;
 };

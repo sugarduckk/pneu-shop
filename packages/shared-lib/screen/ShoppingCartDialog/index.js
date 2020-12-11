@@ -1,6 +1,7 @@
 import React from 'react';
 import useCheckout from '../../../web-client/src/hook/useCheckout';
 import Button from '../../button/Button';
+import H2 from '../../form-item/H2';
 import CardContainer from '../../layout/CardContainer';
 import RowLayout from '../../layout/RowLayout';
 import SimpleCard from '../../layout/SimpleCard';
@@ -35,17 +36,24 @@ const ShoppingCartDialog = ({ cart, showCart, hideCart }) => {
       return newPrices;
     });
   }, []);
+  const onItemRemoved = React.useCallback(index => {
+    setPrices(pre => {
+      const newPrices = [...pre];
+      newPrices.splice(index, 1)
+      return newPrices;
+    });
+  }, []);
   const checkout = useCheckout();
   return <DimBackground show={showCart}>
     <DialogContainer>
       <CardContainer>
         {(cart && cart.length > 0) ? cart.map((product, index) => {
-          return <ProductCartCard productId={product.productId} amount={product.amount} key={product.productId} index={index} onPriceChange={onPriceChange} />;
+          return <ProductCartCard productId={product.productId} amount={product.amount} key={product.productId} index={index} onPriceChange={onPriceChange} onItemRemoved={onItemRemoved} />;
         }) : <SimpleCard>Empty Cart</SimpleCard>}
       </CardContainer>
+      <H2>{`Total: ${totalPrice} THB`}</H2>
       <RowLayout>
         <Space />
-        <div>{`${totalPrice}`}</div>
         <Button onClick={hideCart} bg='red'>Dismiss</Button>
         <Button onClick={checkout}>Check out</Button>
       </RowLayout>

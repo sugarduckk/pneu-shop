@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Placeholder from '../res/Placeholder';
 
 const Image = styled.img`
-  object-fit: cover;
+  object-fit: ${props => props.fit ? 'contain' : 'cover'};
   width: 100%;
   height: 100%;
   visibility: ${props => props.loaded ? 'visible' : 'hidden'};
