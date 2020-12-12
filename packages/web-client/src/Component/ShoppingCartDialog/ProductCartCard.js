@@ -1,29 +1,28 @@
 import useProduct from 'firebase-wrapper/firestore/useProduct';
 import React from 'react';
-import useDecrementFromCart from '../../../web-client/src/hook/useDecrementFromCart';
-import useDeleteFromCart from '../../../web-client/src/hook/useDeleteFromCart';
-import useIncrementFromCart from '../../../web-client/src/hook/useIncrementFromCart';
-import useSetCartAmount from '../../../web-client/src/hook/useSetCartAmount';
-import Button from '../../button/Button';
-import Input from '../../form-item/TextInput/Input';
-import CloseIcon from '../../icon/CloseIcon';
-import MinusIcon from '../../icon/MinusIcon';
-import PlusIcon from '../../icon/PlusIcon';
-import CardContainer from '../../layout/CardContainer';
-import MarginCard from '../../layout/MarginCard';
-import RoundedLayout from '../../layout/RoundedLayout';
-import RowLayout from '../../layout/RowLayout';
-import SimpleCard from '../../layout/SimpleCard';
-import SquareLayout from '../../layout/SquareLayout';
-import ImagePlaceholder from '../../ui/ImagePlaceholder';
-import DialogLoading from '../DialogScreen/DialogLoading';
+import Button from 'shared-lib/button/Button';
+import Input from 'shared-lib/form-item/TextInput/Input';
+import CloseIcon from 'shared-lib/icon/CloseIcon';
+import MinusIcon from 'shared-lib/icon/MinusIcon';
+import PlusIcon from 'shared-lib/icon/PlusIcon';
+import CardContainer from 'shared-lib/layout/CardContainer';
+import MarginCard from 'shared-lib/layout/MarginCard';
+import RoundedLayout from 'shared-lib/layout/RoundedLayout';
+import RowLayout from 'shared-lib/layout/RowLayout';
+import SimpleCard from 'shared-lib/layout/SimpleCard';
+import SquareLayout from 'shared-lib/layout/SquareLayout';
+import DialogLoading from 'shared-lib/screen/DialogScreen/DialogLoading';
+import ImagePlaceholder from 'shared-lib/ui/ImagePlaceholder';
+import useDecrementFromCart from '../../hook/useDecrementFromCart';
+import useDeleteFromCart from '../../hook/useDeleteFromCart';
+import useIncrementFromCart from '../../hook/useIncrementFromCart';
+import useSetCartAmount from '../../hook/useSetCartAmount';
 
-const ProductCartCard = ({ productId, amount, index, onPriceChange, onItemRemoved }) => {
+const ProductCartCard = ({ product, productId, amount, index, onPriceChange, onItemRemoved }) => {
   const deleteFromCart = useDeleteFromCart(index);
   const incrementFromCart = useIncrementFromCart(index);
   const decrementFromCart = useDecrementFromCart(index);
   const setCartAmount = useSetCartAmount(index);
-  const product = useProduct(productId);
   const onDelete = React.useCallback(() => {
     onItemRemoved(index)
     deleteFromCart()

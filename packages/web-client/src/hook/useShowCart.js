@@ -1,16 +1,12 @@
 import React from 'react';
-import { useSetState } from 'redux-wrapper/action';
+import { useAddDialog } from 'redux-wrapper/action';
+import ShoppingCartDialog from '../Component/ShoppingCartDialog';
 
 const useShowCart = () => {
-  const setState = useSetState();
+  const addDialog = useAddDialog();
   return React.useCallback(() => {
-    setState(pre => {
-      return {
-        ...pre,
-        showCart: true
-      };
-    });
-  }, [setState]);
+    addDialog(<ShoppingCartDialog />)
+  }, [addDialog]);
 };
 
 export default useShowCart;

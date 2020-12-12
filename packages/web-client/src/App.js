@@ -4,12 +4,10 @@ import { useRemoveDialog } from 'redux-wrapper/action';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import { createGlobalStyle, DefaultTheme, ThemeProvider } from 'shared-lib/core';
 import DialogScreen from 'shared-lib/screen/DialogScreen';
-import ShoppingCartDialog from 'shared-lib/screen/ShoppingCartDialog';
 import ActionRoute from './ActionRoute';
 import AppRoute from './AppRoute';
+import FetchCart from './Component/FetchCart';
 import ScrollToTop from './Component/ScrollToTop';
-import useCheckout from './hook/useCheckout';
-import useHideCart from './hook/useHideCart';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -20,12 +18,11 @@ const GlobalStyle = createGlobalStyle`
 
 const App = props => {
   const removeDialog = useRemoveDialog();
-  const { dialogs, cart, showCart } = useGlobalState();
-  const hideCart = useHideCart();
+  const { dialogs } = useGlobalState();
   return <ThemeProvider theme={DefaultTheme}>
     <GlobalStyle />
     <BrowserRouter>
-      <ShoppingCartDialog cart={cart} showCart={showCart} hideCart={hideCart} />
+      <FetchCart />
       <DialogScreen dialogs={dialogs} removeDialog={removeDialog} />
       <ScrollToTop />
       <Switch>

@@ -2,7 +2,6 @@ import React from 'react';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import Button from 'shared-lib/button/Button';
 import DialogSelection from 'shared-lib/form-item/DialogSelection';
-import Dropdown from 'shared-lib/form-item/Dropdown';
 import Fieldset from 'shared-lib/form-item/Fieldset';
 import Form from 'shared-lib/form-item/Form';
 import H1 from 'shared-lib/form-item/H1';
@@ -11,15 +10,14 @@ import ImageSelector from 'shared-lib/form-item/ImageSelector';
 import TextInput from 'shared-lib/form-item/TextInput';
 import useForm from 'shared-lib/hook/useForm';
 import { ContentContainer } from 'shared-lib/layout';
-import MarginCard from 'shared-lib/layout/MarginCard';
 import SimpleCard from 'shared-lib/layout/SimpleCard';
-import ProductCartCard from 'shared-lib/screen/ShoppingCartDialog/ProductCartCard';
 import PaymentInfo from '../../../Component/PaymentInfo';
+import ProductCartCard from '../../../Component/ShoppingCartDialog/ProductCartCard';
 import useCreatePayment from '../../../hook/useCreatePayment';
 import useShowAddressFormDialog from '../../../hook/useShowAddressFormDialog';
 
 const CheckoutRoute = props => {
-  const { cart, addresses } = useGlobalState();
+  const { cart, cartData, addresses } = useGlobalState();
   const addressOptions = React.useMemo(() => {
     return addresses.map(address => {
       return {
@@ -72,7 +70,7 @@ const CheckoutRoute = props => {
     <H1>Checkout</H1>
     <H2>Shopping Cart</H2>
     {(cart && cart.length > 0) ? cart.map((product, index) => {
-      return <ProductCartCard productId={product.productId} amount={product.amount} key={product.productId} index={index} onPriceChange={onPriceChange} onItemRemoved={onItemRemoved} />;
+      return <ProductCartCard product={cartData[product.productId]} productId={product.productId} amount={product.amount} key={product.productId} index={index} onPriceChange={onPriceChange} onItemRemoved={onItemRemoved} />;
     }) : <SimpleCard>Empty Cart</SimpleCard>}
     <SimpleCard>
       <H2>

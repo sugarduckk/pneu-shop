@@ -1,12 +1,12 @@
 import React from 'react';
-import DialogContentLayout from 'shared-lib/layout/DialogContentLayout';
-import DialogButtonLayout from 'shared-lib/layout/DialogButtonLayout';
 import DialogButton from 'shared-lib/button/DialogButton';
-import { useAddDialog, useUpdateDialog, useDismissDialog } from '../action';
-import DialogLoading from 'shared-lib/screen/DialogScreen/DialogLoading';
 import CenterDiv from 'shared-lib/layout/CenterDiv';
-import { MessageDialog } from './useShowMessageDialog';
+import DialogButtonLayout from 'shared-lib/layout/DialogButtonLayout';
+import DialogContentLayout from 'shared-lib/layout/DialogContentLayout';
+import DialogLoading from 'shared-lib/screen/DialogScreen/DialogLoading';
 import errorToMessage from 'shared-lib/util/errorToMessage';
+import { useAddDialog, useDismissDialog, useUpdateDialog } from '../action';
+import { MessageDialog } from './useShowMessageDialog';
 
 const ConfirmDialog = ({ message, payload, onConfirm }) => {
   const [loading, setLoading] = React.useState(false);
@@ -25,14 +25,22 @@ const ConfirmDialog = ({ message, payload, onConfirm }) => {
   </div>;
 };
 
-const useShowConfirmDialog = (onConfirm) => {
+const useShowConfirmDialog = (onConfirm, fromDialog = false) => {
   const addDialog = useAddDialog();
   const updateDialog = useUpdateDialog();
   return React.useCallback((getMessagePayload, loadingText) => {
-    addDialog(<>
-      <DialogLoading />
-      {loadingText && <CenterDiv>{loadingText}</CenterDiv>}
-    </>);
+    if (fromDialog) {
+      updateDialog(<>
+        <DialogLoading />
+        {loadingText && <CenterDiv>{loadingText}</CenterDiv>}
+      </>);
+    }
+    else {
+      addDialog(<>
+        <DialogLoading />
+        {loadingText && <CenterDiv>{loadingText}</CenterDiv>}
+      </>);
+    }
     Promise.resolve(getMessagePayload)
       .then(({ message, payload }) => {
         updateDialog(<ConfirmDialog message={message} payload={payload} onConfirm={onConfirm} />);
@@ -40,7 +48,7 @@ const useShowConfirmDialog = (onConfirm) => {
       .catch(error => {
         updateDialog(<MessageDialog message={errorToMessage(error)} showDismiss={true} />);
       });
-  }, [addDialog, updateDialog, onConfirm]);
+  }, [addDialog, updateDialog, onConfirm, fromDialog]);
 };
 
 export default useShowConfirmDialog;
