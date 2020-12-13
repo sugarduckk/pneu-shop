@@ -57,13 +57,11 @@ const IntroRoute = props => {
 
     </CardContainer>
     <H2>Featured Products</H2>
-    <CardContainer>
-      <MarginCard>
-        <SquareLayout ratio={4 / 3} desktopRatio={2}>
-          <Carousel data={config && config.interface && config.interface.mainCarousel} Card={FeaturedProductCard} onClick={onCarouselClick} />
-        </SquareLayout>
-      </MarginCard>
-    </CardContainer>
+    <MarginCard>
+      <SquareLayout ratio={4 / 3} desktopRatio={2}>
+        <Carousel data={config && config.interface && config.interface.mainCarousel} Card={FeaturedProductCard} onClick={onCarouselClick} />
+      </SquareLayout>
+    </MarginCard>
     <H2 ref={catsRef} id='category_header'>Product Categories</H2>
     <CardContainer>
       <GridLayout>

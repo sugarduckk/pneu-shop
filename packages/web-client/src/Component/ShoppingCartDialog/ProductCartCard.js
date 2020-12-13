@@ -1,4 +1,3 @@
-import useProduct from 'firebase-wrapper/firestore/useProduct';
 import React from 'react';
 import Button from 'shared-lib/button/Button';
 import Input from 'shared-lib/form-item/TextInput/Input';
@@ -18,15 +17,11 @@ import useDeleteFromCart from '../../hook/useDeleteFromCart';
 import useIncrementFromCart from '../../hook/useIncrementFromCart';
 import useSetCartAmount from '../../hook/useSetCartAmount';
 
-const ProductCartCard = ({ product, productId, amount, index, onPriceChange, onItemRemoved }) => {
+const ProductCartCard = ({ product, productId, amount, index }) => {
   const deleteFromCart = useDeleteFromCart(index);
   const incrementFromCart = useIncrementFromCart(index);
   const decrementFromCart = useDecrementFromCart(index);
   const setCartAmount = useSetCartAmount(index);
-  const onDelete = React.useCallback(() => {
-    onItemRemoved(index)
-    deleteFromCart()
-  }, [deleteFromCart, onItemRemoved, index])
   const priceIndex = React.useMemo(() => {
     if (product && product.prices) {
       return product.prices.length - product.prices.slice().reverse().findIndex(p => p.threshold <= amount) - 1;
@@ -43,16 +38,6 @@ const ProductCartCard = ({ product, productId, amount, index, onPriceChange, onI
       return 0;
     }
   }, [amount, product, priceIndex]);
-  React.useEffect(() => {
-    if (product) {
-      onPriceChange(index, {
-        productId,
-        productName: product.name,
-        quantity: amount,
-        unitPrice: product.prices[priceIndex].price
-      });
-    }
-  }, [onPriceChange, index, price, amount, priceIndex, product, productId]);
   if (!product) return <DialogLoading />;
   return <CardContainer row={true}>
     <SimpleCard flex={1}>
@@ -73,8 +58,8 @@ const ProductCartCard = ({ product, productId, amount, index, onPriceChange, onI
     </SimpleCard>
     <CardContainer>
       <Button onClick={incrementFromCart} icon={<PlusIcon />} />
-      <Button onClick={amount > 1 ? decrementFromCart : onDelete} icon={<MinusIcon />} />
-      <Button onClick={onDelete} bg='red' icon={<CloseIcon />} />
+      <Button onClick={amount > 1 ? decrementFromCart : deleteFromCart} icon={<MinusIcon />} />
+      <Button onClick={deleteFromCart} bg='red' icon={<CloseIcon />} />
     </CardContainer>
   </CardContainer>;
 };

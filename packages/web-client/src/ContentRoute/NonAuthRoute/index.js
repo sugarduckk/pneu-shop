@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import ClientRoutes from '../../constant/ClientRoutes';
 import IntroRoute from '../CommonRoute/IntroRoute';
-import AboutUsRoute from './AboutUsRoute';
+import AboutUsRoute from '../CommonRoute/AboutUsRoute';
 import ContactRoute from './ContactRoute';
 import LoginRoute from './LoginRoute';
 import ProductDetailRoute from './ProductDetailRoute';

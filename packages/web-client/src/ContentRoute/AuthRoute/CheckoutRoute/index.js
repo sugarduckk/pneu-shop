@@ -15,6 +15,7 @@ import PaymentInfo from '../../../Component/PaymentInfo';
 import ProductCartCard from '../../../Component/ShoppingCartDialog/ProductCartCard';
 import useCreatePayment from '../../../hook/useCreatePayment';
 import useShowAddressFormDialog from '../../../hook/useShowAddressFormDialog';
+import useTotalPrice from '../../../hook/useTotalPrice';
 
 const CheckoutRoute = props => {
   const { cart, cartData, addresses } = useGlobalState();
@@ -26,39 +27,8 @@ const CheckoutRoute = props => {
       };
     });
   }, [addresses]);
-  const [prices, setPrices] = React.useState(cart && cart.map(item => {
-    return {
-      productId: item.productId,
-      quantity: item.amount,
-      unitPrice: 0
-    }
-  }));
-  const totalPrice = React.useMemo(() => {
-    if (prices) {
-      console.log(prices)
-      return prices.reduce((total, currentPrice) => {
-        return total + currentPrice.quantity * currentPrice.unitPrice
-      }, 0)
-    }
-    else {
-      return null
-    }
-  }, [prices])
-  const onPriceChange = React.useCallback((index, price) => {
-    setPrices(pre => {
-      const newPrices = [...pre];
-      newPrices[index] = price;
-      return newPrices;
-    });
-  }, []);
-  const onItemRemoved = React.useCallback(index => {
-    setPrices(pre => {
-      const newPrices = [...pre];
-      newPrices.splice(index, 1)
-      return newPrices;
-    });
-  }, []);
-  const handleSubmit = useCreatePayment(prices);
+  const totalPrice = useTotalPrice()
+  const handleSubmit = useCreatePayment();
   const { form, onSubmit, disabled } = useForm({
     to: '',
     tel: '',
@@ -70,7 +40,7 @@ const CheckoutRoute = props => {
     <H1>Checkout</H1>
     <H2>Shopping Cart</H2>
     {(cart && cart.length > 0) ? cart.map((product, index) => {
-      return <ProductCartCard product={cartData[product.productId]} productId={product.productId} amount={product.amount} key={product.productId} index={index} onPriceChange={onPriceChange} onItemRemoved={onItemRemoved} />;
+      return <ProductCartCard product={cartData[product.productId]} productId={product.productId} amount={product.amount} key={product.productId} index={index} />;
     }) : <SimpleCard>Empty Cart</SimpleCard>}
     <SimpleCard>
       <H2>

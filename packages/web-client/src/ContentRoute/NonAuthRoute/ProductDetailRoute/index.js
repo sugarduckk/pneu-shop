@@ -8,6 +8,7 @@ import H1 from 'shared-lib/form-item/H1';
 import LoadingContent from '../../AuthRoute/LoadingContent';
 import Button from 'shared-lib/button/Button';
 import useAddToCart from '../../../hook/useAddToCart';
+import CartIcon from 'shared-lib/icon/CartIcon';
 
 const ProductDetailRoute = props => {
   const { productId } = useParams();
@@ -17,10 +18,13 @@ const ProductDetailRoute = props => {
   return <ContentContainer>
     <H1>{product.name}</H1>
     <CardContainer>
+      <Button icon={<CartIcon />} onClick={addToCart}>Add to Cart</Button>
+    </CardContainer>
+    <CardContainer>
       <ProductDetail product={product} />
     </CardContainer>
     <CardContainer>
-      <Button onClick={addToCart}>Add to Cart</Button>
+      <Button icon={<CartIcon />} onClick={addToCart}>Add to Cart</Button>
     </CardContainer>
   </ContentContainer>;
 };

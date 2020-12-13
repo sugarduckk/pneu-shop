@@ -1,11 +1,29 @@
 import React from 'react';
+import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import generateOrderId from 'shared-lib/util/generateOrderId';
 import resizeImage from 'shared-lib/util/resizeImage';
 import sourceToImage from 'shared-lib/util/sourceToImage';
 import { fs, increment, serverTimestamp, storage } from '..';
 import OrderStatus from '../../web-client/src/constant/OrderStatus';
 
-const useSubmitOrder = (uid, cart) => {
+const useSubmitOrder = (uid) => {
+  const { cart, cartData } = useGlobalState()
+  const cartRef = React.useMemo(() => {
+    if (cart) {
+      return cart.map(item => {
+        const { amount, productId } = item
+        const prices = cartData[productId].prices
+        const priceIndex = prices.length - prices.slice().reverse().findIndex(p => p.threshold <= amount) - 1;
+        return {
+          productId,
+          productName: cartData[productId].name,
+          quantity: amount,
+          unitPrice: prices[priceIndex].price
+        }
+      })
+    }
+    return null
+  }, [cart, cartData])
   return React.useCallback(async ({ paymentSlips, ...others }) => {
     const ordersRef = fs.collection('users').doc(uid).collection('orders');
     const orderId = generateOrderId();
@@ -26,7 +44,7 @@ const useSubmitOrder = (uid, cart) => {
     batch.set(ordersRef.doc(orderId), {
       id: orderId,
       uid,
-      cart,
+      cart: cartRef,
       ...others,
       paymentSlips: downloadUrls.map((src, srcIndex) => {
         return {
@@ -41,7 +59,7 @@ const useSubmitOrder = (uid, cart) => {
       nPendingReviewOrders: increment(1)
     });
     return batch.commit();
-  }, [cart, uid]);
+  }, [cartRef, uid]);
 };
 
 export default useSubmitOrder;

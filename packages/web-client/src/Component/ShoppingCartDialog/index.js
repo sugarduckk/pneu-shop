@@ -9,48 +9,19 @@ import SimpleCard from 'shared-lib/layout/SimpleCard';
 import Space from 'shared-lib/layout/Space';
 import DialogLoading from 'shared-lib/screen/DialogScreen/DialogLoading';
 import useCheckout from '../../hook/useCheckout';
+import useTotalPrice from '../../hook/useTotalPrice';
 import ProductCartCard from './ProductCartCard';
 
 const ShoppingCartDialog = props => {
   const { cart, cartData } = useGlobalState()
   const dismiss = useDismissDialog()
-  const [prices, setPrices] = React.useState(cart && cart.map(item => {
-    return {
-      productId: item.productId,
-      quantity: item.amount,
-      unitPrice: 0
-    }
-  }));
-  const totalPrice = React.useMemo(() => {
-    if (prices) {
-      return prices.reduce((total, currentPrice) => {
-        return total + currentPrice.quantity * currentPrice.unitPrice
-      }, 0)
-    }
-    else {
-      return null
-    }
-  }, [prices])
-  const onPriceChange = React.useCallback((index, price) => {
-    setPrices(pre => {
-      const newPrices = [...pre];
-      newPrices[index] = price;
-      return newPrices;
-    });
-  }, []);
-  const onItemRemoved = React.useCallback(index => {
-    setPrices(pre => {
-      const newPrices = [...pre];
-      newPrices.splice(index, 1)
-      return newPrices;
-    });
-  }, []);
+  const totalPrice = useTotalPrice()
   const checkout = useCheckout();
   if (!cartData) return <DialogLoading />
   return <>
     <CardContainer>
       {(cart && cart.length > 0) ? cart.map((product, index) => {
-        return <ProductCartCard product={cartData[product.productId]} productId={product.productId} amount={product.amount} key={product.productId} index={index} onPriceChange={onPriceChange} onItemRemoved={onItemRemoved} />;
+        return <ProductCartCard product={cartData[product.productId]} productId={product.productId} amount={product.amount} key={product.productId} index={index} />;
       }) : <SimpleCard>Empty Cart</SimpleCard>}
     </CardContainer>
     <H2>{`Total: ${totalPrice} THB`}</H2>

@@ -11,13 +11,13 @@ import ProductPrices from './ProductPrices';
 const ProductDetail = ({ product }) => {
   const productArray = React.useMemo(() => {
     return [
-      ['name', product.name],
-      ['id', product.id],
-      ['category', product.category],
-      ['brand', product.brand],
-      ['amount', product.in_stock],
-      ['details', product.details],
-      ['prices', <ProductPrices key='prices' prices={product.prices} />]
+      ['Name', product.name],
+      ['Product ID', product.id],
+      ['Category', product.category],
+      ['Brand', product.brand],
+      ['In stock', product.in_stock],
+      ['Details', product.details],
+      ['Prices', <ProductPrices key='prices' prices={product.prices} />]
     ];
   }, [product]);
   return <>

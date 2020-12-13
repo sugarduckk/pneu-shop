@@ -9,7 +9,7 @@ import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import ClientRoutes from '../../constant/ClientRoutes';
 import OrderStatus from '../../constant/OrderStatus';
 import IntroRoute from '../CommonRoute/IntroRoute';
-import AboutUsRoute from '../NonAuthRoute/AboutUsRoute';
+import AboutUsRoute from '../CommonRoute/AboutUsRoute';
 import ContactRoute from '../NonAuthRoute/ContactRoute';
 import ProductDetailRoute from '../NonAuthRoute/ProductDetailRoute';
 import SearchRoute from '../NonAuthRoute/SearchRoute';
