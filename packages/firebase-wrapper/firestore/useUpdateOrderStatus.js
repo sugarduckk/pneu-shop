@@ -1,6 +1,6 @@
 import React from 'react';
 import { fs, increment } from '..';
-import OrderStatus from '../../web-client/src/constant/OrderStatus';
+import OrderStatus from 'shared-lib/constant/OrderStatus';
 
 const useUpdateOrderStatus = (uid, orderId, currentStatus, newStatus) => {
   const userRef = fs.collection('users').doc(uid)
@@ -39,6 +39,12 @@ const useUpdateOrderStatus = (uid, orderId, currentStatus, newStatus) => {
           transaction.update(userRef, {
             nDeliveredOrders: increment(-1),
             nCompletedOrders: increment(1)
+          })
+        }
+        else if (currentStatus === OrderStatus.REJECTED && newStatus === OrderStatus.DELETED) {
+          transaction.update(userRef, {
+            nRejectedOrders: increment(-1),
+            nDeletedOrders: increment(1)
           })
         }
       });

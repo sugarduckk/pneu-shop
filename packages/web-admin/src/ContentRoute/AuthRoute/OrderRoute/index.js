@@ -4,7 +4,7 @@ import { BottomContainer } from 'shared-lib/layout';
 import BottomTab from 'shared-lib/layout/BottomTab';
 import Paging from 'shared-lib/layout/Paging';
 import PagingLayout from 'shared-lib/layout/PagingLayout';
-import OrderStatus from '../../../../../web-client/src/constant/OrderStatus';
+import OrderStatus from 'shared-lib/constant/OrderStatus';
 import AdminRoutes from '../../../constant/AdminRoutes';
 import useGoto from '../../../hook/useGoto';
 import AcceptedRoute from './AcceptedRoute';
@@ -12,10 +12,12 @@ import CompletedRoute from './CompletedRoute';
 import DeletedRoute from './DeletedRoute';
 import DeliveredRoute from './DeliveredRoute';
 import PendingReviewRoute from './PendingReviewRoute';
+import RejectedRoute from './RejectedRoute';
 
 const OrderRoute = props => {
   const { orderStatus } = useParams()
   const gotoPendingReview = useGoto(AdminRoutes.ORDER_PENDING_REVIEW)
+  const gotoRejectedReview = useGoto(AdminRoutes.ORDER_REJECTED)
   const gotoAccepted = useGoto(AdminRoutes.ORDER_ACCEPTED)
   const gotoDelivered = useGoto(AdminRoutes.ORDER_DELIVERED)
   const gotoCompleted = useGoto(AdminRoutes.ORDER_COMPLETED)
@@ -24,6 +26,9 @@ const OrderRoute = props => {
     <PagingLayout>
       <Paging show={orderStatus === 'pendingReview'}>
         <PendingReviewRoute />
+      </Paging>
+      <Paging show={orderStatus === 'rejected'}>
+        <RejectedRoute />
       </Paging>
       <Paging show={orderStatus === 'accepted'}>
         <AcceptedRoute />
@@ -40,6 +45,7 @@ const OrderRoute = props => {
     </PagingLayout>
     <BottomContainer>
       <BottomTab disabled={orderStatus === 'pendingReview'} onClick={gotoPendingReview}>Pending Review</BottomTab>
+      <BottomTab disabled={orderStatus === 'rejected'} onClick={gotoRejectedReview}>Rejected</BottomTab>
       <BottomTab disabled={orderStatus === 'accepted'} onClick={gotoAccepted}>Accepted</BottomTab>
       <BottomTab disabled={orderStatus === 'delivered'} onClick={gotoDelivered}>Delivered</BottomTab>
       <BottomTab disabled={orderStatus === 'completed'} onClick={gotoCompleted}>Completed</BottomTab>

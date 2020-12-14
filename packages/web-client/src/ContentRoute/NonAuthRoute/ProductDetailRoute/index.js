@@ -13,7 +13,7 @@ import CartIcon from 'shared-lib/icon/CartIcon';
 const ProductDetailRoute = props => {
   const { productId } = useParams();
   const product = useProduct(productId);
-  const addToCart = useAddToCart(productId);
+  const addToCart = useAddToCart(productId, product && product.in_stock);
   if (!product) return <LoadingContent />;
   return <ContentContainer>
     <H1>{product.name}</H1>

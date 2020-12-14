@@ -6,9 +6,11 @@ import Button from 'shared-lib/button/Button'
 import RowLayout from 'shared-lib/layout/RowLayout'
 import SimpleCard from 'shared-lib/layout/SimpleCard'
 import Space from 'shared-lib/layout/Space'
-import OrderStatus from '../../../../../../../web-client/src/constant/OrderStatus'
+import OrderStatus from 'shared-lib/constant/OrderStatus';
+import useShowRejectOrderDialog from '../../../../../hook/useShowRejectOrderDialog'
 
 const PendingReviewOrder = ({ doc, id }) => {
+  const showRejectOrderDialog = useShowRejectOrderDialog(id)
   const showSlipsDialog = useShowSlipsDialog(doc.paymentSlips)
   const totalPrice = React.useMemo(() => {
     return doc.cart.reduce((total, currentPrice) => {
@@ -24,6 +26,7 @@ const PendingReviewOrder = ({ doc, id }) => {
       <Space />
       <Button>view order</Button>
       <Button onClick={showSlipsDialog}>view slip</Button>
+      <Button onClick={showRejectOrderDialog} bg='red'>reject</Button>
       <Button onClick={confirm}>accept</Button>
     </RowLayout>
   </SimpleCard>

@@ -7,7 +7,7 @@ import { useSetState } from 'redux-wrapper/action';
 import FetchCollection from 'redux-wrapper/component/FetchCollection';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import ClientRoutes from '../../constant/ClientRoutes';
-import OrderStatus from '../../constant/OrderStatus';
+import OrderStatus from 'shared-lib/constant/OrderStatus';
 import IntroRoute from '../CommonRoute/IntroRoute';
 import AboutUsRoute from '../CommonRoute/AboutUsRoute';
 import ContactRoute from '../NonAuthRoute/ContactRoute';
@@ -19,10 +19,14 @@ import LoadingContent from './LoadingContent';
 import OrderRoute from './OrderRoute';
 import SettingRoute from './SettingRoute';
 import VerificationRoute from './VerificationRoute';
+import useOrdersArrayQuery from 'firebase-wrapper/firestore/query/useOrdersArrayQuery';
 
 const AuthRoute = props => {
   const { user, userDoc, addresses } = useGlobalState();
-  const pendingReviewOrdersQuery = useOrdersQuery(user.uid, OrderStatus.PENDING_REVIEW);
+  const reviewArray = React.useMemo(() => {
+    return [OrderStatus.PENDING_REVIEW, OrderStatus.REJECTED]
+  }, [])
+  const reviewOrdersQuery = useOrdersArrayQuery(user.uid, reviewArray);
   const acceptedOrdersQuery = useOrdersQuery(user.uid, OrderStatus.ACCEPTED);
   const deliveredOrdersQuery = useOrdersQuery(user.uid, OrderStatus.DELIVERED);
   const completedOrdersQuery = useOrdersQuery(user.uid, OrderStatus.COMPLETED);
@@ -41,7 +45,7 @@ const AuthRoute = props => {
   if (!(userDoc && addresses)) return <LoadingContent />;
   if (!user.emailVerified) return <VerificationRoute />;
   return <>
-    <FetchCollection collectionName='pendingReviewOrders' query={pendingReviewOrdersQuery} limit={5} />
+    <FetchCollection collectionName='pendingReviewOrders' query={reviewOrdersQuery} limit={5} />
     <FetchCollection collectionName='acceptedOrders' query={acceptedOrdersQuery} limit={5} />
     <FetchCollection collectionName='deliveredOrders' query={deliveredOrdersQuery} limit={5} />
     <FetchCollection collectionName='completedOrders' query={completedOrdersQuery} limit={5} />

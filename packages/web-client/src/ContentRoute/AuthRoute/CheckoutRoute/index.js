@@ -40,7 +40,7 @@ const CheckoutRoute = props => {
     <H1>Checkout</H1>
     <H2>Shopping Cart</H2>
     {(cart && cart.length > 0) ? cart.map((product, index) => {
-      return <ProductCartCard product={cartData[product.productId]} productId={product.productId} amount={product.amount} key={product.productId} index={index} />;
+      return <ProductCartCard product={cartData[product.productId]} amount={product.amount} key={product.productId} index={index} />;
     }) : <SimpleCard>Empty Cart</SimpleCard>}
     <SimpleCard>
       <H2>

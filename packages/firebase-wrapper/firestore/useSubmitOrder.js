@@ -4,7 +4,7 @@ import generateOrderId from 'shared-lib/util/generateOrderId';
 import resizeImage from 'shared-lib/util/resizeImage';
 import sourceToImage from 'shared-lib/util/sourceToImage';
 import { fs, increment, serverTimestamp, storage } from '..';
-import OrderStatus from '../../web-client/src/constant/OrderStatus';
+import OrderStatus from 'shared-lib/constant/OrderStatus';
 
 const useSubmitOrder = (uid) => {
   const { cart, cartData } = useGlobalState()

@@ -5,7 +5,7 @@ import Button from 'shared-lib/button/Button'
 import RowLayout from 'shared-lib/layout/RowLayout'
 import SimpleCard from 'shared-lib/layout/SimpleCard'
 import Space from 'shared-lib/layout/Space'
-import OrderStatus from '../../../../../../../web-client/src/constant/OrderStatus'
+import OrderStatus from 'shared-lib/constant/OrderStatus';
 
 const DeliveredOrderCard = ({ doc, id }) => {
   const updateOrderStatus = useUpdateOrderStatus(doc.uid, doc.id, OrderStatus.DELIVERED, OrderStatus.COMPLETED)

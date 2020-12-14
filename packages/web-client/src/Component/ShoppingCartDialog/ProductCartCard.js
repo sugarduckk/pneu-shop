@@ -17,11 +17,11 @@ import useDeleteFromCart from '../../hook/useDeleteFromCart';
 import useIncrementFromCart from '../../hook/useIncrementFromCart';
 import useSetCartAmount from '../../hook/useSetCartAmount';
 
-const ProductCartCard = ({ product, productId, amount, index }) => {
+const ProductCartCard = ({ product, amount, index }) => {
   const deleteFromCart = useDeleteFromCart(index);
-  const incrementFromCart = useIncrementFromCart(index);
+  const incrementFromCart = useIncrementFromCart(index, product.in_stock);
   const decrementFromCart = useDecrementFromCart(index);
-  const setCartAmount = useSetCartAmount(index);
+  const setCartAmount = useSetCartAmount(index, product.in_stock);
   const priceIndex = React.useMemo(() => {
     if (product && product.prices) {
       return product.prices.length - product.prices.slice().reverse().findIndex(p => p.threshold <= amount) - 1;

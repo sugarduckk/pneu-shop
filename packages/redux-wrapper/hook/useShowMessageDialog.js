@@ -23,10 +23,12 @@ const useShowMessageDialog = () => {
   const addDialog = useAddDialog();
   const updateDialog = useUpdateDialog();
   return React.useCallback((getMessage, loadingText, showDismiss = true) => {
-    addDialog(<>
-      <DialogLoading />
-      {loadingText && <CenterDiv>{loadingText}</CenterDiv>}
-    </>);
+    if (loadingText) {
+      addDialog(<>
+        <DialogLoading />
+        <CenterDiv>{loadingText}</CenterDiv>
+      </>);
+    }
     Promise.resolve(getMessage)
       .then(message => {
         updateDialog(<MessageDialog message={message} showDismiss={showDismiss} />);

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSetState } from 'redux-wrapper/action';
 import useShowCart from './useShowCart';
 
-const useAddToCart = productId => {
+const useAddToCart = (productId, max) => {
   const setState = useSetState();
   const showCart = useShowCart();
   return React.useCallback(() => {
@@ -12,7 +12,13 @@ const useAddToCart = productId => {
       var temp;
       if (index >= 0) {
         const newCart = [...preCart];
-        newCart[index].amount++;
+        if (newCart[index].amount >= max) {
+          newCart[index].amount = max;
+        }
+        else {
+          newCart[index].amount++;
+        }
+
         localStorage.setItem('cart', JSON.stringify(newCart));
         return {
           ...pre,
@@ -34,7 +40,7 @@ const useAddToCart = productId => {
       return temp;
     });
     showCart();
-  }, [productId, setState, showCart]);
+  }, [productId, setState, showCart, max]);
 };
 
 export default useAddToCart;

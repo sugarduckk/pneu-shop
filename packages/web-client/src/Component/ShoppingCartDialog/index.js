@@ -17,11 +17,12 @@ const ShoppingCartDialog = props => {
   const dismiss = useDismissDialog()
   const totalPrice = useTotalPrice()
   const checkout = useCheckout();
-  if (!cartData) return <DialogLoading />
+  if (cart.length > 0 && !cartData) return <DialogLoading />
   return <>
     <CardContainer>
       {(cart && cart.length > 0) ? cart.map((product, index) => {
-        return <ProductCartCard product={cartData[product.productId]} productId={product.productId} amount={product.amount} key={product.productId} index={index} />;
+        if (!cartData || !cartData[product.productId]) return <DialogLoading key={index} />
+        return <ProductCartCard product={cartData[product.productId]} amount={product.amount} key={product.productId} index={index} />;
       }) : <SimpleCard>Empty Cart</SimpleCard>}
     </CardContainer>
     <H2>{`Total: ${totalPrice} THB`}</H2>

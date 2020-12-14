@@ -1,6 +1,6 @@
 import React from 'react';
+import OrderStatus from 'shared-lib/constant/OrderStatus';
 import { fs } from '..';
-import OrderStatus from '../../web-client/src/constant/OrderStatus';
 
 const useDeleteOrder = (uid, orderId) => {
   return React.useCallback(() => {

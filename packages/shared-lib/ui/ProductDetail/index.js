@@ -15,7 +15,7 @@ const ProductDetail = ({ product }) => {
       ['Product ID', product.id],
       ['Category', product.category],
       ['Brand', product.brand],
-      ['In stock', product.in_stock],
+      ['In stock', product.in_stock > 0 ? product.in_stock : 0],
       ['Details', product.details],
       ['Prices', <ProductPrices key='prices' prices={product.prices} />]
     ];

@@ -7,6 +7,7 @@ const AdminRoutes = {
   INTERFACE: '/interface',
   ORDER: '/order',
   ORDER_PENDING_REVIEW: '/order/pendingReview',
+  ORDER_REJECTED: '/order/rejected',
   ORDER_ACCEPTED: '/order/accepted',
   ORDER_DELIVERED: '/order/delivered',
   ORDER_COMPLETED: '/order/completed',

@@ -7,7 +7,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { useSetState } from 'redux-wrapper/action';
 import FetchCollection from 'redux-wrapper/component/FetchCollection';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
-import OrderStatus from '../../../../web-client/src/constant/OrderStatus';
+import OrderStatus from 'shared-lib/constant/OrderStatus';
 import LoadingContent from '../../../../web-client/src/ContentRoute/AuthRoute/LoadingContent';
 import AdminRoutes from '../../constant/AdminRoutes';
 import BrandRoute from './BrandRoute';
@@ -24,6 +24,7 @@ const AuthRoute = props => {
   const rolesQuery = useRolesQuery();
   const pendingReviewOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.PENDING_REVIEW);
   const acceptedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.ACCEPTED);
+  const rejectedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.REJECTED)
   const deliveredOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.DELIVERED);
   const completedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.COMPLETED);
   const deletedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.DELETED);
@@ -58,6 +59,7 @@ const AuthRoute = props => {
     <FetchCollection collectionName='roles' query={rolesQuery} limit={5} />
     <FetchCollection collectionName='pendingReviewOrders' query={pendingReviewOrderQuery} limit={5} />
     <FetchCollection collectionName='acceptedOrders' query={acceptedOrderQuery} limit={5} />
+    <FetchCollection collectionName='rejectedOrders' query={rejectedOrderQuery} limit={5} />
     <FetchCollection collectionName='deliveredOrders' query={deliveredOrderQuery} limit={5} />
     <FetchCollection collectionName='completedOrders' query={completedOrderQuery} limit={5} />
     <FetchCollection collectionName='deletedOrders' query={deletedOrderQuery} limit={5} />

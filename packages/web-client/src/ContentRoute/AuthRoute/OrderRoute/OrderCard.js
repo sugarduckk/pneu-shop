@@ -3,12 +3,14 @@ import Button from 'shared-lib/button/Button';
 import RowLayout from 'shared-lib/layout/RowLayout';
 import SimpleCard from 'shared-lib/layout/SimpleCard';
 import Space from 'shared-lib/layout/Space';
-import OrderStatus from '../../../constant/OrderStatus';
+import OrderStatus from 'shared-lib/constant/OrderStatus';
 import useDeleteOrderForever from './useDeleteOrderForever';
 import useDeletePendingReviewOrder from './useDeletePendingReviewOrder';
+import useDeleteRejectedOrder from './useDeleteRejectedOrder';
 
 const OrderCard = ({ doc, id }) => {
   const deletePendingReviewOrder = useDeletePendingReviewOrder(id);
+  const deletedRejectedOrder = useDeleteRejectedOrder(id)
   const deleteOrderForever = useDeleteOrderForever(id);
   return <SimpleCard>
     <div>
@@ -21,6 +23,10 @@ const OrderCard = ({ doc, id }) => {
     <RowLayout>
       <Space />
       {doc.status === OrderStatus.PENDING_REVIEW && <Button onClick={deletePendingReviewOrder} bg='red'>delete</Button>}
+      {doc.status === OrderStatus.REJECTED && <>
+        <Button>Apply for refund</Button>
+        <Button bg='red' onClick={deletedRejectedOrder}>Delete without refund</Button>
+      </>}
       {doc.status === OrderStatus.DELETED && <Button onClick={deleteOrderForever} bg='red'>delete forever</Button>}
     </RowLayout>
   </SimpleCard>;
