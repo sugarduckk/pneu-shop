@@ -8,7 +8,7 @@ import Space from 'shared-lib/layout/Space'
 import OrderStatus from 'shared-lib/constant/OrderStatus';
 
 const DeliveredOrderCard = ({ doc, id }) => {
-  const updateOrderStatus = useUpdateOrderStatus(doc.uid, doc.id, OrderStatus.DELIVERED, OrderStatus.COMPLETED)
+  const updateOrderStatus = useUpdateOrderStatus(doc.uid, doc.id, OrderStatus.DELIVERED.value, OrderStatus.COMPLETED.value)
   const confirm = useConfirm(updateOrderStatus, 'Are you sure that this order is completed?', 'Updated to completed!')
   return <SimpleCard>
     <div>

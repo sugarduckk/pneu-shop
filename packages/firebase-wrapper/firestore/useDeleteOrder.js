@@ -11,7 +11,7 @@ const useDeleteOrder = (uid, orderId) => {
           if (!docRef.exists) {
             throw Error('Order does not exist !');
           }
-          if (docRef.data().status !== OrderStatus.DELETED) {
+          if (docRef.data().status !== OrderStatus.DELETED.value) {
             throw Error('Order is not deleted !');
           }
           else {

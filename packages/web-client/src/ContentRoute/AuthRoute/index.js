@@ -20,17 +20,21 @@ import OrderRoute from './OrderRoute';
 import SettingRoute from './SettingRoute';
 import VerificationRoute from './VerificationRoute';
 import useOrdersArrayQuery from 'firebase-wrapper/firestore/query/useOrdersArrayQuery';
+import RefundRoute from './RefundRoute';
 
 const AuthRoute = props => {
   const { user, userDoc, addresses } = useGlobalState();
   const reviewArray = React.useMemo(() => {
-    return [OrderStatus.PENDING_REVIEW, OrderStatus.REJECTED]
+    return [OrderStatus.PENDING_REVIEW.value, OrderStatus.REJECTED.value]
   }, [])
   const reviewOrdersQuery = useOrdersArrayQuery(user.uid, reviewArray);
-  const acceptedOrdersQuery = useOrdersQuery(user.uid, OrderStatus.ACCEPTED);
-  const deliveredOrdersQuery = useOrdersQuery(user.uid, OrderStatus.DELIVERED);
-  const completedOrdersQuery = useOrdersQuery(user.uid, OrderStatus.COMPLETED);
-  const deletedOrdersQuery = useOrdersQuery(user.uid, OrderStatus.DELETED);
+  const acceptedOrdersQuery = useOrdersQuery(user.uid, OrderStatus.ACCEPTED.value);
+  const deliveredOrdersQuery = useOrdersQuery(user.uid, OrderStatus.DELIVERED.value);
+  const completedOrdersQuery = useOrdersQuery(user.uid, OrderStatus.COMPLETED.value);
+  const deletedOrdersQuery = useOrdersQuery(user.uid, OrderStatus.DELETED.value);
+  const pendingRefundOrdersQuery = useOrdersQuery(user.uid, OrderStatus.PENDING_REFUND.value);
+  const refundedOrdersQuery = useOrdersQuery(user.uid, OrderStatus.REFUNDED.value);
+  const refundRejectedOrdersQuery = useOrdersQuery(user.uid, OrderStatus.REFUND_REJECTED.value);
   const setState = useSetState();
   const handleUserDoc = React.useCallback(userDoc => {
     setState({ userDoc });
@@ -50,12 +54,18 @@ const AuthRoute = props => {
     <FetchCollection collectionName='deliveredOrders' query={deliveredOrdersQuery} limit={5} />
     <FetchCollection collectionName='completedOrders' query={completedOrdersQuery} limit={5} />
     <FetchCollection collectionName='deletedOrders' query={deletedOrdersQuery} limit={5} />
+    <FetchCollection collectionName='pendingRefundOrders' query={pendingRefundOrdersQuery} limit={5} />
+    <FetchCollection collectionName='refundedOrders' query={refundedOrdersQuery} limit={5} />
+    <FetchCollection collectionName='refundRejectedOrders' query={refundRejectedOrdersQuery} limit={5} />
     <Switch>
       <Route exact path={ClientRoutes.HOME}>
         <IntroRoute />
       </Route>
       <Route exact path={`${ClientRoutes.ORDER}/:orderStatus`}>
         <OrderRoute />
+      </Route>
+      <Route exact path={`${ClientRoutes.REFUND}/:refundStatus`}>
+        <RefundRoute />
       </Route>
       <Route exact path={ClientRoutes.ADDRESS}>
         <AddressRoute />

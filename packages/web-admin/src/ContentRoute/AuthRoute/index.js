@@ -22,12 +22,15 @@ import UserRoute from './UserRoute';
 const AuthRoute = props => {
   const { cats, brands, config } = useGlobalState();
   const rolesQuery = useRolesQuery();
-  const pendingReviewOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.PENDING_REVIEW);
-  const acceptedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.ACCEPTED);
-  const rejectedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.REJECTED)
-  const deliveredOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.DELIVERED);
-  const completedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.COMPLETED);
-  const deletedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.DELETED);
+  const pendingReviewOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.PENDING_REVIEW.value);
+  const acceptedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.ACCEPTED.value);
+  const rejectedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.REJECTED.value)
+  const deliveredOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.DELIVERED.value);
+  const completedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.COMPLETED.value);
+  const deletedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.DELETED.value);
+  const pendingRefundOrdersQuery = useOrdersCollectionGroupQuery(OrderStatus.PENDING_REFUND.value);
+  const refundedOrdersQuery = useOrdersCollectionGroupQuery(OrderStatus.REFUNDED.value);
+  const refundRejectedOrdersQuery = useOrdersCollectionGroupQuery(OrderStatus.REFUND_REJECTED.value);
   const setState = useSetState();
   // fetch categories
   const handleCats = React.useCallback(docs => {
@@ -63,6 +66,9 @@ const AuthRoute = props => {
     <FetchCollection collectionName='deliveredOrders' query={deliveredOrderQuery} limit={5} />
     <FetchCollection collectionName='completedOrders' query={completedOrderQuery} limit={5} />
     <FetchCollection collectionName='deletedOrders' query={deletedOrderQuery} limit={5} />
+    <FetchCollection collectionName='pendingRefundOrders' query={pendingRefundOrdersQuery} limit={5} />
+    <FetchCollection collectionName='refundedOrders' query={refundedOrdersQuery} limit={5} />
+    <FetchCollection collectionName='refundRejectedOrders' query={refundRejectedOrdersQuery} limit={5} />
     <Switch>
       <Route exact path='/'>
         <DashboardRoute />

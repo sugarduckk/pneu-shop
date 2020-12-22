@@ -42,6 +42,7 @@ const MenuRoute = () => {
   }, [dismissDialog, gotoBrands, location.pathname]);
   const gotoHome = useGoto(ClientRoutes.HOME);
   const gotoOrder = useGoto(ClientRoutes.ORDER_PENDING_REVIEW);
+  const gotoRefund = useGoto(ClientRoutes.PENDING_REFUND);
   const gotoAboutUs = useGoto(ClientRoutes.ABOUTUS);
   const gotoContact = useGoto(ClientRoutes.CONTACT);
   const gotoAddress = useGoto(ClientRoutes.ADDRESS);
@@ -51,10 +52,16 @@ const MenuRoute = () => {
       dismissDialog();
     }} icon={<HomeIcon />}>Home</Button>
     <Button onClick={showSearchProduct} icon={<SearchIcon />}>Search</Button>
-    {user && <Button icon={<UserIcon />} onClick={() => {
-      gotoOrder();
-      dismissDialog();
-    }} >My Orders</Button>}
+    {user && <>
+      <Button icon={<UserIcon />} onClick={() => {
+        gotoOrder();
+        dismissDialog();
+      }} >My Orders</Button>
+      <Button onClick={() => {
+        gotoRefund();
+        dismissDialog();
+      }} >Refund</Button>
+    </>}
     <Button onClick={onCatsClick}>Categories</Button>
     <Button onClick={onBrandsClick}>Brands</Button>
     <Button onClick={() => {

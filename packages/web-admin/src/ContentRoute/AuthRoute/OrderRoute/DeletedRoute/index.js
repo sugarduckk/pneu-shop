@@ -5,7 +5,7 @@ import DeletedOrderCard from './DeletedOrderCard';
 
 const DeletedRoute = props => {
   return <>
-    <H1>Accepted Orders</H1>
+    <H1>Deleted Orders</H1>
     <PaginationScreen Card={DeletedOrderCard} collectionName='deletedOrders' limit={5} />
   </>;
 };

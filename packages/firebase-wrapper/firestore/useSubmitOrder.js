@@ -5,6 +5,7 @@ import resizeImage from 'shared-lib/util/resizeImage';
 import sourceToImage from 'shared-lib/util/sourceToImage';
 import { fs, increment, serverTimestamp, storage } from '..';
 import OrderStatus from 'shared-lib/constant/OrderStatus';
+import getUnitPrice from 'shared-lib/util/getUnitPrice';
 
 const useSubmitOrder = (uid) => {
   const { cart, cartData } = useGlobalState()
@@ -12,13 +13,12 @@ const useSubmitOrder = (uid) => {
     if (cart) {
       return cart.map(item => {
         const { amount, productId } = item
-        const prices = cartData[productId].prices
-        const priceIndex = prices.length - prices.slice().reverse().findIndex(p => p.threshold <= amount) - 1;
+        const unitPrice = getUnitPrice(cartData[productId].prices, amount)
         return {
           productId,
           productName: cartData[productId].name,
           quantity: amount,
-          unitPrice: prices[priceIndex].price
+          unitPrice
         }
       })
     }
@@ -27,6 +27,8 @@ const useSubmitOrder = (uid) => {
   return React.useCallback(async ({ paymentSlips, ...others }) => {
     const ordersRef = fs.collection('users').doc(uid).collection('orders');
     const orderId = generateOrderId();
+    const orderRef = ordersRef.doc(orderId)
+    const historyRef = orderRef.collection('history')
     const slipStorageRef = storage.ref(`paymentSlips/${orderId}`);
     const imgs = await Promise.all(paymentSlips.map(file => {
       return sourceToImage(file.src);
@@ -40,24 +42,34 @@ const useSubmitOrder = (uid) => {
       downloadUrlPromises.push(snapshot.ref.getDownloadURL());
     });
     const downloadUrls = await Promise.all(downloadUrlPromises);
+    const uploadedPaymentSlips = downloadUrls.map((src, srcIndex) => {
+      return {
+        src,
+        name: paymentSlips[srcIndex].name
+      };
+    })
     const batch = fs.batch();
-    batch.set(ordersRef.doc(orderId), {
+    batch.set(orderRef, {
       id: orderId,
       uid,
       cart: cartRef,
       ...others,
-      paymentSlips: downloadUrls.map((src, srcIndex) => {
-        return {
-          src,
-          name: paymentSlips[srcIndex].name
-        };
-      }),
+      paymentSlips: uploadedPaymentSlips,
       timestamp: serverTimestamp,
-      status: OrderStatus.PENDING_REVIEW
+      status: OrderStatus.PENDING_REVIEW.value
     });
+    batch.set(historyRef.doc(), {
+      status: OrderStatus.PENDING_REVIEW.value,
+      timestamp: serverTimestamp
+    })
     batch.update(fs.collection('users').doc(uid), {
       nPendingReviewOrders: increment(1)
     });
+    cartRef.forEach(product => {
+      batch.update(fs.collection('products').doc(product.productId), {
+        in_stock: increment(-1 * product.quantity)
+      })
+    })
     return batch.commit();
   }, [cartRef, uid]);
 };

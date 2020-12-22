@@ -13,15 +13,17 @@ const useAddBrand = () => {
         throw Error('Brand exists');
       }
       transaction.set(brandRef, {
-        value, label, logo: '', amount: 0
+        value, label, amount: 0
       });
     });
     const image = await sourceToImage(logo.src);
     const resizedImage = resizeImage(image, 512, 512, 0.7);
     const snapshot = await storage.ref(`brands/${value}`).child('logo.jpeg').putString(resizedImage, 'data_url');
     const downloadUrl = await snapshot.ref.getDownloadURL();
-    return brandRef.update({
+    return brandRef.set({
       logo: downloadUrl
+    }, {
+      merge: true
     });
   }, []);
 };

@@ -17,7 +17,7 @@ const PendingReviewOrder = ({ doc, id }) => {
       return total + currentPrice.quantity * currentPrice.unitPrice
     }, 0)
   }, [doc])
-  const updateOrderStatus = useUpdateOrderStatus(doc.uid, doc.id, OrderStatus.PENDING_REVIEW, OrderStatus.ACCEPTED)
+  const updateOrderStatus = useUpdateOrderStatus(doc.uid, doc.id, OrderStatus.PENDING_REVIEW.value, OrderStatus.ACCEPTED.value)
   const confirm = useConfirm(updateOrderStatus, 'Are you sure to accept?', 'Order accepted!')
   return <SimpleCard>
     <div>{doc.id}</div>

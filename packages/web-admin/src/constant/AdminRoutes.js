@@ -12,6 +12,9 @@ const AdminRoutes = {
   ORDER_DELIVERED: '/order/delivered',
   ORDER_COMPLETED: '/order/completed',
   ORDER_DELETED: '/order/deleted',
+  ORDER_PENDING_REFUND: '/order/pendingRefund',
+  ORDER_REFUNDED: '/order/refunded',
+  ORDER_REFUND_REJECTED: '/order/refundRejected',
 };
 
 export default AdminRoutes;

@@ -1,11 +1,9 @@
-import { isFunction, isArray } from 'lodash/lang';
-import OrderStatus from 'shared-lib/constant/OrderStatus';
+import { isArray, isFunction } from 'lodash/lang';
 import ActionType from './ActionType';
 
 const defaultState = {
   dialogs: [],
   cart: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [],
-  currentOrderStatus: OrderStatus.PENDING_REVIEW
 };
 
 const global = (state = defaultState, action) => {

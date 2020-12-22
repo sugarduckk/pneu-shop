@@ -14,6 +14,10 @@ const ClientRoutes = {
   ORDER_DELIVERED: '/order/delivered',
   ORDER_COMPLETED: '/order/completed',
   ORDER_DELETED: '/order/deleted',
+  REFUND: '/refund',
+  PENDING_REFUND: '/refund/pendingRefund',
+  REFUND_REFUNDED: '/refund/refunded',
+  REFUND_REJECTED: '/refund/refundRejected',
   ADDRESS: '/address',
   CHECKOUT: '/checkout'
 };

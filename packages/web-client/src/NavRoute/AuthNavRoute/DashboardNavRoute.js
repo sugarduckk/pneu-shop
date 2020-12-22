@@ -11,14 +11,14 @@ import useShowMenuDialog from '../../hook/useShowMenuDialog';
 
 const DashboardNavRoute = props => {
   const showMenuDialog = useShowMenuDialog();
-  const gotoProfile = useGoto(ClientRoutes.ORDER_PENDING_REVIEW);
+  const gotoOrder = useGoto(ClientRoutes.ORDER_PENDING_REVIEW);
   const showCart = useShowCart();
   return <>
     <IconContainer onClick={showMenuDialog}>
       <MenuIcon />
     </IconContainer>
     <Space />
-    <IconContainer onClick={gotoProfile}>
+    <IconContainer onClick={gotoOrder}>
       <UserIcon />
     </IconContainer>
     <IconContainer onClick={showCart}>
