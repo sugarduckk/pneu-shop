@@ -1,12 +1,7 @@
 import { isArray, isFunction } from 'lodash/lang';
 import ActionType from './ActionType';
 
-const defaultState = {
-  dialogs: [],
-  cart: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [],
-};
-
-const global = (state = defaultState, action) => {
+const global = (state, action) => {
   switch (action.type) {
     case ActionType.SET_STATE: {
       if (isFunction(action.state)) {
@@ -72,5 +67,23 @@ const global = (state = defaultState, action) => {
     }
   }
 };
+
+const defaultClientState = {
+  dialogs: [],
+  cart: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [],
+  lang: localStorage.getItem('lang') ? localStorage.getItem('lang') : 'th'
+};
+
+export const clientGlobal = (state = defaultClientState, action) => {
+  return global(state, action)
+}
+
+const defaultAdminState = {
+  dialogs: []
+}
+
+export const adminGlobal = (state = defaultAdminState, action) => {
+  return global(state, action)
+}
 
 export default global;

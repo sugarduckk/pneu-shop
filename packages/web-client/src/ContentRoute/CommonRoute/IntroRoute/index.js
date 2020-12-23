@@ -17,11 +17,13 @@ import SquareLayout from 'shared-lib/layout/SquareLayout';
 import Carousel from 'shared-lib/ui/Carousel';
 import FeaturedProductCard from 'shared-lib/ui/FeaturedProductCard';
 import ClientRoutes from '../../../constant/ClientRoutes';
+import useClientString from '../../../hook/useClientString';
 import useShowSearchProduct from '../../NonAuthRoute/useShowSearchProduct';
 import ClientBrandCard from './ClientBrandCard';
 import ClientCatCard from './ClientCatCard';
 
 const IntroRoute = props => {
+  const S = useClientString()
   const history = useHistory();
   const theme = useTheme();
   const { cats, brands, config } = useGlobalState();
@@ -49,14 +51,16 @@ const IntroRoute = props => {
         <MarginCard>
           <PneuShop fill={theme.color.contrast} />
         </MarginCard>
-        <Para>One stop hub for pneumatic products</Para>
-        <Button icon={<SearchIcon fill={theme.color.primary} />} onClick={showSearchProduct} bg={theme.color.background} color={theme.color.primary}>search product</Button>
+        <Para>{S.SLOGAN}</Para>
+        <Button icon={<SearchIcon fill={theme.color.primary} />} onClick={showSearchProduct} bg={theme.color.background} color={theme.color.primary}>
+          {S.SEARCH_PRODUCT}
+        </Button>
       </SimpleCard>
     </CardContainer>
     <CardContainer>
 
     </CardContainer>
-    <H2>Featured Products</H2>
+    <H2>{S.FEATURED_PRODUCT}</H2>
     <MarginCard>
       <SquareLayout ratio={4 / 3} desktopRatio={2}>
         <Carousel data={config && config.interface && config.interface.mainCarousel} Card={FeaturedProductCard} onClick={onCarouselClick} />
