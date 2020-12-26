@@ -5,25 +5,18 @@ import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import useShowConfirmDialog from 'redux-wrapper/hook/useShowConfirmDialog';
 import { MessageDialog } from 'redux-wrapper/hook/useShowMessageDialog';
 import Button from 'shared-lib/button/Button';
+import DialogButton from 'shared-lib/button/DialogButton';
 import CardContainer from 'shared-lib/layout/CardContainer';
 import RowLayout from 'shared-lib/layout/RowLayout';
 import SimpleCard from 'shared-lib/layout/SimpleCard';
 import Space from 'shared-lib/layout/Space';
-import KeyValueTable from 'shared-lib/ui/KeyValueTable';
 import errorToMessage from 'shared-lib/util/errorToMessage';
+import useClientString from '../../../../hook/useClientString';
+import Address from './Address';
 
 const AddressCard = ({ address }) => {
+  const S = useClientString();
   const { user } = useGlobalState();
-  const data = React.useMemo(() => {
-    const { address: add, tambon, district, province, post_code } = address;
-    return [
-      ['ที่อยู่', add],
-      ['แขวง/ตำบล', tambon],
-      ['เขต/อำเภอ', district],
-      ['จังหวัด', province],
-      ['เลขไปรษณีย์', post_code]
-    ];
-  }, [address]);
   const deleteAddress = useDeleteAddress(user.uid, address.id);
   const updateDialog = useUpdateDialog();
   const onConfirm = React.useCallback(() => {
@@ -43,10 +36,12 @@ const AddressCard = ({ address }) => {
   }, [showConfirmDialog]);
   return <CardContainer>
     <SimpleCard>
-      <KeyValueTable data={data} />
+      <Address address={address} />
       <RowLayout>
         <Space />
-        <Button onClick={onDeleteClick} bg='red'>remove</Button>
+        <DialogButton onClick={onDeleteClick} bg='red'>
+          {S.REMOVE}
+        </DialogButton>
       </RowLayout>
     </SimpleCard>
   </CardContainer>;

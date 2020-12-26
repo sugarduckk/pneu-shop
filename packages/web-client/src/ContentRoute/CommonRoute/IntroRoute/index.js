@@ -13,7 +13,6 @@ import CardContainer from 'shared-lib/layout/CardContainer';
 import GridLayout from 'shared-lib/layout/GridLayout';
 import MarginCard from 'shared-lib/layout/MarginCard';
 import SimpleCard from 'shared-lib/layout/SimpleCard';
-import SquareLayout from 'shared-lib/layout/SquareLayout';
 import Carousel from 'shared-lib/ui/Carousel';
 import FeaturedProductCard from 'shared-lib/ui/FeaturedProductCard';
 import ClientRoutes from '../../../constant/ClientRoutes';
@@ -23,7 +22,7 @@ import ClientBrandCard from './ClientBrandCard';
 import ClientCatCard from './ClientCatCard';
 
 const IntroRoute = props => {
-  const S = useClientString()
+  const S = useClientString();
   const history = useHistory();
   const theme = useTheme();
   const { cats, brands, config } = useGlobalState();
@@ -62,11 +61,9 @@ const IntroRoute = props => {
     </CardContainer>
     <H2>{S.FEATURED_PRODUCT}</H2>
     <MarginCard>
-      <SquareLayout ratio={4 / 3} desktopRatio={2}>
-        <Carousel data={config && config.interface && config.interface.mainCarousel} Card={FeaturedProductCard} onClick={onCarouselClick} />
-      </SquareLayout>
+      <Carousel ratio={4 / 3} desktopRatio={2} data={config && config.interface && config.interface.mainCarousel} Card={FeaturedProductCard} onClick={onCarouselClick} />
     </MarginCard>
-    <H2 ref={catsRef} id='category_header'>Product Categories</H2>
+    <H2 ref={catsRef} id='category_header'>{S.CATEGORIES}</H2>
     <CardContainer>
       <GridLayout>
         {cats.map(cat => {
@@ -74,7 +71,7 @@ const IntroRoute = props => {
         })}
       </GridLayout>
     </CardContainer>
-    <H2 ref={brandRef} id='brand_header'>Brands</H2>
+    <H2 ref={brandRef} id='brand_header'>{S.BRANDS}</H2>
     <CardContainer>
       <GridLayout>
         {brands.map(brand => {

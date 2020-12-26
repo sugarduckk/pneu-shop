@@ -17,10 +17,14 @@ const IconContainer = styled.div`
   vertical-align: middle;
 `;
 
+const Span = styled.span`
+  white-space: pre;
+`;
+
 const BottomTab = ({ children, icon, ...otherProps }) => {
   return <BottomTabButton {...otherProps}>
     {icon && <IconContainer>{icon}</IconContainer>}
-    <span>{children}</span>
+    <Span>{children}</Span>
   </BottomTabButton>;
 };
 

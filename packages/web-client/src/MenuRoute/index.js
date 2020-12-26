@@ -2,18 +2,25 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDismissDialog } from 'redux-wrapper/action';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
+import useShowChangeLanguageDialog from 'redux-wrapper/hook/useShowChangeLanguageDialog';
 import Button from 'shared-lib/button/Button';
 import HomeIcon from 'shared-lib/icon/HomeIcon';
+import InfoIcon from 'shared-lib/icon/InfoIcon';
 import PhoneIcon from 'shared-lib/icon/PhoneIcon';
+import PinIcon from 'shared-lib/icon/PinIcon';
 import SearchIcon from 'shared-lib/icon/SearchIcon';
+import ShapesIcon from 'shared-lib/icon/ShapesIcon';
+import TagIcon from 'shared-lib/icon/TagIcon';
 import UserIcon from 'shared-lib/icon/UserIcon';
 import MenuLayout from 'shared-lib/layout/MenuLayout';
 import ClientRoutes from '../constant/ClientRoutes';
 import useShowSearchProduct from '../ContentRoute/NonAuthRoute/useShowSearchProduct';
+import useClientString from '../hook/useClientString';
 import useGoto from '../hook/useGoto';
 import SettingButton from './SettingButton';
 
 const MenuRoute = () => {
+  const S = useClientString();
   const { user } = useGlobalState();
   const location = useLocation();
   const dismissDialog = useDismissDialog();
@@ -46,38 +53,54 @@ const MenuRoute = () => {
   const gotoAboutUs = useGoto(ClientRoutes.ABOUTUS);
   const gotoContact = useGoto(ClientRoutes.CONTACT);
   const gotoAddress = useGoto(ClientRoutes.ADDRESS);
+  const showChangeLanguage = useShowChangeLanguageDialog();
   return <MenuLayout>
     <Button onClick={() => {
       gotoHome();
       dismissDialog();
-    }} icon={<HomeIcon />}>Home</Button>
-    <Button onClick={showSearchProduct} icon={<SearchIcon />}>Search</Button>
+    }} icon={<HomeIcon />}>{S.MENU_HOME}</Button>
+    <Button onClick={showSearchProduct} icon={<SearchIcon />}>{S.MENU_SEARCH}</Button>
     {user && <>
       <Button icon={<UserIcon />} onClick={() => {
         gotoOrder();
         dismissDialog();
-      }} >My Orders</Button>
+      }} >{S.MENU_ORDER}</Button>
       <Button onClick={() => {
         gotoRefund();
         dismissDialog();
-      }} >Refund</Button>
+      }} >{S.MENU_REFUND}</Button>
     </>}
-    <Button onClick={onCatsClick}>Categories</Button>
-    <Button onClick={onBrandsClick}>Brands</Button>
-    <Button onClick={() => {
+    <Button icon={<ShapesIcon />} onClick={onCatsClick}>
+      {S.MENU_CAT}
+    </Button>
+    <Button icon={<TagIcon />} onClick={onBrandsClick}>
+      {S.MENU_BRAND}
+    </Button>
+    <Button icon={<InfoIcon />} onClick={() => {
       gotoAboutUs();
       dismissDialog();
-    }}>About Us</Button>
+    }}>
+      {S.MENU_ABOUT}
+    </Button>
     <Button icon={<PhoneIcon />}
       onClick={() => {
         gotoContact();
         dismissDialog();
-      }}>Contact</Button>
-    {user && <SettingButton />}
-    <Button onClick={() => {
-      gotoAddress()
-      dismissDialog()
-    }}>Address</Button>
+      }}>
+      {S.MENU_CONTACT}
+    </Button>
+    {user && <>
+      <SettingButton />
+      <Button icon={<PinIcon />} onClick={() => {
+        gotoAddress();
+        dismissDialog();
+      }}>
+        {S.MENU_ADDRESS}
+      </Button>
+    </>}
+    <Button onClick={showChangeLanguage}>
+      {S.MENU_LANGUAGE}
+    </Button>
     <Button bg='red' onClick={dismissDialog}>dismiss</Button>
   </MenuLayout>;
 };

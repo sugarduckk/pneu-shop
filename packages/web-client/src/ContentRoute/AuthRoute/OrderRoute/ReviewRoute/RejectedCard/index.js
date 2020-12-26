@@ -1,22 +1,25 @@
-import React from 'react'
-import Button from 'shared-lib/button/Button'
-import RowLayout from 'shared-lib/layout/RowLayout'
-import SimpleCard from 'shared-lib/layout/SimpleCard'
-import Space from 'shared-lib/layout/Space'
-import useApplyRefund from './useApplyRefund'
-import useDeleteRejectedOrder from './useDeleteRejectedOrder'
+import React from 'react';
+import DialogButton from 'shared-lib/button/DialogButton';
+import RowLayout from 'shared-lib/layout/RowLayout';
+import SimpleCard from 'shared-lib/layout/SimpleCard';
+import Space from 'shared-lib/layout/Space';
+import OrderPreview from '../../../../../Component/OrderPreview';
+import useClientString from '../../../../../hook/useClientString';
+import useApplyRefund from './useApplyRefund';
+import useDeleteRejectedOrder from './useDeleteRejectedOrder';
 
 const RejectedCard = ({ doc, id }) => {
-  const applyRefund = useApplyRefund(id)
-  const deletedRejectedOrder = useDeleteRejectedOrder(id)
+  const S = useClientString();
+  const applyRefund = useApplyRefund(id);
+  const deletedRejectedOrder = useDeleteRejectedOrder(id);
   return <SimpleCard>
-    <div>{id}</div>
+    <OrderPreview order={doc} />
     <RowLayout>
       <Space />
-      <Button onClick={applyRefund}>Apply for refund</Button>
-      <Button bg='red' onClick={deletedRejectedOrder}>Delete without refund</Button>
+      <DialogButton bg='red' onClick={deletedRejectedOrder}>{S.DELETE_WITHOUT_REFUND}</DialogButton>
+      <DialogButton onClick={applyRefund}>{S.APPLY_FOR_REFUND}</DialogButton>
     </RowLayout>
-  </SimpleCard>
-}
+  </SimpleCard>;
+};
 
-export default RejectedCard
+export default RejectedCard;

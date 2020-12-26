@@ -13,8 +13,10 @@ import SearchIcon from 'shared-lib/icon/SearchIcon';
 import CardContainer from 'shared-lib/layout/CardContainer';
 import Space from 'shared-lib/layout/Space';
 import ClientRoutes from '../../constant/ClientRoutes';
+import useClientString from '../../hook/useClientString';
 
 const SearchProductDialog = props => {
+  const S = useClientString();
   const history = useHistory();
   const { brands, cats } = useGlobalState();
   const dismissDialog = useDismissDialog();
@@ -32,14 +34,18 @@ const SearchProductDialog = props => {
   }, handleSubmit);
   return <Form onSubmit={onSubmit}>
     <Fieldset disabled={disabled}>
-      <TextInput {...form('query')} label='keyword' />
-      <Dropdown {...form('cat')} label='category' options={extendedCats} />
-      <Dropdown {...form('brand')} label='brand' options={extendedBrands} />
+      <TextInput {...form('query')} label={S.KEYWORD} />
+      <Dropdown {...form('cat')} label={S.CATEGORY} options={extendedCats} />
+      <Dropdown {...form('brand')} label={S.BRAND} options={extendedBrands} />
     </Fieldset>
     <CardContainer row={true}>
       <Space />
-      <Button type='button' bg='red' onClick={dismissDialog}>dismiss</Button>
-      <Button icon={<SearchIcon />} disabled={disabled} loading={disabled}>search</Button>
+      <Button type='button' bg='red' onClick={dismissDialog}>
+        {S.DISMISS}
+      </Button>
+      <Button icon={<SearchIcon />} disabled={disabled} loading={disabled}>
+        {S.SEARCH}
+      </Button>
     </CardContainer>
   </Form>;
 };

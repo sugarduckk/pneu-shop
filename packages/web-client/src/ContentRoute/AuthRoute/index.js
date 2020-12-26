@@ -21,12 +21,13 @@ import SettingRoute from './SettingRoute';
 import VerificationRoute from './VerificationRoute';
 import useOrdersArrayQuery from 'firebase-wrapper/firestore/query/useOrdersArrayQuery';
 import RefundRoute from './RefundRoute';
+import OrderDetailRoute from './OrderDetailRoute';
 
 const AuthRoute = props => {
   const { user, userDoc, addresses } = useGlobalState();
   const reviewArray = React.useMemo(() => {
-    return [OrderStatus.PENDING_REVIEW.value, OrderStatus.REJECTED.value]
-  }, [])
+    return [OrderStatus.PENDING_REVIEW.value, OrderStatus.REJECTED.value];
+  }, []);
   const reviewOrdersQuery = useOrdersArrayQuery(user.uid, reviewArray);
   const acceptedOrdersQuery = useOrdersQuery(user.uid, OrderStatus.ACCEPTED.value);
   const deliveredOrdersQuery = useOrdersQuery(user.uid, OrderStatus.DELIVERED.value);
@@ -63,6 +64,9 @@ const AuthRoute = props => {
       </Route>
       <Route exact path={`${ClientRoutes.ORDER}/:orderStatus`}>
         <OrderRoute />
+      </Route>
+      <Route exact path={`${ClientRoutes.ORDER_DETAIL}/:orderId`}>
+        <OrderDetailRoute />
       </Route>
       <Route exact path={`${ClientRoutes.REFUND}/:refundStatus`}>
         <RefundRoute />

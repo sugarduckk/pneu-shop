@@ -1,16 +1,17 @@
 const DefaultTheme = {
   color: {
-    //primary: '#06B2BB',
     primary: '#002060',
     errorMessage: 'red',
     contrast: '#FFC000',
     background: '#EEEEEE',
-    //background: '#FFC000',
-    //primaryText: '#606060',
     primaryText: '#002060',
     paraText: 'white'
   },
   dim: {
+    general: {
+      margin: 5,
+      padding: 5
+    },
     nav: {
       height: 60
     },

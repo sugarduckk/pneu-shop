@@ -26,7 +26,7 @@ const ProductCartCard = ({ product, amount, index }) => {
     if (product && product.prices) {
       return product.prices.length - product.prices.slice().reverse().findIndex(p => p.threshold <= amount) - 1;
     }
-  }, [amount, product])
+  }, [amount, product]);
   const price = React.useMemo(() => {
     if (amount === 0) {
       return 0;

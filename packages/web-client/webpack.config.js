@@ -1,9 +1,9 @@
-const path = require('path')
+const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const Dotenv = require('dotenv-webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const WebpackPwaManifest = require('webpack-pwa-manifest')
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 var config = {
@@ -59,11 +59,11 @@ var config = {
       favicon: "./src/favicon.ico"
     }),
     new WebpackPwaManifest({
-      name: 'My Progressive Web App',
-      short_name: 'MyPWA',
-      description: 'My awesome Progressive Web App!',
-      theme_color: "#ffffff",
-      background_color: "#ffffff",
+      name: 'PneuShop',
+      short_name: 'PneuShop',
+      description: 'One stop hub for pneumatic products',
+      theme_color: "#002060",
+      background_color: "#EEEEEE",
       display: "standalone",
       icons: [
         {

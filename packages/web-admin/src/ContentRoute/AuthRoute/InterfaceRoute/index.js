@@ -41,9 +41,7 @@ const InterfaceRoute = props => {
     <H2>Featured Products</H2>
     <CardContainer>
       <MarginCard>
-        <SquareLayout ratio={4 / 3} desktopRatio={2}>
-          <Carousel data={config && config.interface && config.interface.mainCarousel} Card={FeaturedProductCard} />
-        </SquareLayout>
+        <Carousel ratio={4 / 3} desktopRatio={2} data={config && config.interface && config.interface.mainCarousel} Card={FeaturedProductCard} />
       </MarginCard>
     </CardContainer>
   </ContentContainer>;

@@ -8,27 +8,27 @@ import OrderStatus from 'shared-lib/constant/OrderStatus';
 import getUnitPrice from 'shared-lib/util/getUnitPrice';
 
 const useSubmitOrder = (uid) => {
-  const { cart, cartData } = useGlobalState()
+  const { cart, cartData } = useGlobalState();
   const cartRef = React.useMemo(() => {
     if (cart) {
       return cart.map(item => {
-        const { amount, productId } = item
-        const unitPrice = getUnitPrice(cartData[productId].prices, amount)
+        const { amount, productId } = item;
+        const unitPrice = getUnitPrice(cartData[productId].prices, amount);
         return {
           productId,
           productName: cartData[productId].name,
           quantity: amount,
           unitPrice
-        }
-      })
+        };
+      });
     }
-    return null
-  }, [cart, cartData])
+    return null;
+  }, [cart, cartData]);
   return React.useCallback(async ({ paymentSlips, ...others }) => {
     const ordersRef = fs.collection('users').doc(uid).collection('orders');
     const orderId = generateOrderId();
-    const orderRef = ordersRef.doc(orderId)
-    const historyRef = orderRef.collection('history')
+    const orderRef = ordersRef.doc(orderId);
+    const historyRef = orderRef.collection('history');
     const slipStorageRef = storage.ref(`paymentSlips/${orderId}`);
     const imgs = await Promise.all(paymentSlips.map(file => {
       return sourceToImage(file.src);
@@ -47,7 +47,7 @@ const useSubmitOrder = (uid) => {
         src,
         name: paymentSlips[srcIndex].name
       };
-    })
+    });
     const batch = fs.batch();
     batch.set(orderRef, {
       id: orderId,
@@ -61,15 +61,15 @@ const useSubmitOrder = (uid) => {
     batch.set(historyRef.doc(), {
       status: OrderStatus.PENDING_REVIEW.value,
       timestamp: serverTimestamp
-    })
+    });
     batch.update(fs.collection('users').doc(uid), {
       nPendingReviewOrders: increment(1)
     });
     cartRef.forEach(product => {
       batch.update(fs.collection('products').doc(product.productId), {
         in_stock: increment(-1 * product.quantity)
-      })
-    })
+      });
+    });
     return batch.commit();
   }, [cartRef, uid]);
 };
