@@ -75,15 +75,16 @@ const defaultClientState = {
 };
 
 export const clientGlobal = (state = defaultClientState, action) => {
-  return global(state, action)
-}
+  return global(state, action);
+};
 
 const defaultAdminState = {
-  dialogs: []
-}
+  dialogs: [],
+  lang: 'en'
+};
 
 export const adminGlobal = (state = defaultAdminState, action) => {
-  return global(state, action)
-}
+  return global(state, action);
+};
 
 export default global;

@@ -43,7 +43,7 @@ const SearchProductDialog = props => {
       <Button type='button' bg='red' onClick={dismissDialog}>
         {S.DISMISS}
       </Button>
-      <Button icon={<SearchIcon />} disabled={disabled} loading={disabled}>
+      <Button type='submit' icon={<SearchIcon />} disabled={disabled} loading={disabled}>
         {S.SEARCH}
       </Button>
     </CardContainer>

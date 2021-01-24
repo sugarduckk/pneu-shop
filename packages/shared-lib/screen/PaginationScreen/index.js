@@ -5,9 +5,11 @@ import { useSetState } from 'redux-wrapper/action';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import LoadingContent from '../../../web-client/src/ContentRoute/AuthRoute/LoadingContent';
 import SimpleCard from '../../layout/SimpleCard';
+import useCommonString from '../../hook/useCommonString';
 
 const PaginationScreen = ({ Card, collectionName, limit }) => {
   const { [collectionName + 'Batches']: batches } = useGlobalState();
+  const S = useCommonString();
   const setState = useSetState();
   const loadMore = React.useCallback(e => {
     setState(preState => {
@@ -20,11 +22,11 @@ const PaginationScreen = ({ Card, collectionName, limit }) => {
   }, [setState, collectionName]);
   // batches not loaded
   if (batches === undefined) {
-    return <LoadingContent />
+    return <LoadingContent />;
   }
   // batches loaded
   if (batches[0].length === 0) {
-    return <SimpleCard>No record(s)</SimpleCard>
+    return <SimpleCard>{S.NO_RECORD}</SimpleCard>;
   }
   return <>
     {batches.map(batch => {

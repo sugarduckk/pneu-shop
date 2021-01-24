@@ -13,6 +13,7 @@ import AdminRoutes from '../../constant/AdminRoutes';
 import BrandRoute from './BrandRoute';
 import CatRoute from './CatRoute';
 import DashboardRoute from './DashboardRoute';
+import DeliveryPriceRoute from './DeliveryPriceRoute';
 import InterfaceRoute from './InterfaceRoute';
 import OrderRoute from './OrderRoute';
 import ProductRoute from './ProductRoute';
@@ -24,7 +25,7 @@ const AuthRoute = props => {
   const rolesQuery = useRolesQuery();
   const pendingReviewOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.PENDING_REVIEW.value);
   const acceptedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.ACCEPTED.value);
-  const rejectedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.REJECTED.value)
+  const rejectedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.REJECTED.value);
   const deliveredOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.DELIVERED.value);
   const completedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.COMPLETED.value);
   const deletedOrderQuery = useOrdersCollectionGroupQuery(OrderStatus.DELETED.value);
@@ -78,6 +79,9 @@ const AuthRoute = props => {
       </Route>
       <Route path={AdminRoutes.PRODUCT}>
         <ProductRoute />
+      </Route>
+      <Route path={`${AdminRoutes.DELIVERY_PRICE}/:area`}>
+        <DeliveryPriceRoute />
       </Route>
       <Route path={AdminRoutes.USER}>
         <UserRoute />

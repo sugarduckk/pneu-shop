@@ -7,6 +7,12 @@ const BottomTabButton = styled(Button)`
   background: transparent;
   flex: 1;
   border-radius: 0;
+  &:disabled {
+    opacity: 1;
+    background: ${props => props.theme.color.contrast};
+    box-shadow: inset 0px 0px 10px 3px rgba(0,0,0,0.2);
+    color: ${props => props.theme.color.primary};
+  }  
 `;
 
 const IconContainer = styled.div`

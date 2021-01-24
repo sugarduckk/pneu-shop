@@ -24,7 +24,13 @@ const ProductCartCard = ({ product, amount, index }) => {
   const setCartAmount = useSetCartAmount(index, product.in_stock);
   const priceIndex = React.useMemo(() => {
     if (product && product.prices) {
-      return product.prices.length - product.prices.slice().reverse().findIndex(p => p.threshold <= amount) - 1;
+      const temp = product.prices.slice().reverse().findIndex(p => p.threshold <= amount);
+      if (temp < 0) {
+        return 0;
+      }
+      else {
+        return product.prices.length - temp - 1;
+      }
     }
   }, [amount, product]);
   const price = React.useMemo(() => {

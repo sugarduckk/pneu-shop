@@ -10,6 +10,7 @@ const SimpleCard = styled(CardContainer)`
   align-items: center;
   box-sizing: border-box;
   flex: ${props => props.flex};
+  cursor: ${props => props.onClick ? 'pointer' : 'auto'};
 `;
 
 export default SimpleCard;

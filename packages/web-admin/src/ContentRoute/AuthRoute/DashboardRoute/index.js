@@ -10,6 +10,7 @@ import AdminRoutes from '../../../constant/AdminRoutes';
 const DashboardRoute = props => {
   const gotoManageOrder = useGoto(AdminRoutes.ORDER_PENDING_REVIEW);
   const gotoManageProduct = useGoto(AdminRoutes.PRODUCT);
+  const gotoDeliveryPrice = useGoto(`${AdminRoutes.DELIVERY_PRICE}/intown`);
   const gotoManageCategory = useGoto(AdminRoutes.CAT);
   const gotoManagerBrand = useGoto(AdminRoutes.BRAND);
   const gotoManageUser = useGoto(AdminRoutes.USER);
@@ -25,6 +26,10 @@ const DashboardRoute = props => {
       <Button onClick={gotoManageProduct}>manage product</Button>
       <Button onClick={gotoManageCategory}>manage category</Button>
       <Button onClick={gotoManagerBrand}>manage brand</Button>
+    </CardContainer>
+    <H2>Delivery Price</H2>
+    <CardContainer>
+      <Button onClick={gotoDeliveryPrice}>edit delivery price</Button>
     </CardContainer>
     <H2>User Management</H2>
     <CardContainer>

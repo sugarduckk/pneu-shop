@@ -13,6 +13,7 @@ const TopAbsoluteLayout = styled.div`
   padding: ${props => props.theme.dim.form.padding}px;
   text-align: center;
   box-sizing: border-box;
+  align-items: center;
 `;
 
 export default TopAbsoluteLayout;

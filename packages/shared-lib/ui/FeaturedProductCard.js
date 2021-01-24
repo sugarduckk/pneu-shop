@@ -3,38 +3,49 @@ import React from 'react';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import TopAbsoluteLayout from 'shared-lib/layout/TopAbsoluteLayout';
 import ImagePlaceholder from 'shared-lib/ui/ImagePlaceholder';
+import useBrand from '../hook/useBrand';
+import useCat from '../hook/useCat';
+import useCommonString from '../hook/useCommonString';
 import { BottomRightLayout } from '../layout/AbsoluteLayout';
+import IdContainer from '../layout/IdContainer';
+import MarginCard from '../layout/MarginCard';
+import RoundedLayout from '../layout/RoundedLayout';
+import RowLayout from '../layout/RowLayout';
 import SimpleCard from '../layout/SimpleCard';
+import SquareLayout from '../layout/SquareLayout';
 import CardLoading from '../screen/CardLoading';
+import ItemName from './ItemName';
+
 
 const FeaturedProductCard = ({ data }) => {
-  const { cats, brands } = useGlobalState();
+  const S = useCommonString();
   const product = useProduct(data.productId);
-  const cat = React.useMemo(() => {
-    if (product) {
-      return cats.find(c => c.value === product.category);
-    }
-  }, [cats, product]);
-  const brand = React.useMemo(() => {
-    if (product) {
-      return brands.find(c => c.value === product.brand);
-    }
-  }, [brands, product]);
+  const cat = useCat(product);
+  const brand = useBrand(product);
   if (product === undefined) return <CardLoading />;
   if (product === null) return <div>{`[${data.productId} is not available]`}</div>;
   return <>
     <ImagePlaceholder src={product.images[0].src} />
     <TopAbsoluteLayout>
-      <div>{product.name}</div>
-      <div>{product.id}</div>
+      <ItemName>{product.name}</ItemName>
+      <IdContainer>{`${S.ITEM_ID}: ${product.id}`}</IdContainer>
     </TopAbsoluteLayout>
     <BottomRightLayout>
-      <SimpleCard>
-        {cat ? cat.label : product.category}
-      </SimpleCard>
-      <SimpleCard>
-        {brand ? brand.label : product.brand}
-      </SimpleCard>
+      <RowLayout style={{ alignItems: 'flex-end' }}>
+        <SimpleCard>
+          {cat ? cat.label : product.category}
+        </SimpleCard>
+        {brand ?
+          <MarginCard>
+            <RoundedLayout>
+              <SquareLayout width='4em'>
+                <ImagePlaceholder src={brand.logo} />
+              </SquareLayout>
+            </RoundedLayout>
+          </MarginCard>
+          :
+          <SimpleCard>{product.brand}</SimpleCard>}
+      </RowLayout>
     </BottomRightLayout>
   </>;
 };

@@ -1,6 +1,13 @@
 const getUnitPrice = (prices, amount) => {
-  const priceIndex = prices.length - prices.slice().reverse().findIndex(p => p.threshold <= amount) - 1;
-  return prices[priceIndex].price
-}
+  const temp = prices.slice().reverse().findIndex(p => p.threshold <= amount);
+  if (temp < 0) {
+    return prices[0].price;
+  }
+  else {
+    const priceIndex = prices.length - temp - 1;
+    return prices[priceIndex].price;
+  }
 
-export default getUnitPrice
+};
+
+export default getUnitPrice;

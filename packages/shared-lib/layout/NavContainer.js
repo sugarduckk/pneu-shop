@@ -11,6 +11,7 @@ const NavContainer = styled.div`
   padding: 0 10px;
   box-sizing: border-box;
   z-index: 2;
+  box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.5);
 `;
 
 export default NavContainer;

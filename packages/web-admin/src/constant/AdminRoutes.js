@@ -3,6 +3,7 @@ const AdminRoutes = {
   BRAND: '/brand',
   CAT: '/category',
   PRODUCT: '/product',
+  DELIVERY_PRICE: '/delivery_price',
   SETTING: '/setting',
   INTERFACE: '/interface',
   ORDER: '/order',

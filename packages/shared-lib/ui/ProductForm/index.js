@@ -23,6 +23,7 @@ const ProductForm = ({ defaultValues, handleSubmit, validate, cats, brands }) =>
       <TextInput {...form('in_stock')} label='Amount In Stock' type='number' min='0' />
       <ImageSelector {...form('images')} label='Images' multiple={true} />
       <FormArray {...form('prices')} label='Prices' SubForm={PriceForm} PreviewCard={PriceCard} />
+      <TextInput {...form('weight')} label='Unit Weight' type='number' min='0' />
     </Fieldset>
     <Button type='submit' >submit</Button>
   </Form>;

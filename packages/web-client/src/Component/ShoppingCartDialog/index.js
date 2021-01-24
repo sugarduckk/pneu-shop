@@ -8,6 +8,7 @@ import SimpleCard from 'shared-lib/layout/SimpleCard';
 import Space from 'shared-lib/layout/Space';
 import DialogLoading from 'shared-lib/screen/DialogScreen/DialogLoading';
 import useCheckout from '../../hook/useCheckout';
+import useDeliveryFee from '../../hook/useDeliveryFee';
 import useTotalPrice from '../../hook/useTotalPrice';
 import ProductCartCard from './ProductCartCard';
 import ProductContainer from './ProductContainer';
@@ -15,6 +16,7 @@ import ProductContainer from './ProductContainer';
 const ShoppingCartDialog = props => {
   const { cart, cartData } = useGlobalState();
   const dismiss = useDismissDialog();
+  const deliveryFee = useDeliveryFee();
   const totalPrice = useTotalPrice();
   const checkout = useCheckout();
   if (cart.length > 0 && !cartData) return <DialogLoading />;
@@ -25,7 +27,15 @@ const ShoppingCartDialog = props => {
         return <ProductCartCard product={cartData[product.productId]} amount={product.amount} key={product.productId} index={index} />;
       }) : <SimpleCard>Empty Cart</SimpleCard>}
     </ProductContainer>
-    <H2>{`Total: ${totalPrice} THB`}</H2>
+    <SimpleCard>
+      <H2>{`Subtotal: ${totalPrice} THB`}</H2>
+      <div>
+        {`Delivery fee (Bangkok): ${deliveryFee.intown} THB`}
+      </div>
+      <div>
+        {`Delivery fee (Other provinces): ${deliveryFee.upcountry} THB`}
+      </div>
+    </SimpleCard>
     <RowLayout>
       <Space />
       <Button onClick={dismiss} bg='red'>Dismiss</Button>

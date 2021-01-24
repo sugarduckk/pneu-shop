@@ -4,15 +4,18 @@ import RowLayout from 'shared-lib/layout/RowLayout';
 import SimpleCard from 'shared-lib/layout/SimpleCard';
 import Space from 'shared-lib/layout/Space';
 import OrderPreview from '../../../../../Component/OrderPreview';
+import ClientRoutes from '../../../../../constant/ClientRoutes';
 import useClientString from '../../../../../hook/useClientString';
-import useApplyRefund from './useApplyRefund';
+import useGoto from '../../../../../hook/useGoto';
+import useApplyRefundFormDialog from './useApplyRefundFormDialog';
 import useDeleteRejectedOrder from './useDeleteRejectedOrder';
 
 const RejectedCard = ({ doc, id }) => {
   const S = useClientString();
-  const applyRefund = useApplyRefund(id);
+  const applyRefund = useApplyRefundFormDialog(id);
   const deletedRejectedOrder = useDeleteRejectedOrder(id);
-  return <SimpleCard>
+  const gotoOrderDetail = useGoto(`${ClientRoutes.ORDER_DETAIL}/${id}`);
+  return <SimpleCard onClick={gotoOrderDetail}>
     <OrderPreview order={doc} />
     <RowLayout>
       <Space />

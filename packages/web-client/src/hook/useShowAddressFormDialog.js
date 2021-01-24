@@ -91,18 +91,16 @@ const PostCodeFormDialog = () => {
   const { form, onSubmit, disabled } = useForm({
     post_code: ''
   }, handleSubmit);
-  return <>
-    <Form onSubmit={onSubmit}>
-      <Fieldset disabled={disabled}>
-        <TextInput {...form('post_code')} label='Postal code' />
-      </Fieldset>
-      <RowLayout>
-        <Space />
-        <Button disabled={disabled} bg='red' type='button' onClick={dismissDialog}>Dismiss</Button>
-        <Button disabled={disabled} loading={disabled} type='submit'>search</Button>
-      </RowLayout>
-    </Form>
-  </>;
+  return <Form onSubmit={onSubmit}>
+    <Fieldset disabled={disabled}>
+      <TextInput {...form('post_code')} label='Postal code' />
+    </Fieldset>
+    <RowLayout>
+      <Space />
+      <Button disabled={disabled} bg='red' type='button' onClick={dismissDialog}>Dismiss</Button>
+      <Button disabled={disabled} loading={disabled} type='submit'>search</Button>
+    </RowLayout>
+  </Form>;
 };
 
 const useShowAddressFormDialog = () => {

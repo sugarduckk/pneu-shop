@@ -33,7 +33,8 @@ const AddSingle = props => {
       brand: brands[0].value,
       in_stock: 0,
       images: [],
-      prices: []
+      prices: [],
+      weight: 0
     };
   }, [brands, cats]);
   return <>

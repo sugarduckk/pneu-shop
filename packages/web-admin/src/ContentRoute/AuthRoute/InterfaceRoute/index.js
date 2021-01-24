@@ -6,7 +6,6 @@ import H2 from 'shared-lib/form-item/H2';
 import { ContentContainer } from 'shared-lib/layout';
 import CardContainer from 'shared-lib/layout/CardContainer';
 import MarginCard from 'shared-lib/layout/MarginCard';
-import SquareLayout from 'shared-lib/layout/SquareLayout';
 import Carousel from 'shared-lib/ui/Carousel';
 import FeaturedProductCard from 'shared-lib/ui/FeaturedProductCard';
 import useEditAboutUs from './useEditAboutUs';

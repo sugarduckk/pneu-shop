@@ -2,7 +2,9 @@ import React from 'react';
 import useOrderTotalPrice from 'shared-lib/hook/useOrderTotalPrice';
 import LabelContainer from 'shared-lib/ui/LabelContainer';
 import OrderContainer from 'shared-lib/ui/Order/OrderContainer';
+import StatusBadge from 'shared-lib/ui/StatusBadge';
 import TextContainer from 'shared-lib/ui/TextContainer';
+import dateToString from 'shared-lib/util/dateToString';
 import numWithComma from 'shared-lib/util/numWithComma';
 import useClientString from '../../hook/useClientString';
 import CartPreview from './CartPreview';
@@ -18,21 +20,19 @@ const OrderPreview = ({ order }) => {
       </TextContainer>
       <LabelContainer>{S.ORDER_STATUS}</LabelContainer>
       <TextContainer>
-        {order.status}
+        <StatusBadge status={order.status} />
       </TextContainer>
       <LabelContainer>{S.ORDER_SUBMITTED}</LabelContainer>
       <TextContainer>
-        {order.timestamp && order.timestamp.toDate().toString()}
+        {order.timestamp && dateToString(order.timestamp.toDate())}
       </TextContainer>
       <LabelContainer>{S.ORDER_ITEMS}</LabelContainer>
       <CartPreview cart={order.cart} />
       <LabelContainer>{S.ORDER_PRICE}</LabelContainer>
       <TextContainer>
-        {`${numWithComma(totalPrice)} ${S.THB}`}
+        {`${numWithComma(order.deliveryFee ? totalPrice + order.deliveryFee : totalPrice)} ${S.THB}`}
       </TextContainer>
     </OrderContainer>
-
-
   </div>;
 };
 

@@ -43,7 +43,14 @@ const S = {
     ORDER_STATUS: 'สถานะ',
     ORDER_SUBMITTED: 'วันที่ซื้อ',
     ORDER_ITEMS: 'สินค้า',
-    ORDER_PRICE: 'ราคารวม'
+    ORDER_PRICE: 'ราคารวม',
+    ORDER_STATUS_PENDING_REVIEW: 'รอการตรวจสอบ',
+    ORDER_STATUS_REJECTED: 'ถูกยกเลิก',
+    ORDER_STATUS_ACCEPTED: 'รอการจัดส่ง',
+    ORDER_STATUS_DELIVERED: 'จัดส่งแล้ว',
+    ORDER_STATUS_COMPLETED: 'ได้รับสินค้าแล้ว',
+    ORDER_STATUS_PENDING_REFUND: 'รอการคืนเงิน',
+    ORDER_STATUS_DELETED: 'ลบแล้ว'
   },
   en: {
     SLOGAN: 'One stop hub for pneumatic products',
@@ -89,7 +96,14 @@ const S = {
     ORDER_STATUS: 'Status',
     ORDER_SUBMITTED: 'Order On',
     ORDER_ITEMS: 'Items',
-    ORDER_PRICE: 'Total Price'
+    ORDER_PRICE: 'Total Price',
+    ORDER_STATUS_PENDING_REVIEW: 'Pending Review',
+    ORDER_STATUS_REJECTED: 'Rejected',
+    ORDER_STATUS_ACCEPTED: 'Accepted',
+    ORDER_STATUS_DELIVERED: 'Delivered',
+    ORDER_STATUS_COMPLETED: 'Completed',
+    ORDER_STATUS_PENDING_REFUND: 'Pending Refund',
+    ORDER_STATUS_DELETED: 'Deleted'
   }
 };
 
