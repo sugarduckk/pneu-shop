@@ -2,8 +2,8 @@
   "name": "redux-wrapper",
   "version": "1.0.0",
   "peerDependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "dependencies": {
     "redux": "^4.0.5",
