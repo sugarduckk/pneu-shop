@@ -15,7 +15,7 @@ import Space from 'shared-lib/layout/Space';
 import ClientRoutes from '../../constant/ClientRoutes';
 import useClientString from '../../hook/useClientString';
 
-const SearchProductDialog = props => {
+export const SearchProductDialog = props => {
   const S = useClientString();
   const history = useHistory();
   const { brands, cats } = useGlobalState();

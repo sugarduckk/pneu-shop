@@ -2,7 +2,7 @@ import useUpdateProduct from 'firebase-wrapper/firestore/useUpdateProduct';
 import React from 'react';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import useShowMessageDialog from 'redux-wrapper/hook/useShowMessageDialog';
-import ProductForm from 'shared-lib/ui/ProductForm';
+import ProductForm, { HasOptions } from 'shared-lib/ui/ProductForm';
 
 const EditProductForm = ({ product, onUpdated }) => {
   const { cats, brands } = useGlobalState();
@@ -17,7 +17,13 @@ const EditProductForm = ({ product, onUpdated }) => {
       brand: brands[0].value,
       in_stock: 0,
       images: [],
-      prices: []
+      prices: [],
+      has_options: HasOptions[0],
+      options: {
+        name: 'category name',
+        isSub: true,
+        subOptions: []
+      }
     };
   }, [brands, cats]);
   const handleSubmit = React.useCallback(values => {

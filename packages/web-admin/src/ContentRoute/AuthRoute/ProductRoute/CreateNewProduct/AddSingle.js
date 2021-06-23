@@ -3,7 +3,7 @@ import React from 'react';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import useShowMessageDialog from 'redux-wrapper/hook/useShowMessageDialog';
 import H1 from 'shared-lib/form-item/H1';
-import ProductForm from 'shared-lib/ui/ProductForm';
+import ProductForm, { HasOptions } from 'shared-lib/ui/ProductForm';
 
 const AddSingle = props => {
   const { cats, brands } = useGlobalState();
@@ -34,7 +34,13 @@ const AddSingle = props => {
       in_stock: 0,
       images: [],
       prices: [],
-      weight: 0
+      weight: 0,
+      has_options: HasOptions[0],
+      options: {
+        name: 'category name',
+        isSub: true,
+        subOptions: []
+      }
     };
   }, [brands, cats]);
   return <>

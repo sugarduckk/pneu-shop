@@ -18,6 +18,7 @@ import useCreatePayment from '../../../hook/useCreatePayment';
 import useDeliveryFee from '../../../hook/useDeliveryFee';
 import useShowAddressFormDialog from '../../../hook/useShowAddressFormDialog';
 import useTotalPrice from '../../../hook/useTotalPrice';
+import validateCheckout from './validateCheckout';
 
 
 const CheckoutRoute = props => {
@@ -38,7 +39,7 @@ const CheckoutRoute = props => {
     tel: '',
     address: addressOptions.length > 0 ? addressOptions[0].value : null,
     paymentSlips: []
-  }, handleSubmit);
+  }, handleSubmit, validateCheckout);
   const isIntown = React.useMemo(() => {
     if (values && values.address && values.address.province) {
       return INTOWNS.includes(values.address.province);
@@ -69,7 +70,7 @@ const CheckoutRoute = props => {
             {`Delivery fee: ${values.address ? `${isIntown ? deliveryFees.intown : deliveryFees.upcountry} THB` : 'please select address'}`}
           </div>
           <H2>
-            {`Total: ${totalPrice + values.address ? (isIntown ? deliveryFees.intown : deliveryFees.upcountry) : 0} THB`}
+            {`Total: ${totalPrice + (values.address ? (isIntown ? deliveryFees.intown : deliveryFees.upcountry) : 0)} THB`}
           </H2>
         </SimpleCard>
         <H2>Make a Payment</H2>

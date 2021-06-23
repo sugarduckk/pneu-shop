@@ -23,7 +23,7 @@ const AboutUsRoute = props => {
         {config.aboutUs.images.map(image => {
           return <RoundedLayout key={image.name}>
             <SquareLayout>
-              <ImagePlaceholder src={image.src} />
+              <ImagePlaceholder src={image.src} alr='company building' />
             </SquareLayout>
           </RoundedLayout>;
         })}

@@ -11,7 +11,7 @@ const useRejectOrder = (uid, orderId) => {
       return transaction.get(orderRef)
         .then(doc => {
           if (!doc.exists) {
-            throw Error('Order does not exist!');
+            throw Error(`Order [${orderId}] does not exist! Cannot reject.`);
           }
           const order = doc.data();
           if (order.status !== OrderStatus.PENDING_REVIEW.value) {

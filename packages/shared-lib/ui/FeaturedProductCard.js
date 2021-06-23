@@ -25,7 +25,7 @@ const FeaturedProductCard = ({ data }) => {
   if (product === undefined) return <CardLoading />;
   if (product === null) return <div>{`[${data.productId} is not available]`}</div>;
   return <>
-    <ImagePlaceholder src={product.images[0].src} />
+    <ImagePlaceholder src={product.images[0].src} alt='featured product' />
     <TopAbsoluteLayout>
       <ItemName>{product.name}</ItemName>
       <IdContainer>{`${S.ITEM_ID}: ${product.id}`}</IdContainer>
@@ -39,7 +39,7 @@ const FeaturedProductCard = ({ data }) => {
           <MarginCard>
             <RoundedLayout>
               <SquareLayout width='4em'>
-                <ImagePlaceholder src={brand.logo} />
+                <ImagePlaceholder src={brand.logo} alt='logo' />
               </SquareLayout>
             </RoundedLayout>
           </MarginCard>

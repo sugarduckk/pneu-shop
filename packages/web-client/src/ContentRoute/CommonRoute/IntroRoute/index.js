@@ -20,12 +20,13 @@ import useClientString from '../../../hook/useClientString';
 import useShowSearchProduct from '../../NonAuthRoute/useShowSearchProduct';
 import ClientBrandCard from './ClientBrandCard';
 import ClientCatCard from './ClientCatCard';
+import SearchProductBar from './SearchProductBar';
 
 const IntroRoute = props => {
   const S = useClientString();
   const history = useHistory();
   const theme = useTheme();
-  const { cats, brands, config } = useGlobalState();
+  const { cats, brands, config, screenSize } = useGlobalState();
   const showSearchProduct = useShowSearchProduct();
   const location = useLocation();
   const { sect } = qs.parse(location.search);
@@ -51,9 +52,13 @@ const IntroRoute = props => {
           <PneuShop fill={theme.color.contrast} />
         </MarginCard>
         <Para>{S.SLOGAN}</Para>
-        <Button icon={<SearchIcon fill={theme.color.primary} />} onClick={showSearchProduct} bg={theme.color.background} color={theme.color.primary}>
-          {S.SEARCH_PRODUCT}
-        </Button>
+        {screenSize === 'S' ?
+          <Button icon={<SearchIcon fill={theme.color.primary} />} onClick={showSearchProduct} bg={theme.color.background} color={theme.color.primary}>
+            {S.SEARCH_PRODUCT}
+          </Button>
+          :
+          <SearchProductBar />
+        }
       </SimpleCard>
     </CardContainer>
     <CardContainer>

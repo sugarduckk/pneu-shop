@@ -15,6 +15,7 @@ const RejectedCard = ({ doc, id }) => {
   const applyRefund = useApplyRefundFormDialog(id);
   const deletedRejectedOrder = useDeleteRejectedOrder(id);
   const gotoOrderDetail = useGoto(`${ClientRoutes.ORDER_DETAIL}/${id}`);
+  console.log(doc);
   return <SimpleCard onClick={gotoOrderDetail}>
     <OrderPreview order={doc} />
     <RowLayout>

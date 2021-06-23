@@ -6,7 +6,8 @@ const CartPreviewContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   column-gap: ${props => 2 * props.theme.dim.general.margin}px;
 `;
 

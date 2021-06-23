@@ -45,13 +45,13 @@ const ApplyRefundFormDialog = ({ orderId }) => {
     var refundDetail = {
       type: refund_type
     };
-    if (refund_type === 'bank_account') {
+    if (refund_type.value === 'bank_account') {
       refundDetail.bank_account = bank_account;
       refundDetail.bank_name = bank_name;
       refundDetail.account_name = account_name;
       refundDetail.bank_branch = bank_branch;
     }
-    else if (refund_type === 'promptpay') {
+    else if (refund_type.value === 'promptpay') {
       refundDetail.promptpay = promptpay;
       refundDetail.promptpay_name = promptpay_name;
     }

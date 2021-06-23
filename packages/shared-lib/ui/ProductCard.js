@@ -25,7 +25,7 @@ const ProductCard = ({ hit, onClick }) => {
           <MarginCard>
             <RoundedLayout>
               <SquareLayout width='4em'>
-                <ImagePlaceholder src={brand.logo} />
+                <ImagePlaceholder src={brand.logo} alt='logo' />
               </SquareLayout>
             </RoundedLayout>
           </MarginCard>

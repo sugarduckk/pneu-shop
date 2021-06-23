@@ -7,6 +7,7 @@ import { AppContainer } from 'shared-lib/layout';
 import LoadingScreen from 'shared-lib/screen/LoadingScreen';
 import ContentRoute from './ContentRoute';
 import useHandleUser from './hook/useHandleUser';
+import useScrollToTop from './hook/useScrollToTop';
 import NavRoute from './NavRoute';
 
 const AppRoute = props => {
@@ -14,6 +15,7 @@ const AppRoute = props => {
   const setState = useSetState();
   const handleUser = useHandleUser();
   useAuthEffect(handleUser);
+  useScrollToTop();
   // fetch cats
   const handleCats = React.useCallback(docs => {
     setState({

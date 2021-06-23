@@ -1,15 +1,13 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-const ScrollToTop = () => {
+const useScrollToTop = () => {
   const history = useHistory();
-  React.useEffect(() => {
+  return React.useEffect(() => {
     return history.listen(() => {
       window.scrollTo(0, 0);
     });
   }, [history]);
-
-  return null;
 };
 
-export default ScrollToTop;
+export default useScrollToTop;

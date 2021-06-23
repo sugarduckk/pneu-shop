@@ -4,6 +4,8 @@ import { useDismissDialog } from 'redux-wrapper/action';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import useShowChangeLanguageDialog from 'redux-wrapper/hook/useShowChangeLanguageDialog';
 import Button from 'shared-lib/button/Button';
+import DollarIcon from 'shared-lib/icon/DollarIcon';
+import EarthIcon from 'shared-lib/icon/EarthIcon';
 import HomeIcon from 'shared-lib/icon/HomeIcon';
 import InfoIcon from 'shared-lib/icon/InfoIcon';
 import PhoneIcon from 'shared-lib/icon/PhoneIcon';
@@ -65,7 +67,7 @@ const MenuRoute = () => {
         gotoOrder();
         dismissDialog();
       }} >{S.MENU_ORDER}</Button>
-      <Button onClick={() => {
+      <Button icon={<DollarIcon />} onClick={() => {
         gotoRefund();
         dismissDialog();
       }} >{S.MENU_REFUND}</Button>
@@ -98,7 +100,7 @@ const MenuRoute = () => {
         {S.MENU_ADDRESS}
       </Button>
     </>}
-    <Button onClick={showChangeLanguage}>
+    <Button icon={<EarthIcon />} onClick={showChangeLanguage}>
       {S.MENU_LANGUAGE}
     </Button>
     <Button bg='red' onClick={dismissDialog}>dismiss</Button>

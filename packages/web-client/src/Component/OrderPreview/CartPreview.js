@@ -12,7 +12,7 @@ const ItemCard = ({ item }) => {
   return <div>
     <RoundedLayout>
       <SquareLayout width='8em'>
-        <ImagePlaceholder src={product.images[0].src} />
+        <ImagePlaceholder src={product.images[0].src} alt='product image' />
       </SquareLayout>
     </RoundedLayout>
   </div>;

@@ -8,7 +8,8 @@ const CommonString = {
     PRODUCT_IN_STOCK: 'จำนวนเหลือ',
     PRODUCT_PRICES: 'ราคา',
     PRODUCT_DETAILS: 'รายละเอียด',
-    NO_RECORD: 'ไม่มีรายการ'
+    NO_RECORD: 'ไม่มีรายการ',
+    ALL: 'ทั้งหมด'
   },
   en: {
     ITEM_ID: 'ID',
@@ -19,7 +20,8 @@ const CommonString = {
     PRODUCT_IN_STOCK: 'In Stock',
     PRODUCT_PRICES: 'Prices',
     PRODUCT_DETAILS: 'Details',
-    NO_RECORD: 'No record'
+    NO_RECORD: 'No record',
+    ALL: 'All'
   }
 };
 

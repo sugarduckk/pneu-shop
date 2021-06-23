@@ -1,4 +1,5 @@
 import React from 'react';
+import OrderStatus from 'shared-lib/constant/OrderStatus';
 import useOrderTotalPrice from 'shared-lib/hook/useOrderTotalPrice';
 import LabelContainer from 'shared-lib/ui/LabelContainer';
 import OrderContainer from 'shared-lib/ui/Order/OrderContainer';
@@ -22,6 +23,20 @@ const OrderPreview = ({ order }) => {
       <TextContainer>
         <StatusBadge status={order.status} />
       </TextContainer>
+      {order.status === OrderStatus.REJECTED.value &&
+        <>
+          <LabelContainer>{S.ORDER_REJECT_REASON}</LabelContainer>
+          <TextContainer color='red'>
+            {order.rejectedReason}
+          </TextContainer>
+        </>}
+      {order.status === OrderStatus.REFUND_REJECTED.value &&
+        <>
+          <LabelContainer>{S.REFUND_REJECT_REASON}</LabelContainer>
+          <TextContainer color='red'>
+            {order.refundRejectedReason}
+          </TextContainer>
+        </>}
       <LabelContainer>{S.ORDER_SUBMITTED}</LabelContainer>
       <TextContainer>
         {order.timestamp && dateToString(order.timestamp.toDate())}
