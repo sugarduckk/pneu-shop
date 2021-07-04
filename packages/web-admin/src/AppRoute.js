@@ -1,10 +1,9 @@
-import React from 'react';
-import useGlobalState from "redux-wrapper/hook/useGlobalState";
-import LoadingScreen from "shared-lib/screen/LoadingScreen";
 import { BrowserRouter } from "react-router-dom";
+import useGlobalState from "redux-wrapper/hook/useGlobalState";
 import { AppContainer } from "shared-lib/layout";
-import NavRoute from './NavRoute';
+import LoadingScreen from "shared-lib/screen/LoadingScreen";
 import ContentRoute from './ContentRoute';
+import NavRoute from './NavRoute';
 
 const AppRoute = props => {
   const { userLoaded } = useGlobalState();

@@ -1,13 +1,12 @@
-import React from 'react';
-import { createGlobalStyle, ThemeProvider, DefaultTheme } from 'shared-lib/core';
-import DialogScreen from 'shared-lib/screen/DialogScreen';
-import useGlobalState from 'redux-wrapper/hook/useGlobalState';
+import useAuthEffect from 'firebase-wrapper/hook/useAuthEffect';
 import { useDispatch } from 'react-redux';
+import useGlobalState from 'redux-wrapper/hook/useGlobalState';
+import useNoScroll from 'redux-wrapper/hook/useNoScroll';
+import { createGlobalStyle, DefaultTheme, ThemeProvider } from 'shared-lib/core';
 import { removeDialog } from 'shared-lib/redux/action';
+import DialogScreen from 'shared-lib/screen/DialogScreen';
 import AppRoute from './AppRoute';
 import useHandleUser from './hook/useHandleUser';
-import useAuthEffect from 'firebase-wrapper/hook/useAuthEffect';
-import useNoScroll from 'redux-wrapper/hook/useNoScroll';
 
 const GlobalStyle = createGlobalStyle`
   body {

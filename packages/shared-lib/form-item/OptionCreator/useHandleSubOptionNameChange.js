@@ -5,7 +5,7 @@ const useHandleSubOptionNameChange = (stack, handleChange, name) => React.useCal
   handleChange(name, oldValue => {
     const newValue = { ...oldValue };
     renameOption([...stack], newValue, newName, index);
-    handleChange(name, newValue);
+    return newValue;
   });
 }, [stack, handleChange, name]);
 

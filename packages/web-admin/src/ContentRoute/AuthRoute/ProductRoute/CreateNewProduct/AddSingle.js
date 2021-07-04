@@ -1,15 +1,16 @@
 import useAddSingleItem from 'firebase-wrapper/firestore/useAddSingleItem';
-import React from 'react';
+import { useCallback } from 'react';
 import useGlobalState from 'redux-wrapper/hook/useGlobalState';
 import useShowMessageDialog from 'redux-wrapper/hook/useShowMessageDialog';
 import H1 from 'shared-lib/form-item/H1';
-import ProductForm, { HasOptions } from 'shared-lib/ui/ProductForm';
+import ProductForm from 'shared-lib/ui/ProductForm';
+import useDefaultProductFormValues from '../../../../../../shared-lib/ui/ProductForm/useDefaultProductFormValues';
 
 const AddSingle = props => {
   const { cats, brands } = useGlobalState();
   const addSingleItem = useAddSingleItem();
   const showMessage = useShowMessageDialog();
-  const handleSubmit = React.useCallback((values, setValues) => {
+  const handleSubmit = useCallback((values, setValues) => {
     return showMessage(new Promise((resolve, reject) => {
       addSingleItem(values)
         .then(() => {
@@ -24,25 +25,7 @@ const AddSingle = props => {
         .catch(reject);
     }), 'Uploading');
   }, [addSingleItem, showMessage]);
-  const defaultValues = React.useMemo(() => {
-    return {
-      id: '',
-      name: '',
-      details: '',
-      category: cats[0].value,
-      brand: brands[0].value,
-      in_stock: 0,
-      images: [],
-      prices: [],
-      weight: 0,
-      has_options: HasOptions[0],
-      options: {
-        name: 'category name',
-        isSub: true,
-        subOptions: []
-      }
-    };
-  }, [brands, cats]);
+  const defaultValues = useDefaultProductFormValues(brands, cats);
   return <>
     <H1>Add single product</H1>
     <ProductForm

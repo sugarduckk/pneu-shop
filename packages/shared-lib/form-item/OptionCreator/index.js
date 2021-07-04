@@ -1,21 +1,26 @@
-import { isObject } from 'lodash/lang';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import Button from '../../button/Button';
-import useForm from '../../hook/useForm';
-import CardContainer from '../../layout/CardContainer';
-import CenterDiv from '../../layout/CenterDiv';
-import MarginCard from '../../layout/MarginCard';
+import PlusIcon from '../../icon/PlusIcon';
 import RowLayout from '../../layout/RowLayout';
 import Space from '../../layout/Space';
-import Form from '../Form';
+import PriceCard from '../../ui/ProductForm/PriceCard';
+import PriceForm from '../../ui/ProductForm/PriceForm';
+import Checkbox from '../Checkbox';
+import FormArray from '../FormArray';
 import FormItemContainer from '../FormItemContainer';
 import InsideContainer from '../InsideContainer';
 import Label from '../Label';
 import assignObj from './assignObj';
 import Breadcrum from './Breadcrum';
 import optionLevelString from './optionLevelString';
+import SubCategorySetting from './SubCategorySetting';
 import SubOptionForm from './SubOptionForm';
+import useHandleOptionRemove from './useHandleOptionRemove';
 import useHandleSubOptionNameChange from './useHandleSubOptionNameChange';
+import useOnAddCustomPrices from './useOnAddCustomPrices';
+import useOnAddPrices from './useOnAddPrices';
+import useOnCustomPricesChange from './useOnCustomPricesChange';
+import useOnRemovePrices from './useOnRemovePrices';
 
 const OptionCreator = ({ value, handleChange, error, name, label }) => {
   const [stack, setStack] = useState([]);
@@ -24,8 +29,10 @@ const OptionCreator = ({ value, handleChange, error, name, label }) => {
       const newValue = { ...oldValue };
       assignObj([...stack], newValue, {
         name: '',
-        isSub: true,
-        subOptions: []
+        isSub: false,
+        subOptions: [],
+        customPrices: false,
+        prices: []
       });
       return newValue;
     });
@@ -41,6 +48,7 @@ const OptionCreator = ({ value, handleChange, error, name, label }) => {
   const onSelect = useCallback((index) => {
     setStack([...stack, index]);
   }, [stack]);
+  const onRemove = useHandleOptionRemove(stack, handleChange, name);
   const onBreadcrumClick = useCallback((amount) => {
     const newStack = [];
     for (let i = 0; i < amount; i++) {
@@ -48,6 +56,10 @@ const OptionCreator = ({ value, handleChange, error, name, label }) => {
     }
     setStack(newStack);
   }, [stack]);
+  const onAddPrices = useOnAddPrices(handleChange, name, stack);
+  const onRemovePrices = useOnRemovePrices(handleChange, name, stack);
+  const onAddCustomPrices = useOnAddCustomPrices(handleChange, name, stack);
+  const onCustomPricesChange = useOnCustomPricesChange(handleChange, name, stack);
   return <FormItemContainer>
     <Label htmlFor={label}>{label}</Label>
     <InsideContainer>
@@ -55,18 +67,25 @@ const OptionCreator = ({ value, handleChange, error, name, label }) => {
         <Space>
           <Breadcrum names={optionLevelString(stack, value)} onClick={onBreadcrumClick} />
         </Space>
-        <Button type='button' onClick={handleAddOption}>Add Option</Button>
+        {options && options.isSub ? <>
+          <Button type='button' icon={<PlusIcon />} onClick={handleAddOption}>Add Option</Button>
+          {stack.length > 0 && <Button type='button' onClick={onAddPrices}>Add Prices</Button>}
+        </>
+          :
+          <Button type='button' onClick={onRemovePrices}>Remove Prices</Button>}
+
       </RowLayout>
       {options && options.isSub ?
         <>
           {
             options.subOptions.map((subOpt, index) => {
-              return <SubOptionForm key={index} index={index} value={subOpt.name} handleSubOptionNameChange={handleSubOptionNameChange} onSelect={onSelect} />;
+              return <SubOptionForm key={index} index={index} value={subOpt.name} handleSubOptionNameChange={handleSubOptionNameChange}
+                onSelect={onSelect} onRemove={onRemove} />;
             })
           }
         </>
         :
-        <div>Not Is Sub</div>
+        <SubCategorySetting options={options} onAddCustomPrices={onAddCustomPrices} onCustomPricesChange={onCustomPricesChange} />
       }
     </InsideContainer>
   </FormItemContainer>;
